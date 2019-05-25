@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <Login msg="Web Timer Login"/>
+    <h3 class="title is-3">W.E.B Timers</h3>
+    <Login></Login>
   </div>
 </template>
 
@@ -13,7 +14,7 @@ export default {
   components: {
     Login
   }
-}
+};
 </script>
 
 <style>
