@@ -1,5 +1,5 @@
 <template>
-    <div class="login">
+    <div class="bpx">
         <h1>{{ msg }}</h1>
         <label for="email">E-mail</label>
         <input type="text" class="" name="email" placeholder="email@webexpertbusiness.net" />
