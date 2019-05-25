@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <h3 class="title is-3">W.E.B Timers</h3>
+    <h3 class="title is-3">W.E.B Timers Watcher</h3>
     <Login></Login>
   </div>
 </template>
