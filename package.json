@@ -9,7 +9,7 @@
     "lint": "vue-cli-service lint",
     "dev": "NODE_ENV=development vue-cli-service serve --port 8182 & sleep 5 && NODE_ENV=development electron app.js",
     "prod": "NODE_ENV=production vue-cli-service build & sleep 5 && NODE_ENV=production electron app.js",
-    "electron": "NODE_ENV=development electron app.js"
+    "electron": "NODE_ENV=production electron app.js"
   },
   "dependencies": {
     "core-js": "^2.6.5",
