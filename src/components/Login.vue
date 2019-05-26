@@ -27,6 +27,9 @@
             </button>
           </p>
         </div>
+        <div v-show="loginResult != null" class="box">
+            {{ loginResult }}
+        </div>
     </div>
 </template>
 
@@ -35,10 +38,33 @@ import BackendService from './../services/backend-service'
 
 export default {
     name: 'Login',
+    data() {
+        return {
+            user: null,
+            loginResult: null,
+            apiToken: null
+        }
+    },
     methods: {
         login() {
             let backend = new BackendService();
-            backend.login();
+            backend.login()
+            .then((response) => {
+                console.log(response);
+                this.apiToken = response.data.access_token
+                backend.getUser(this.apiToken).then((response) => {
+                    console.log(response)
+                    this.user = response.data;
+                    this.loginResult = this.user;
+                }, (error) => {
+                    console.log(error)
+                    this.loginResult = error;
+                });
+                console.log(this.user)
+            }, (error) => {
+                console.log(error);
+                this.loginResult = error;
+            });;
             return false;
         }
     },

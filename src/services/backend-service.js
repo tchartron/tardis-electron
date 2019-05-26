@@ -22,13 +22,16 @@ export default class BackendService {
 
     login() {
         let url = apiUrl + "/login";
-        axios.post(url, {
+        return axios.post(url, {
             email: "thomas.chartron@gmail.com",
             password: "thomasthomas"
-        }).then((response) => {
-            console.log(response);
-        }, (error) => {
-            console.log(error);
+        });
+    }
+    getUser(token) {
+        let url = apiUrl + "/me";
+        // console.log(token)
+        return axios.post(url, {}, {
+            headers: {"Authorization": "Bearer " + token}
         });
     }
 }
