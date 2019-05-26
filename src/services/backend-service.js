@@ -28,7 +28,6 @@ export default class BackendService {
         }).then((response) => {
             console.log(response);
         }, (error) => {
-            console.log(url)
             console.log(error);
         });
     }
