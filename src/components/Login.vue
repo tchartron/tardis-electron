@@ -32,10 +32,13 @@
 
 <script>
 export default {
-  name: 'Login',
-  props: {
-    msg: String
-  }
+    name: 'Login',
+    methods: {
+        login() {
+            return false;
+        }
+    },
+
 };
 </script>
 
