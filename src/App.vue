@@ -1,25 +1,23 @@
 <template>
-  <div id="app">
+  <div class="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <h3 class="title is-3">W.E.B Timers Watcher</h3>
-    <Login></Login>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Login from './components/Login.vue'
-
 export default {
   name: 'app',
-  components: {
-    Login
+  mounted() {
+    this.$router.push('/login')
   }
 };
 </script>
 
 <style>
 /*@import '~bulma/css/bulma.css';*/
-#app {
+.app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -27,7 +25,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-#app > img {
+.app > img {
   max-height: 150px;
 }
 </style>
