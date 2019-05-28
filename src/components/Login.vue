@@ -3,7 +3,7 @@
         <h5 class="subtitle is-5">Please Login</h5>
         <div class="field">
           <p class="control has-icons-left has-icons-right">
-            <input class="input" type="email" placeholder="Email">
+            <input class="input" type="email" v-model="user.email" placeholder="Email">
             <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>
             </span>
@@ -14,7 +14,7 @@
         </div>
         <div class="field">
           <p class="control has-icons-left">
-            <input class="input" type="password" placeholder="Password">
+            <input class="input" type="password" v-model="user.password" placeholder="Password">
             <span class="icon is-small is-left">
               <i class="fas fa-lock"></i>
             </span>
@@ -40,7 +40,7 @@ export default {
     name: 'Login',
     data() {
         return {
-            user: null,
+            user: {},
             loginResult: null,
             apiToken: null
         }
@@ -48,14 +48,14 @@ export default {
     methods: {
         login() {
             let backend = new BackendService();
-            backend.login()
+            backend.login(this.user)
             .then((response) => {
                 console.log(response);
                 this.apiToken = response.data.access_token
                 backend.getUser(this.apiToken).then((response) => {
                     console.log(response)
                     this.user = response.data;
-                    this.loginResult = this.user;
+                    // this.loginResult = this.user;
                 }, (error) => {
                     console.log(error)
                     this.loginResult = error;
