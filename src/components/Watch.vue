@@ -1,32 +1,24 @@
 <template>
     <div class="box">
         <h5 class="subtitle is-5">Watch folder</h5>
-        <div class="field">
-            <p class="control has-icons-left has-icons-right">
-                <input class="input" type="watch" placeholder="Email">
-                <span class="icon is-small is-left">
-                    <i class="fas fa-envelope"></i>
-                </span>
-                <span class="icon is-small is-right">
-                    <i class="fas fa-check"></i>
-                </span>
-            </p>
+        <div class="control has-icons-left has-icons-right">
+            <input class="input is-medium" type="text" placeholder="/path/to/watch/folder">
+            <span class="icon is-left">
+                <i class="fas fa-folder-open"></i>
+            </span>
         </div>
         <div class="field">
-            <p class="control">
-                <button class="button is-success">
-                    Login
+            <p class="control has-text-centered has-margin-top-20">
+                <button class="button is-dark">
+                    Start watching
                 </button>
             </p>
-        </div>
-        <div class="box">
-            Bonjour maggle
         </div>
     </div>
 </template>
 
 <script>
-import BackendService from './../services/backend-service'
+// import BackendService from './../services/backend-service'
 
 export default {
     name: 'Watch',
