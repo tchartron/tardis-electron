@@ -73,9 +73,9 @@ app.on('activate', () => {
 })
 
 // let hasPath = false;
-ipcMain.on('ping', (event, data) => {
+ipcMain.on('ping', (eventIpc, data) => {
     console.log('ping received')
-    event.sender.send('pong', data)
+    // event.sender.send('pong', data)
 
     // var watcher = null;
     // if(hasPath) {
@@ -87,6 +87,11 @@ ipcMain.on('ping', (event, data) => {
     // }
 
     watcher.on('all', (event, path) => {
-      console.log(event, path);
+        console.log(event, path);
+        eventIpc.sender.send('pong', {
+            'event': event,
+            'data': path
+        })
+
     })
 })
