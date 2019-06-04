@@ -90,8 +90,13 @@ ipcMain.on('ping', (eventIpc, data) => {
         console.log(event, path);
         eventIpc.sender.send('pong', {
             'event': event,
-            'data': path
+            'path': path
         })
 
     })
+})
+
+ipcMain.on('stop', (eventIpc, data) => {
+    // watcher.close(); //watcher context
+    console.log('stop from main process')
 })

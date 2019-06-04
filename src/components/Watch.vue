@@ -17,6 +17,12 @@
                 </button>
             </p>
         </div>
+        <div class="box watcher-output">
+            <div class="notification is-warning" v-for="data in watcherData">
+                <span style="display: block;">Event : {{ data.event }}</span>
+                <span style="display: block;">Path : {{ data.path }}</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -30,7 +36,8 @@ export default {
     data() {
         return {
             user: {},
-            pathToWatch: ''
+            pathToWatch: '',
+            watcherData: []
         }
     },
     methods: {
@@ -39,7 +46,8 @@ export default {
             console.log(`${this.pathToWatch} sent from component`)
         },
         stopWatch() {
-
+            this.$electron.ipcRenderer.send('stop')
+            console.log('stop sent')
         }
     },
     mounted() {
@@ -51,6 +59,8 @@ export default {
             // this.myDataVar = data
             console.log('pong received from main process')
             console.log(data)
+            // this.watcherData += JSON.stringify(data);
+            this.watcherData.push(data)
         })
     }
 
@@ -72,5 +82,10 @@ li {
 }
 a {
   color: #42b983;
+}
+.watcher-output {
+    max-height: 400px;
+    overflow: auto;
+    overflow-wrap: break-word;
 }
 </style>
