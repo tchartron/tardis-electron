@@ -7,7 +7,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "dev": "NODE_ENV=development vue-cli-service serve --port 8182 & sleep 5 && NODE_ENV=development electron app.js",
+    "dev": "NODE_ENV=development vue-cli-service serve --port 8182 & sleep 10 && NODE_ENV=development electron app.js",
     "prod": "NODE_ENV=production vue-cli-service build & sleep 10 && NODE_ENV=production electron app.js",
     "electron": "NODE_ENV=production electron app.js"
   },
@@ -15,7 +15,6 @@
     "axios": "^0.18.0",
     "bulma": "^0.7.5",
     "bulma-helpers": "^0.3.8",
-    "chokidar": "^3.0.1",
     "core-js": "^2.6.5",
     "electron": "^5.0.1",
     "node-sass": "^4.12.0",

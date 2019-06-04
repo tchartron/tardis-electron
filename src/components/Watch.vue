@@ -2,7 +2,7 @@
     <div class="box">
         <h5 class="subtitle is-5">Watch folder</h5>
         <div class="control has-icons-left has-icons-right">
-            <input class="input is-medium" type="text" placeholder="/path/to/watch/folder">
+            <input class="input is-medium" type="text" placeholder="/path/to/watch/folder" :value="pathToWatch">
             <span class="icon is-left">
                 <i class="fas fa-folder-open"></i>
             </span>
@@ -19,15 +19,21 @@
 
 <script>
 // import BackendService from './../services/backend-service'
+// const chokidar = require('chokidar');
+// import chokidar from 'chokidar'
 
 export default {
     name: 'Watch',
     data() {
         return {
             user: {},
+            pathToWatch: 'bob'
         }
     },
     methods: {
+        watch() {
+
+        }
     },
 
 };
