@@ -17,11 +17,21 @@
 // })
 
 const { app, BrowserWindow } = require('electron')
+const ipcMain = require('electron').ipcMain
+const chokidar = require("chokidar")
 
 let win
 
 function createWindow () {
-    win = new BrowserWindow({ width: 800, height: 600, webPreferences: {webSecurity: false}})
+    win = new BrowserWindow({
+        width: 1000,
+        height: 700,
+        webPreferences: {
+            webSecurity: false,
+            nodeIntegration: true
+        }
+    })
+
 
     if(process.env.NODE_ENV === 'development') {
         // console.log('devv')
@@ -60,4 +70,23 @@ app.on('activate', () => {
     if (win === null) {
         createWindow()
     }
+})
+
+// let hasPath = false;
+ipcMain.on('ping', (event, data) => {
+    console.log('ping received')
+    event.sender.send('pong', data)
+
+    // var watcher = null;
+    // if(hasPath) {
+        console.log('watching')
+        const watcher = chokidar.watch(data, {
+              ignored: /(^|[\/\\])\../,
+              persistent: true
+          });
+    // }
+
+    watcher.on('all', (event, path) => {
+      console.log(event, path);
+    })
 })
