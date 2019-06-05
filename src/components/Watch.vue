@@ -9,11 +9,11 @@
         </div>
         <div class="field">
             <p class="control has-text-centered has-margin-top-20">
-                <button class="button is-success" @click="watch">
+                <button class="button is-success has-margin-right-10" @click="watch">
                     Start watching
                 </button>
-                <button class="button is-warning" @click="stopWatch">
-                    Start watching
+                <button class="button is-warning has-margin-left-10" @click="stopWatch">
+                    Stop watching
                 </button>
             </p>
         </div>
