@@ -43,11 +43,11 @@ export default {
     methods: {
         watch() {
             this.$electron.ipcRenderer.send('ping', this.pathToWatch)
-            console.log(`${this.pathToWatch} sent from component`)
+            // console.log(`${this.pathToWatch} sent from component`)
         },
         stopWatch() {
             this.$electron.ipcRenderer.send('stop')
-            console.log('stop sent')
+            // console.log('stop sent')
         }
     },
     mounted() {
@@ -57,8 +57,8 @@ export default {
 
         this.$electron.ipcRenderer.on('pong', (event, data) => {
             // this.myDataVar = data
-            console.log('pong received from main process')
-            console.log(data)
+            // console.log('pong received from main process')
+            // console.log(data)
             // this.watcherData += JSON.stringify(data);
             this.watcherData.push(data)
         })

@@ -40,14 +40,14 @@ function createWindow () {
         // })
         //On dev use loadUrl to provide webpack watch feature to hot reload the app
         let load = win.loadURL('http://localhost:8182/').then(() => {
-            console.log('finished')
+            // console.log('finished')
         })
         // console.log(win.loadFile('dist/index.html'))
     } else if (process.env.NODE_ENV === 'production') {
         // console.log('prodd')
         // console.log(win.loadFile('dist/index.html')) //was loading : file:///home/thomas/dev/javascript/electron/timeinator-electron/node_modules/electron/dist/resources/default_app.asar/dist/index.html
         let load = win.loadFile(`${__dirname}/dist/index.html`).then(() => {
-            console.log('finished')
+            // console.log('finished')
         })
     }
 
@@ -74,20 +74,20 @@ app.on('activate', () => {
 
 // let hasPath = false;
 ipcMain.on('ping', (eventIpc, data) => {
-    console.log('ping received')
+    // console.log('ping received')
     // event.sender.send('pong', data)
 
     // var watcher = null;
     // if(hasPath) {
-        console.log('watching')
-        const watcher = chokidar.watch(data, {
+        // console.log('watching')
+        this.watcher = chokidar.watch(data, {
               ignored: /(^|[\/\\])\../,
               persistent: true
           });
     // }
 
-    watcher.on('all', (event, path) => {
-        console.log(event, path);
+    this.watcher.on('all', (event, path) => {
+        // console.log(event, path);
         eventIpc.sender.send('pong', {
             'event': event,
             'path': path
@@ -97,6 +97,6 @@ ipcMain.on('ping', (eventIpc, data) => {
 })
 
 ipcMain.on('stop', (eventIpc, data) => {
-    // watcher.close(); //watcher context
-    console.log('stop from main process')
+    this.watcher.close(); //watcher context
+    // console.log('stop from main process')
 })

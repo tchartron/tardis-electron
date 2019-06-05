@@ -21,7 +21,7 @@
             </p>
         </div>
         <div class="field">
-            <p class="control">
+            <p class="control has-text-centered">
                 <button class="button is-success" @click="login">
                     Login
                 </button>
