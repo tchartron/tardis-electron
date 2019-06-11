@@ -54,7 +54,7 @@ export default {
                 this.apiToken = response.data.access_token
                 backend.getUser(this.apiToken).then((response) => {
                     this.user = response.data;
-                    this.$router.push('/watch')
+                    this.$router.push({ name: 'watch', params:{ user: this.user }})
                 }, (error) => {
                     console.log(error)
                     this.loginResult = error;

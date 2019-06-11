@@ -23,6 +23,7 @@
                 <span style="display: block;">Path : {{ data.path }}</span>
             </div>
         </div>
+        {{ user }}
     </div>
 </template>
 
@@ -33,9 +34,10 @@
     // const ipc = require('electron').ipcRenderer
 export default {
     name: 'Watch',
+    props: ['user'],
     data() {
         return {
-            user: {},
+            user: '',
             pathToWatch: '',
             watcherData: []
         }

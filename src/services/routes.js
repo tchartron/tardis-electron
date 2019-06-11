@@ -16,7 +16,8 @@ export default {
         }, {
             path: '/watch',
             name: 'watch',
-            component: Watch
+            component: Watch,
+            props: true
         }
     ]
 }
