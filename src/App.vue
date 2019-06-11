@@ -1,7 +1,6 @@
 <template>
   <div class="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <h3 class="title is-3">W.E.B Timers Watcher</h3>
+    <img alt="Vue logo" src="./assets/logo-web-white.png">
     <router-view></router-view>
   </div>
 </template>
@@ -23,9 +22,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 30px;
 }
 .app > img {
   max-height: 150px;
+  margin-bottom: 30px;
 }
 </style>
