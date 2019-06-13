@@ -30,7 +30,7 @@
         <div v-show="loginResult != null" class="box">
             {{ loginResult }}
         </div>
-        <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">Making calls to the space Cuz please be patient</span></div>
+        <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">Making calls to the space please be patient</span></div>
 
     </div>
 </template>

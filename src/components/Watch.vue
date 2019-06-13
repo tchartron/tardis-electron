@@ -11,7 +11,7 @@
                             <div class="control">
                                 <div class="select is-fullwidth">
                                     <select name="groups" @change="findTasks()" v-model="selectedGroup">
-                                        <option selected>Please pick a group</option>
+                                        <option value="0">Please pick a group</option>
                                         <option v-for="group in groups" :value="group.id">{{ group.name }}</option>
                                     </select>
                                 </div>
@@ -27,13 +27,26 @@
                         <div class="field">
                             <div class="control">
                                 <div class="select is-fullwidth">
-                                    <select>
-                                        <option selected>Pick a group to populate tasks</option>
+                                    <select name="tasks" @change="getTaskDetails" v-model="selectedTask">
+                                        <option value="0">Pick a task</option>
                                         <option v-for="task in tasks" :value="task.id">{{ task.title }}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="box" v-show="showTaskDetails">
+                    <div class="notification">
+                      <button class="delete" @click="hideDetails"></button>
+                      <p style="text-decoration:underline;">Task Details :</p>
+                      <p>Id : {{ taskDetails.id }}</p>
+                      <p>Company Id : {{ taskDetails.company_id }}</p>
+                      <p>Title : {{ taskDetails.title }}</p>
+                      <p>Description : {{ taskDetails.description }}</p>
+                      <p>Completed : {{ (taskDetails.completed) ? 'Yes' : 'No' }}</p>
+                      <p>Created : {{ taskDetails.created_at }}</p>
+                      <p>Updated : {{ taskDetails.updated_at }}</p>
                     </div>
                 </div>
             </div>
@@ -65,7 +78,7 @@
                 <span style="display: block;">Path : {{ data.path }}</span>
             </div>
         </div>
-        <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">Making calls to the space Cuz please be patient</span></div>
+        <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">Making calls to the space please be patient</span></div>
         {{ user }}
     </div>
 </template>
@@ -84,15 +97,21 @@ export default {
         return {
             // user: Object,
             // api: Object,
-            pathToWatch: String,
+            pathToWatch: '',
             watcherData: Array,
-            groups: Object,
             isLoading: false,
-            selectedGroup: Number,
-            tasks: Array
+            groups: Array,
+            selectedGroup: 0,
+            tasks: Array,
+            selectedTask: 0,
+            taskDetails: Array,
+            showTaskDetails: false
         }
     },
     methods: {
+        hideDetails() {
+            this.showTaskDetails = false;
+        },
         watch() {
             this.$electron.ipcRenderer.send('ping', this.pathToWatch)
             // console.log(`${this.pathToWatch} sent from component`)
@@ -111,6 +130,7 @@ export default {
                 this.isLoading = false
             }, (error) => {
                 console.log(error)
+                this.isLoading = false;
             });
         },
         findTasks() {
@@ -122,7 +142,22 @@ export default {
                 this.isLoading = false
             }, (error) => {
                 console.log(error)
+                this.isLoading = false;
             });
+        },
+        getTaskDetails() {
+            this.isLoading = true
+            let backend = new BackendService();
+            backend.getTask(this.api.access_token, this.selectedGroup, this.selectedTask)
+            .then((response) => {
+                console.log(response.data[0])
+                this.taskDetails = response.data[0]
+                this.isLoading = false;
+                this.showTaskDetails = true;
+            }, (error) => {
+                console.log(error)
+                this.isLoading = false;
+            })
         }
     },
     mounted() {
