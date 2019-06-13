@@ -24,21 +24,21 @@ export default class BackendService {
         let url = apiUrl + "/me";
         // console.log(token)
         return axios.post(url, {}, {
-            headers: {"Authorization": "Bearer " + token}
+            headers: {"Authorization": `Bearer ${token}`}
         });
     }
     async getGroups(token) {
         await this.sleep(3000)
         let url = apiUrl + "/companies";
         return axios.get(url, {
-            headers: {"Authorization": "Bearer " + token}
+            headers: {"Authorization": `Bearer ${token}`}
         })
     }
     async getTasks(token, groupId) {
         await this.sleep(3000)
         let url = apiUrl + `/companies/${groupId}/tasks`;
         return axios.get(url, {
-            headers: {"Authorization": "Bearer " + token}
+            headers: {"Authorization": `Bearer ${token}`}
         })
     }
 
