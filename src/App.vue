@@ -20,11 +20,14 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 30px;
 }
 .app > img {
+  /*text-align: center;*/
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   max-height: 150px;
   margin-bottom: 30px;
 }

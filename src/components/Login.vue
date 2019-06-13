@@ -14,7 +14,7 @@
         </div>
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input" type="password" v-model="user.password" placeholder="Password">
+                <input class="input" type="password" v-model="user.password" placeholder="Password" @keyup.enter="login">
                 <span class="icon is-small is-left">
                     <i class="fas fa-lock"></i>
                 </span>
@@ -40,9 +40,16 @@ export default {
     name: 'Login',
     data() {
         return {
-            user: {},
+            user: {
+                email: "thomas.chartron@gmail.com",
+                password: "thomasthomas",
+            },
             loginResult: null,
-            apiToken: null
+            api: {
+                access_token: String,
+                token_type: String,
+                expires_in: String
+            }
         }
     },
     methods: {
@@ -51,10 +58,10 @@ export default {
             backend.login(this.user)
             .then((response) => {
                 // console.log(response);
-                this.apiToken = response.data.access_token
-                backend.getUser(this.apiToken).then((response) => {
+                this.api = response.data
+                backend.getUser(this.api.access_token).then((response) => {
                     this.user = response.data;
-                    this.$router.push({ name: 'watch', params:{ user: this.user }})
+                    this.$router.push({ name: 'watch', params:{ user: this.user, api: this.api }})
                 }, (error) => {
                     console.log(error)
                     this.loginResult = error;

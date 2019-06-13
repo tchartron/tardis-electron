@@ -35,4 +35,10 @@ export default class BackendService {
             headers: {"Authorization": "Bearer " + token}
         });
     }
+    getGroups(token) {
+        let url = apiUrl + "/companies";
+        return axios.get(url, {
+            headers: {"Authorization": "Bearer " + token}
+        })
+    }
 }

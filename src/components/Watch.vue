@@ -1,8 +1,48 @@
 <template>
     <div class="box">
-        <h5 class="subtitle is-5">Watch folder</h5>
+        <div class="columns is-mobile">
+            <div class="column is-two-thirds">
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label">Group : </label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select>
+                                        <option>Business development</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label">Task : </label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select>
+                                        <option>Business development</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="box">
+
+                </div>
+            </div>
+        </div>
         <div class="control has-icons-left has-icons-right">
-            <input class="input is-medium" type="text" placeholder="/path/to/watch/folder" v-model="pathToWatch">
+            <input class="input is-medium is-rounded" type="text" placeholder="/path/to/watch" v-model="pathToWatch">
             <span class="icon is-left">
                 <i class="fas fa-folder-open"></i>
             </span>
@@ -32,14 +72,18 @@
 // const chokidar = require('chokidar');
 // import chokidar from 'chokidar'
     // const ipc = require('electron').ipcRenderer
+import BackendService from './../services/backend-service'
+
 export default {
     name: 'Watch',
-    props: ['user'],
+    props: ['user', 'api'],
     data() {
         return {
-            user: '',
+            // user: Object,
+            // api: Object,
             pathToWatch: '',
-            watcherData: []
+            watcherData: [],
+            groups: Object
         }
     },
     methods: {
@@ -50,20 +94,24 @@ export default {
         stopWatch() {
             this.$electron.ipcRenderer.send('stop')
             // console.log('stop sent')
+        },
+        findGroups() {
+            let backend = new BackendService();
+            backend.getGroups(this.api.access_token)
+            .then((response) => {
+                console.log(response)
+                this.groups = response.data;
+            }, (error) => {
+                console.log(error)
+            });
         }
     },
     mounted() {
-        // setInterval(() => {
-        //     console.log('ping')
-        // }, 1000)
-
         this.$electron.ipcRenderer.on('pong', (event, data) => {
-            // this.myDataVar = data
-            // console.log('pong received from main process')
-            // console.log(data)
-            // this.watcherData += JSON.stringify(data);
             this.watcherData.push(data)
-        })
+        });
+        //Populates the groups select
+        this.findGroups();
     }
 
 };

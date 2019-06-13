@@ -16,7 +16,7 @@ Vue.prototype.$electron = electron;
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 
-require('./styles/main.scss'); //Main css importing bulma => this will answer webpack regex test : /\.scss$/
+require('./styles/main.scss'); //Main css importing bulma => this will match webpack regex test : /\.scss$/
 
 new Vue({
     router: new VueRouter(routes),
