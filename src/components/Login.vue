@@ -30,6 +30,8 @@
         <div v-show="loginResult != null" class="box">
             {{ loginResult }}
         </div>
+        <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">Making calls to the space Cuz please be patient</span></div>
+
     </div>
 </template>
 
@@ -49,11 +51,13 @@ export default {
                 access_token: String,
                 token_type: String,
                 expires_in: String
-            }
+            },
+            isLoading: false
         }
     },
     methods: {
         login() {
+            this.isLoading = true
             let backend = new BackendService();
             backend.login(this.user)
             .then((response) => {
@@ -61,6 +65,7 @@ export default {
                 this.api = response.data
                 backend.getUser(this.api.access_token).then((response) => {
                     this.user = response.data;
+                    this.isLoading = false
                     this.$router.push({ name: 'watch', params:{ user: this.user, api: this.api }})
                 }, (error) => {
                     console.log(error)

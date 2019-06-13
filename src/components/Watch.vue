@@ -10,8 +10,9 @@
                         <div class="field">
                             <div class="control">
                                 <div class="select is-fullwidth">
-                                    <select>
-                                        <option>Business development</option>
+                                    <select name="groups">
+                                        <option selected>Please pick a group</option>
+                                        <option v-for="group in groups" value="group.id">{{ group.name }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -63,6 +64,7 @@
                 <span style="display: block;">Path : {{ data.path }}</span>
             </div>
         </div>
+        <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">Making calls to the space Cuz please be patient</span></div>
         {{ user }}
     </div>
 </template>
@@ -83,7 +85,8 @@ export default {
             // api: Object,
             pathToWatch: '',
             watcherData: [],
-            groups: Object
+            groups: Object,
+            isLoading: false
         }
     },
     methods: {
@@ -96,11 +99,13 @@ export default {
             // console.log('stop sent')
         },
         findGroups() {
+            this.isLoading = true
             let backend = new BackendService();
             backend.getGroups(this.api.access_token)
             .then((response) => {
                 console.log(response)
                 this.groups = response.data;
+                this.isLoading = false
             }, (error) => {
                 console.log(error)
             });
