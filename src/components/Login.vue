@@ -3,7 +3,7 @@
         <h5 class="subtitle is-5">Please Login</h5>
         <div class="field">
             <p class="control has-icons-left has-icons-right">
-                <input class="input" type="email" v-model="user.email" placeholder="Email">
+                <input class="input" type="email" v-model="user.email" placeholder="Email" @keyup.enter="focusPassword">
                 <span class="icon is-small is-left">
                     <i class="fas fa-envelope"></i>
                 </span>
@@ -14,7 +14,7 @@
         </div>
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input" type="password" v-model="user.password" placeholder="Password" @keyup.enter="login">
+                <input class="input" ref="password" type="password" v-model="user.password" placeholder="Password" @keyup.enter="login">
                 <span class="icon is-small is-left">
                     <i class="fas fa-lock"></i>
                 </span>
@@ -76,6 +76,9 @@ export default {
                 this.loginResult = error;
             });
             return false;
+        },
+        focusPassword() {
+            this.$refs.password.focus();
         }
     },
 
