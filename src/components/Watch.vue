@@ -10,9 +10,9 @@
                         <div class="field">
                             <div class="control">
                                 <div class="select is-fullwidth">
-                                    <select name="groups">
+                                    <select name="groups" @change="findTasks()" v-model="selectedGroup">
                                         <option selected>Please pick a group</option>
-                                        <option v-for="group in groups" value="group.id">{{ group.name }}</option>
+                                        <option v-for="group in groups" :value="group.id">{{ group.name }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -28,7 +28,8 @@
                             <div class="control">
                                 <div class="select is-fullwidth">
                                     <select>
-                                        <option>Business development</option>
+                                        <option selected>Pick a group to populate tasks</option>
+                                        <option v-for="task in tasks" :value="task.id">{{ task.title }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -83,10 +84,12 @@ export default {
         return {
             // user: Object,
             // api: Object,
-            pathToWatch: '',
-            watcherData: [],
+            pathToWatch: String,
+            watcherData: Array,
             groups: Object,
-            isLoading: false
+            isLoading: false,
+            selectedGroup: Number,
+            tasks: Array
         }
     },
     methods: {
@@ -104,7 +107,18 @@ export default {
             backend.getGroups(this.api.access_token)
             .then((response) => {
                 console.log(response)
-                this.groups = response.data;
+                this.groups = response.data
+                this.isLoading = false
+            }, (error) => {
+                console.log(error)
+            });
+        },
+        findTasks() {
+            this.isLoading = true
+            let backend = new BackendService();
+            backend.getTasks(this.api.access_token, this.selectedGroup)
+            .then((response) => {
+                this.tasks = response.data
                 this.isLoading = false
             }, (error) => {
                 console.log(error)

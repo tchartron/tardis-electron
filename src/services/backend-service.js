@@ -10,35 +10,39 @@ const apiUrl = apiAdress + apiSuffix;
     //     'Content-Type': 'application/json'
     // }
 export default class BackendService {
-    // login() {
-    //     let url = apiUrl + "/login";
-    //     axios.post(url, [{
-    //         email: "thomas.chartron@gmail.com",
-    //         password: "thomasthomas"
-    //     },
-    //     {
-    //         headers: {'Authorization': `Bearer ${token}`}
-    //     }]);
-    // }
 
-    login(user) {
+    async login(user) {
+        await this.sleep(3000)
         let url = apiUrl + "/login";
         return axios.post(url, {
             email: user.email,
             password: user.password
         });
     }
-    getUser(token) {
+    async getUser(token) {
+        await this.sleep(3000)
         let url = apiUrl + "/me";
         // console.log(token)
         return axios.post(url, {}, {
             headers: {"Authorization": "Bearer " + token}
         });
     }
-    getGroups(token) {
+    async getGroups(token) {
+        await this.sleep(3000)
         let url = apiUrl + "/companies";
         return axios.get(url, {
             headers: {"Authorization": "Bearer " + token}
         })
+    }
+    async getTasks(token, groupId) {
+        await this.sleep(3000)
+        let url = apiUrl + `/companies/${groupId}/tasks`;
+        return axios.get(url, {
+            headers: {"Authorization": "Bearer " + token}
+        })
+    }
+
+     sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }
