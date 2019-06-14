@@ -7,16 +7,15 @@
 // }
 //
 module.exports = {
-  // publicPath: process.env.NODE_ENV === 'production'
-  //   ? `${process.cwd()}/dist/`
-  //   : '/',
-
-  configureWebpack: config => {
-    if (process.env.NODE_ENV === 'production') {
-        config.output.publicPath = `${process.cwd()}/dist/`
+  publicPath: process.env.NODE_ENV === 'production'
+    ? `${process.cwd()}/dist/`
+    : '/',
+    // if (process.env.NODE_ENV === 'production') {
+    //     config.output.publicPath = `${process.cwd()}/dist/`
+    // }
+    configureWebpack: config => {
+        config.target = 'electron-renderer' //Allow to require("electron") in renderer (main.js) process without using window.require
     }
-    config.target = 'electron-renderer' //Allow to require("electron") in renderer (main.js) process without using window.require
-}
 
     // css: {
     // loaderOptions: {
