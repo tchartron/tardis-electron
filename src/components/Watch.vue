@@ -78,7 +78,7 @@
                 <span style="display: block;">Path : {{ data.path }}</span>
             </div>
         </div>
-        <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">Making calls to the space please be patient</span></div>
+        <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">{{ loadingMessage }}</span></div>
         {{ user }}
     </div>
 </template>
@@ -105,7 +105,8 @@ export default {
             tasks: Array,
             selectedTask: 0,
             taskDetails: Array,
-            showTaskDetails: false
+            showTaskDetails: false,
+            loadingMessage: String
         }
     },
     methods: {
@@ -122,6 +123,7 @@ export default {
         },
         findGroups() {
             this.isLoading = true
+            this.loadingMessage = "Loading groups ...";
             let backend = new BackendService();
             backend.getGroups(this.api.access_token)
             .then((response) => {
@@ -135,6 +137,7 @@ export default {
         },
         findTasks() {
             this.isLoading = true
+            this.loadingMessage = "Loading Tasks ...";
             let backend = new BackendService();
             backend.getTasks(this.api.access_token, this.selectedGroup)
             .then((response) => {
@@ -147,6 +150,7 @@ export default {
         },
         getTaskDetails() {
             this.isLoading = true
+            this.loadingMessage = "Getting task details ...";
             let backend = new BackendService();
             backend.getTask(this.api.access_token, this.selectedGroup, this.selectedTask)
             .then((response) => {

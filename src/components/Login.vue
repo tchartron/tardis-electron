@@ -30,7 +30,7 @@
         <div v-show="loginResult != null" class="box">
             {{ loginResult }}
         </div>
-        <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">Making calls to the space please be patient</span></div>
+        <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">{{ loadingMessage }}</span></div>
 
     </div>
 </template>
@@ -52,17 +52,20 @@ export default {
                 token_type: String,
                 expires_in: String
             },
-            isLoading: false
+            isLoading: false,
+            loadingMessage: String
         }
     },
     methods: {
         login() {
             this.isLoading = true
+            this.loadingMessage = "Authenticating from API ...";
             let backend = new BackendService();
             backend.login(this.user)
             .then((response) => {
                 // console.log(response);
                 this.api = response.data
+                this.loadingMessage = "Token received, Retrieving your user informations";
                 backend.getUser(this.api.access_token).then((response) => {
                     this.user = response.data;
                     this.isLoading = false
