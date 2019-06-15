@@ -98,8 +98,8 @@ export default {
             // user: Object,
             // api: Object,
             pathToWatch: '',
-            watcherData: Array,
-            isLoading: false,
+            watcherData: [],
+            isLoading: true, //default to true
             groups: Array,
             selectedGroup: 0,
             tasks: Array,

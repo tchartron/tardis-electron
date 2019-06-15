@@ -12,7 +12,7 @@ const apiUrl = apiAdress + apiSuffix;
 export default class BackendService {
 
     async login(user) {
-        await this.sleep(2000)
+        await this.sleep(1000)
         let url = apiUrl + "/login";
         return axios.post(url, {
             email: user.email,
@@ -20,7 +20,7 @@ export default class BackendService {
         });
     }
     async getUser(token) {
-        await this.sleep(2000)
+        await this.sleep(1000)
         let url = apiUrl + "/me";
         // console.log(token)
         return axios.post(url, {}, {
@@ -28,21 +28,21 @@ export default class BackendService {
         });
     }
     async getGroups(token) {
-        await this.sleep(2000)
+        await this.sleep(1000)
         let url = apiUrl + "/companies";
         return axios.get(url, {
             headers: {"Authorization": `Bearer ${token}`}
         })
     }
     async getTasks(token, groupId) {
-        await this.sleep(2000)
+        await this.sleep(1000)
         let url = apiUrl + `/companies/${groupId}/tasks`;
         return axios.get(url, {
             headers: {"Authorization": `Bearer ${token}`}
         })
     }
     async getTask(token, companyId, taskId) {
-        await this.sleep(2000)
+        await this.sleep(1000)
         let url = apiUrl + `/companies/${companyId}/tasks/${taskId}`;
         return axios.get(url, {
             headers: {"Authorization": `Bearer ${token}`}

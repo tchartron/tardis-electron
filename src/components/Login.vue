@@ -68,7 +68,7 @@ export default {
                 this.loadingMessage = "Token received, Retrieving your user informations";
                 backend.getUser(this.api.access_token).then((response) => {
                     this.user = response.data;
-                    this.isLoading = false
+                    // this.isLoading = false //Upon login we switch to watch view and load group so keep loader visible
                     this.$router.push({ name: 'watch', params:{ user: this.user, api: this.api }})
                 }, (error) => {
                     console.log(error)
