@@ -181,11 +181,24 @@ export default {
             .then((response) => {
                 console.log(response.data[0])
                 this.taskDetails = response.data[0]
-                this.isLoading = false;
+                // this.isLoading = false;
+                this.getTaskTimers();
                 this.showTaskDetails = true;
             }, (error) => {
                 console.log(error)
                 this.isLoading = false;
+            })
+        },
+        getTaskTimers() {
+            this.isLoading = true
+            this.loadingMessage = "Fetching task and user stats ..."
+            let backend = new BackendService();
+            backend.getTaskTimers(this.api.access_token, this.selectedGroup, this.selectedTask)
+            .then((response) => {
+                console.log(response.data)
+                this.isLoading = false
+            }, (error) => {
+                console.log(error)
             })
         }
     },

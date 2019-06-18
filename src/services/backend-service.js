@@ -48,10 +48,12 @@ export default class BackendService {
             headers: {"Authorization": `Bearer ${token}`}
         })
     }
-    async getTaskTimers() {
+    async getTaskTimers(token, companyId, taskId) {
         await this.sleep(1000)
         let url = `${apiUrl}/companies/${companyId}/tasks/${taskId}/timers`;
-
+        return axios.get(url, {
+            headers: {"Authorization": `Bearer ${token}`}
+        })
     }
 
      sleep(ms) {
