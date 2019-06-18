@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="column">
-                <div class="box is-unselectable has-text-left">
+                <div class="box is-unselectable has-text-left has-margin-left-20 has-margin-right-30">
                     <span class="underline">User informations</span>
                     <span class="is-block is-size-7">id : {{ user.id }}</span>
                     <span class="is-block is-size-7">name : {{ user.name }}</span>
@@ -203,18 +203,18 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {
-  margin: 40px 0 0;
+    margin: 40px 0 0;
 }
 ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 li {
-  display: inline-block;
-  margin: 0 10px;
+    display: inline-block;
+    margin: 0 10px;
 }
 a {
-  color: #42b983;
+    color: #42b983;
 }
 .watcher-output {
     max-height: 400px;
@@ -222,8 +222,8 @@ a {
     overflow-wrap: break-word;
 }
 .logo > img {
-  /*text-align: center;*/
-  max-height: 100px;
+    /*text-align: center;*/
+    max-height: 100px;
 }
 .underline {
     text-decoration: underline;
