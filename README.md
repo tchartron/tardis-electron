@@ -19,4 +19,7 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/)
 
+### TODO
+- [ ] Refactor code according to this : https://medium.com/@zitko/structuring-a-vue-project-authentication-87032e5bfe16 to implement 401 interceptor to auto refresh token
+
 
