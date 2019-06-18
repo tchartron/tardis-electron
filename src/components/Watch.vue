@@ -64,10 +64,10 @@
         </div>
         <div class="field">
             <p class="control has-text-centered has-margin-top-20">
-                <button class="button is-success has-margin-right-10" @click="watch">
+                <button class="button is-dark is-medium has-margin-right-10" @click="watch" v-show="!isWatching">
                     Start watching
                 </button>
-                <button class="button is-warning has-margin-left-10" @click="stopWatch">
+                <button class="button is-dark is-medium has-margin-left-10" @click="stopWatch" v-show="isWatching">
                     Stop watching
                 </button>
             </p>
@@ -106,7 +106,8 @@ export default {
             selectedTask: 0,
             taskDetails: Array,
             showTaskDetails: false,
-            loadingMessage: String
+            loadingMessage: String,
+            isWatching: false
         }
     },
     methods: {
@@ -114,10 +115,12 @@ export default {
             this.showTaskDetails = false;
         },
         watch() {
+            this.isWatching = !this.isWatching;
             this.$electron.ipcRenderer.send('ping', this.pathToWatch)
             // console.log(`${this.pathToWatch} sent from component`)
         },
         stopWatch() {
+            this.isWatching = !this.isWatching;
             this.$electron.ipcRenderer.send('stop')
             // console.log('stop sent')
         },

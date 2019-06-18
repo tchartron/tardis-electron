@@ -75,16 +75,10 @@ app.on('activate', () => {
 // let hasPath = false;
 ipcMain.on('ping', (eventIpc, data) => {
     // console.log('ping received')
-    // event.sender.send('pong', data)
-
-    // var watcher = null;
-    // if(hasPath) {
-        // console.log('watching')
-        this.watcher = chokidar.watch(data, {
-              ignored: /(^|[\/\\])\../,
-              persistent: true
-          });
-    // }
+    this.watcher = chokidar.watch(data, {
+          ignored: /(^|[\/\\])\../,
+          persistent: true
+      });
 
     this.watcher.on('all', (event, path) => {
         // console.log(event, path);
