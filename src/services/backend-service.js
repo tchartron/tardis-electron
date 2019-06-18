@@ -13,7 +13,7 @@ export default class BackendService {
 
     async login(user) {
         await this.sleep(1000)
-        let url = apiUrl + "/login";
+        let url = `${apiUrl}/login`;
         return axios.post(url, {
             email: user.email,
             password: user.password
@@ -21,7 +21,7 @@ export default class BackendService {
     }
     async getUser(token) {
         await this.sleep(1000)
-        let url = apiUrl + "/me";
+        let url = `${apiUrl}/me`;
         // console.log(token)
         return axios.post(url, {}, {
             headers: {"Authorization": `Bearer ${token}`}
@@ -29,24 +29,29 @@ export default class BackendService {
     }
     async getGroups(token) {
         await this.sleep(1000)
-        let url = apiUrl + "/companies";
+        let url = `${apiUrl}/companies`;
         return axios.get(url, {
             headers: {"Authorization": `Bearer ${token}`}
         })
     }
     async getTasks(token, groupId) {
         await this.sleep(1000)
-        let url = apiUrl + `/companies/${groupId}/tasks`;
+        let url = `${apiUrl}/companies/${groupId}/tasks`;
         return axios.get(url, {
             headers: {"Authorization": `Bearer ${token}`}
         })
     }
     async getTask(token, companyId, taskId) {
         await this.sleep(1000)
-        let url = apiUrl + `/companies/${companyId}/tasks/${taskId}`;
+        let url = `${apiUrl}/companies/${companyId}/tasks/${taskId}`;
         return axios.get(url, {
             headers: {"Authorization": `Bearer ${token}`}
         })
+    }
+    async getTaskTimers() {
+        await this.sleep(1000)
+        let url = `${apiUrl}/companies/${companyId}/tasks/${taskId}/timers`;
+
     }
 
      sleep(ms) {
