@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 <div class="column">
-                    <div class="box">
+                    <div class="box" v-if="taskDetails != ''">
                         <p class="underline">Task summary :</p>
                     </div>
                 </div>
@@ -126,7 +126,7 @@ export default {
             selectedGroup: 0,
             tasks: Array,
             selectedTask: 0,
-            taskDetails: Array,
+            taskDetails: '',
             showTaskDetails: false,
             loadingMessage: String,
             isWatching: false
