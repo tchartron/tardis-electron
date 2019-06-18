@@ -1,37 +1,42 @@
 <template>
-    <div class="box">
-        <h5 class="subtitle is-5">Please Login</h5>
-        <div class="field">
-            <p class="control has-icons-left has-icons-right">
-                <input class="input" type="email" v-model="user.email" placeholder="Email" @keyup.enter="focusPassword">
-                <span class="icon is-small is-left">
-                    <i class="fas fa-envelope"></i>
-                </span>
-                <span class="icon is-small is-right">
-                    <i class="fas fa-check"></i>
-                </span>
-            </p>
+    <div class="container">
+        <div class="logo">
+            <img alt="web-logo" src="./../assets/logo-web-white.png">
         </div>
-        <div class="field">
-            <p class="control has-icons-left">
-                <input class="input" ref="password" type="password" v-model="user.password" placeholder="Password" @keyup.enter="login">
-                <span class="icon is-small is-left">
-                    <i class="fas fa-lock"></i>
-                </span>
-            </p>
-        </div>
-        <div class="field">
-            <p class="control has-text-centered">
-                <button class="button is-success" @click="login">
-                    Login
-                </button>
-            </p>
-        </div>
-        <div v-show="loginResult != null" class="box">
-            {{ loginResult }}
-        </div>
-        <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">{{ loadingMessage }}</span></div>
+        <div class="box has-margin-left-100 has-margin-right-100">
+            <h5 class="subtitle is-5">Please Login</h5>
+            <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="email" v-model="user.email" placeholder="Email" @keyup.enter="focusPassword">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control has-icons-left">
+                    <input class="input" ref="password" type="password" v-model="user.password" placeholder="Password" @keyup.enter="login">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control has-text-centered">
+                    <button class="button is-success" @click="login">
+                        Login
+                    </button>
+                </p>
+            </div>
+            <div v-show="loginResult != null" class="box">
+                {{ loginResult }}
+            </div>
+            <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">{{ loadingMessage }}</span></div>
 
+        </div>
     </div>
 </template>
 
@@ -103,5 +108,13 @@ li {
 }
 a {
   color: #42b983;
+}
+.logo > img {
+  /*text-align: center;*/
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 150px;
+  margin-bottom: 100px;
 }
 </style>
