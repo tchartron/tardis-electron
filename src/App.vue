@@ -14,6 +14,7 @@ export default {
 </script>
 
 <style>
+.test
 /*@import '~bulma/css/bulma.css';*/
 .app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
