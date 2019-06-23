@@ -86,6 +86,9 @@
                     <button class="button is-dark is-medium has-margin-left-10" @click="stopWatch" v-show="isWatching">
                         Stop watching
                     </button>
+                    <button class="button is-black is-large has-margin-left-10" @click="totalTimeSpent">
+                        Debug button
+                    </button>
                 </p>
             </div>
             <div class="box watcher-output" v-if="watcherData.length > 0">
@@ -111,6 +114,7 @@
 // import chokidar from 'chokidar'
     // const ipc = require('electron').ipcRenderer
 import BackendService from './../services/backend-service'
+const differenceInSeconds = require('date-fns/difference_in_seconds')
 
 export default {
     name: 'Watch',
@@ -129,7 +133,8 @@ export default {
             taskDetails: '',
             showTaskDetails: false,
             loadingMessage: String,
-            isWatching: false
+            isWatching: false,
+            timers: []
         }
     },
     methods: {
@@ -152,7 +157,7 @@ export default {
             let backend = new BackendService();
             backend.getGroups(this.api.access_token)
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 this.groups = response.data
                 this.isLoading = false
             }, (error) => {
@@ -179,7 +184,7 @@ export default {
             let backend = new BackendService();
             backend.getTask(this.api.access_token, this.selectedGroup, this.selectedTask)
             .then((response) => {
-                console.log(response.data[0])
+                // console.log(response.data[0])
                 this.taskDetails = response.data[0]
                 // this.isLoading = false;
                 this.getTaskTimers();
@@ -195,11 +200,37 @@ export default {
             let backend = new BackendService();
             backend.getTaskTimers(this.api.access_token, this.selectedGroup, this.selectedTask)
             .then((response) => {
-                console.log(response.data)
+                console.log(typeof(response.data))
+                this.timers = response.data
+                console.log(this.timers)
                 this.isLoading = false
             }, (error) => {
                 console.log(error)
             })
+        },
+        totalTimeSpent() {
+            let totalTime = 0
+            if(this.timers.length > 0) {
+                console.log(typeof(this.timers))
+                this.timers.map((timer) => {
+                    // console.log(timer)
+                    console.log(timer.finished_at);
+                    let finishedAt = new Date(timer.finished_at)
+                    let createdAt = new Date(timer.created_at)
+                    totalTime += differenceInSeconds(finishedAt, createdAt)
+                })
+                // this.timers.forEach((timer, index) => {
+                // console.log(timer)
+                //     let finishedAt = new Date(timer.finished_at)
+                //     let createdAt = new Date(timer.created_at)
+                //     let diff = differenceInSeconds(finishedAt, createdAt)
+                //     totalTime += diff;
+                // })
+                console.log(totalTime)
+                return totalTime;
+            } else {
+                return "No timer found";
+            }
         }
     },
     mounted() {
