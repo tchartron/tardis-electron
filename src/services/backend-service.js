@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 // const apiAdress = "http://192.168.0.24";
-const apiAdress = "http://127.0.0.1";
+const apiAdress = "http://127.0.0.1:8181";
 const apiSuffix = "/api";
 const apiUrl = apiAdress + apiSuffix;
     // var headers = {
