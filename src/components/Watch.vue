@@ -133,8 +133,7 @@ export default {
             taskDetails: '',
             showTaskDetails: false,
             loadingMessage: String,
-            isWatching: false,
-            timers: []
+            isWatching: false
         }
     },
     methods: {
@@ -184,52 +183,44 @@ export default {
             let backend = new BackendService();
             backend.getTask(this.api.access_token, this.selectedGroup, this.selectedTask)
             .then((response) => {
-                // console.log(response.data[0])
-                this.taskDetails = response.data[0]
-                // this.isLoading = false;
-                this.getTaskTimers();
+                this.taskDetails = response.data
+                this.isLoading = false;
+                // this.getTaskTimers();
                 this.showTaskDetails = true;
             }, (error) => {
                 console.log(error)
                 this.isLoading = false;
             })
         },
-        getTaskTimers() {
-            this.isLoading = true
-            this.loadingMessage = "Fetching task and user stats ..."
-            let backend = new BackendService();
-            backend.getTaskTimers(this.api.access_token, this.selectedGroup, this.selectedTask)
-            .then((response) => {
-                console.log(typeof(response.data))
-                this.timers = response.data
-                console.log(this.timers)
-                this.isLoading = false
-            }, (error) => {
-                console.log(error)
-            })
-        },
+        // getTaskTimers() {
+        //     this.isLoading = true
+        //     this.loadingMessage = "Fetching task and user stats ..."
+
+        //     // let backend = new BackendService();
+        //     // backend.getTaskTimers(this.api.access_token, this.selectedGroup, this.selectedTask)
+        //     // .then((response) => {
+        //     //     this.timers = response.data
+        //     //     this.isLoading = false
+        //     // }, (error) => {
+        //     //     console.log(error)
+        //     // })
+        // },
         totalTimeSpent() {
             let totalTime = 0
-            if(this.timers.length > 0) {
-                console.log(typeof(this.timers))
-                this.timers.map((timer) => {
-                    // console.log(timer)
+            if(this.taskDetails.timers.length > 0) {
+                this.taskDetails.timers.map((timer) => {
+                    console.log(timer)
                     console.log(timer.finished_at);
                     let finishedAt = new Date(timer.finished_at)
                     let createdAt = new Date(timer.created_at)
+                    console.log(finishedAt)
+                    console.log(createdAt)
+                    console.log(differenceInSeconds(finishedAt, createdAt))
                     totalTime += differenceInSeconds(finishedAt, createdAt)
                 })
-                // this.timers.forEach((timer, index) => {
-                // console.log(timer)
-                //     let finishedAt = new Date(timer.finished_at)
-                //     let createdAt = new Date(timer.created_at)
-                //     let diff = differenceInSeconds(finishedAt, createdAt)
-                //     totalTime += diff;
-                // })
-                console.log(totalTime)
                 return totalTime;
             } else {
-                return "No timer found";
+                return 0;
             }
         }
     },
