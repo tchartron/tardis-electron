@@ -89,9 +89,6 @@
                     <button class="button is-dark is-medium has-margin-left-10" @click="stopWatch" v-show="isWatching">
                         Stop watching
                     </button>
-                    <button class="button is-black is-large has-margin-left-10" @click="totalTimeSpent">
-                        Debug button
-                    </button>
                 </p>
             </div>
             <div class="box watcher-output" v-if="watcherData.length > 0">
@@ -188,39 +185,22 @@ export default {
             backend.getTask(this.api.access_token, this.selectedGroup, this.selectedTask)
             .then((response) => {
                 this.taskDetails = response.data
-                this.isLoading = false;
-                // this.getTaskTimers();
+                // this.isLoading = false;
+                this.taskStatistics();
                 this.showTaskDetails = true;
             }, (error) => {
                 console.log(error)
                 this.isLoading = false;
             })
         },
-        // getTaskTimers() {
-        //     this.isLoading = true
-        //     this.loadingMessage = "Fetching task and user stats ..."
-
-        //     // let backend = new BackendService();
-        //     // backend.getTaskTimers(this.api.access_token, this.selectedGroup, this.selectedTask)
-        //     // .then((response) => {
-        //     //     this.timers = response.data
-        //     //     this.isLoading = false
-        //     // }, (error) => {
-        //     //     console.log(error)
-        //     // })
-        // },
-        totalTimeSpent() {
+        taskStatistics() {
+            this.loadingMessage = "Fetching task and user stats ...";
             let totalTime = 0
             let userTime = 0
             if(this.taskDetails.timers.length > 0) {
                 this.taskDetails.timers.map((timer) => {
-                    // console.log(timer)
-                    // console.log(timer.finished_at);
                     let finishedAt = new Date(timer.finished_at)
                     let createdAt = new Date(timer.created_at)
-                    // console.log(finishedAt)
-                    // console.log(createdAt)
-                    // console.log(differenceInSeconds(finishedAt, createdAt))
                     totalTime += differenceInSeconds(finishedAt, createdAt)
                     if(timer.user_id == this.user.id) {
                         userTime += differenceInSeconds(finishedAt, createdAt)
@@ -231,11 +211,9 @@ export default {
                     "userTime": this.toTimeString(userTime),
                     "timersNumber": this.taskDetails.timers.length
                 }
-                //@TODO : Convertir les seconds en heure minutes et secondes
-                return this.taskSummary;
-            } else {
-                return 0;
             }
+            this.isLoading = false
+            return this.taskSummary;
         },
         toTimeString(secondsTotal) {
             let sec_num = parseInt(secondsTotal, 10); // don't forget the second param
@@ -246,7 +224,7 @@ export default {
             if (hours < 10) {hours = "0" + hours;}
             if (minutes < 10) {minutes = "0" + minutes;}
             if (seconds < 10) {seconds = "0" + seconds;}
-            return hours + ':' + minutes + ':' + seconds;
+            return hours + 'h' + minutes + 'm' + seconds;
         }
     },
     mounted() {
