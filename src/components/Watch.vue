@@ -67,8 +67,11 @@
                     </div>
                 </div>
                 <div class="column">
-                    <div class="box" v-if="taskDetails != ''">
+                    <div class="box" v-if="taskSummary != null">
                         <p class="underline">Task summary :</p>
+                        <p class="">Total time spent {{ taskSummary.totalTime }}</p>
+                        <p class="">Your time spent {{ taskSummary.userTime }}</p>
+                        <p class="">Total timers {{ taskSummary.timersNumber }}</p>
                     </div>
                 </div>
             </div>
@@ -133,7 +136,8 @@ export default {
             taskDetails: '',
             showTaskDetails: false,
             loadingMessage: String,
-            isWatching: false
+            isWatching: false,
+            taskSummary: null
         }
     },
     methods: {
@@ -207,21 +211,42 @@ export default {
         // },
         totalTimeSpent() {
             let totalTime = 0
+            let userTime = 0
             if(this.taskDetails.timers.length > 0) {
                 this.taskDetails.timers.map((timer) => {
-                    console.log(timer)
-                    console.log(timer.finished_at);
+                    // console.log(timer)
+                    // console.log(timer.finished_at);
                     let finishedAt = new Date(timer.finished_at)
                     let createdAt = new Date(timer.created_at)
-                    console.log(finishedAt)
-                    console.log(createdAt)
-                    console.log(differenceInSeconds(finishedAt, createdAt))
+                    // console.log(finishedAt)
+                    // console.log(createdAt)
+                    // console.log(differenceInSeconds(finishedAt, createdAt))
                     totalTime += differenceInSeconds(finishedAt, createdAt)
+                    if(timer.user_id == this.user.id) {
+                        userTime += differenceInSeconds(finishedAt, createdAt)
+                    }
                 })
-                return totalTime;
+                this.taskSummary = {
+                    "totalTime": this.toTimeString(totalTime),
+                    "userTime": this.toTimeString(userTime),
+                    "timersNumber": this.taskDetails.timers.length
+                }
+                //@TODO : Convertir les seconds en heure minutes et secondes
+                return this.taskSummary;
             } else {
                 return 0;
             }
+        },
+        toTimeString(secondsTotal) {
+            let sec_num = parseInt(secondsTotal, 10); // don't forget the second param
+            let hours   = Math.floor(sec_num / 3600);
+            let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+            let seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+            if (hours < 10) {hours = "0" + hours;}
+            if (minutes < 10) {minutes = "0" + minutes;}
+            if (seconds < 10) {seconds = "0" + seconds;}
+            return hours + ':' + minutes + ':' + seconds;
         }
     },
     mounted() {
