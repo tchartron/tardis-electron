@@ -16,6 +16,7 @@
     "bulma": "^0.7.5",
     "bulma-helpers": "^0.3.8",
     "bulma-pageloader": "^2.1.0",
+    "bulma-toast": "^1.5.1",
     "chokidar": "^3.0.1",
     "core-js": "^2.6.5",
     "date-fns": "^1.30.1",
