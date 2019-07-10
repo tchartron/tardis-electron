@@ -70,6 +70,7 @@ export default {
             .then((response) => {
                 // console.log(response);
                 this.api = response.data
+                // console.log(response.data)
                 this.loadingMessage = "Token received, Retrieving your user informations";
                 backend.getUser(this.api.access_token).then((response) => {
                     this.user = response.data;
@@ -81,6 +82,7 @@ export default {
                 });
             }, (error) => {
                 console.log(error);
+                this.isLoading = false;
                 this.loginResult = error;
             });
             return false;
