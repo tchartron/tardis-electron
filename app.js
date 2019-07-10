@@ -72,11 +72,23 @@ app.on('activate', () => {
     }
 })
 
+function contains(target, pattern){
+    var value = 0;
+    pattern.forEach((word) => {
+      value += target.includes(word);
+    });
+    return (value === 1)
+}
+
+let ignoredPaths = [
+    'node_modules',
+    'vendor'
+]
 // let hasPath = false;
 ipcMain.on('ping', (eventIpc, data) => {
     // console.log('ping received')
     this.watcher = chokidar.watch(data, {
-          ignored: /(^|[\/\\])\../,
+          ignored: (path) => contains(path, ignoredPaths),
           persistent: true
       });
 
