@@ -90,6 +90,8 @@
                         Stop watching
                     </button>
                 </p>
+                <p>Idle Time</p>
+                <progress class="progress is-medium has-margin-top-20" :value="idleTime" max="30"></progress>
             </div>
             <div class="box watcher-output" v-if="watcherData.length > 0">
                 <div class="notification is-warning" v-for="data in watcherData">
@@ -115,6 +117,7 @@
     // const ipc = require('electron').ipcRenderer
 import BackendService from './../services/backend-service'
 const differenceInSeconds = require('date-fns/difference_in_seconds')
+import * as bulmaToast from "bulma-toast";
 
 export default {
     name: 'Watch',
@@ -134,7 +137,10 @@ export default {
             showTaskDetails: false,
             loadingMessage: String,
             isWatching: false,
-            taskSummary: null
+            taskSummary: null,
+            currentTimer: null,
+            idleInterval: null,
+            idleTime: 0
         }
     },
     methods: {
@@ -144,11 +150,13 @@ export default {
         watch() {
             this.isWatching = !this.isWatching;
             this.$electron.ipcRenderer.send('ping', this.pathToWatch)
+            this.countIdle();
             // console.log(`${this.pathToWatch} sent from component`)
         },
         stopWatch() {
             this.isWatching = !this.isWatching;
             this.$electron.ipcRenderer.send('stop')
+            this.clearIdleInterval();
             // console.log('stop sent')
         },
         findGroups() {
@@ -225,11 +233,64 @@ export default {
             if (minutes < 10) {minutes = "0" + minutes;}
             if (seconds < 10) {seconds = "0" + seconds;}
             return hours + 'h' + minutes + 'm' + seconds;
+        },
+        startTimer() {
+            let backend = new BackendService();
+            backend.storeTimer(this.api.access_token, this.selectedGroup, this.selectedTask)
+            .then((response) => {
+                this.currentTimer = response.data.timer;
+                toast({
+                    message: "Timer started go to work",
+                    type: "is-success",
+                    dismissible: true,
+                    animate: { in: "fadeIn", out: "fadeOut" }
+                });
+            }, (error) => {
+                console.log(error)
+            })
+        },
+        stopTimer() {
+            let backend = new BackendService();
+            backend.updateTimer(this.api.access_token, this.selectedGroup, this.selectedTask, this.currentTimer.id)
+            .then((response) => {
+                this.currentTimer = null;
+                toast({
+                    message: "Timer stoped go to rest",
+                    type: "is-warning",
+                    dismissible: true,
+                    animate: { in: "fadeIn", out: "fadeOut" }
+                });
+            }, (error) => {
+                console.log(error)
+            })
+        },
+        countIdle() {
+            this.idleInterval = setInterval(() => {
+                this.idleTime++;
+                if(this.idleTime > 30) {
+                    this.clearIdleInterval();
+                }
+            }, 1000)
+        },
+        clearIdleInterval() {
+            if(this.idleInterval) {
+                clearInterval(this.idleInterval);
+                this.idleTime = 0;
+            }
+            if(this.currentTimer =! null) {
+                this.stopTimer();
+            }
         }
     },
     mounted() {
         this.$electron.ipcRenderer.on('pong', (event, data) => {
             this.watcherData.push(data)
+            //reset idleTime something just happened
+            this.idleTime = 0;
+            if(this.currentTimer === null) {
+                this.currentTimer = true; //to avoid creating thousand timers
+                this.startTimer();
+            }
         });
         //Populates the groups select
         this.findGroups();

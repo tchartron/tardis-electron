@@ -48,10 +48,22 @@ export default class BackendService {
             headers: {"Authorization": `Bearer ${token}`}
         })
     }
-    async getTaskTimers(token, companyId, taskId) {
-        await this.sleep(1000)
+    // async getTaskTimers(token, companyId, taskId) {
+    //     await this.sleep(1000)
+    //     let url = `${apiUrl}/companies/${companyId}/tasks/${taskId}/timers`;
+    //     return axios.get(url, {
+    //         headers: {"Authorization": `Bearer ${token}`}
+    //     })
+    // }
+    async storeTimer(token, companyId, taskId) {
         let url = `${apiUrl}/companies/${companyId}/tasks/${taskId}/timers`;
-        return axios.get(url, {
+        return axios.post(url, {}, {
+            headers: {"Authorization": `Bearer ${token}`}
+        })
+    }
+    async updateTimer(token, companyId, taskId, timerId) {
+        let url = `${apiUrl}/companies/${companyId}/tasks/${taskId}/timers/${timerId}`;
+        return axios.put(url, {}, {
             headers: {"Authorization": `Bearer ${token}`}
         })
     }
