@@ -255,15 +255,15 @@ export default {
             backend.storeTimer(this.api.access_token, this.selectedGroup, this.selectedTask)
             .then((response) => {
                 this.currentTimer.timer = response.data.timer;
-                console.log('start timer'+this.currentTimer);
-                toast({
+                // console.log('start timer'+this.currentTimer);
+                bulmaToast.toast({
                     message: "Timer started go to work",
                     type: "is-success",
                     dismissible: true,
-                    position: 'bottom-right',
+                    position: 'top-right',
                     animate: { in: "fadeIn", out: "fadeOut" }
                 });
-                console.log('start toast should be displayed')
+                // console.log('start toast should be displayed')
             }, (error) => {
                 console.log(error)
                 //reset path to watch attached to timer upon timer creation failure
@@ -280,14 +280,14 @@ export default {
                 //Also in the view
                 // this.pathToWatch = "";
                 this.currentTimer.timer = null;
-                console.log('stop timer'+this.currentTimer)
-                toast({
+                // console.log('stop timer'+this.currentTimer)
+                bulmaToast.toast({
                     message: "Timer stoped go to rest",
                     type: "is-warning",
                     dismissible: true,
                     animate: { in: "fadeIn", out: "fadeOut" }
                 });
-                console.log('stop toast should be displayed')
+                // console.log('stop toast should be displayed')
             }, (error) => {
                 console.log(error)
                 //cancel what has been done before send request because request failed and so

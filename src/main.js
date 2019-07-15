@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import routes from './services/routes'
 const electron = require('electron') // see vue.config.js
+// import * as bulmaToast from "bulma-toast";
 // const electron = window.require('electron')
 //why window.require ?
 /*
@@ -10,8 +11,10 @@ WIW, I ran into the same issue trying to use electron in the renderer process wi
 
 Edit: I figured out why :-) We want to require electron during runtime from the nodejs environment provided at the runtime rather than the nodejs environment used during compilation by webpack. By default, globals are bound to window and webpack compilation ignores the window global - hence window.require works.
  */
+// bulmaToast.setDoc(window.document);
 
 Vue.prototype.$electron = electron;
+// Vue.prototype.$bulmaToast = bulmaToast;
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
