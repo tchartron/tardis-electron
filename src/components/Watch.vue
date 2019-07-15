@@ -43,7 +43,7 @@
                             <div class="field">
                                 <div class="control">
                                     <div class="select is-fullwidth is-medium">
-                                        <select name="tasks" @change="getTaskDetails(true)" v-model="selectedTask">
+                                        <select name="tasks" @change="getTaskDetails(true)" v-model="selectedTask" :disabled="(selectedGroup === 0)">
                                             <option value="0">Pick a task</option>
                                             <option v-for="task in tasks" :value="task.id">{{ task.title }}</option>
                                         </select>
@@ -147,7 +147,7 @@ export default {
                 path: '',
                 timer: {}
             },
-            idleInterval: null,
+            idleInterval: false,
             idleTime: 0
         }
     },
@@ -279,7 +279,7 @@ export default {
             .then((response) => {
                 //Also in the view
                 // this.pathToWatch = "";
-                this.currentTimer.timer = {};
+                this.currentTimer.timer = null;
                 console.log('stop timer'+this.currentTimer)
                 toast({
                     message: "Timer stoped go to rest",
@@ -308,6 +308,7 @@ export default {
             if(this.idleInterval) {
                 clearInterval(this.idleInterval);
                 this.idleTime = 0;
+                this.idleInterval = false;
             }
             if(stopped === true) {
                 //Reset both path to watch and path beeing watched
@@ -317,9 +318,9 @@ export default {
                 //not explicitly stopped we just have oveflowed idleTime just stop timer keep on watching
                 this.currentTimer.path = "";
             }
-            // if(this.currentTimer.path === this.pathToWatch) {
-            this.stopTimer();
-            // }
+            if(this.currentTimer.timer != null) { //check if timer object exists
+                this.stopTimer();
+            }
         }
     },
     mounted() {
@@ -331,6 +332,9 @@ export default {
             //If timer already attached to path do nothing
             if(this.currentTimer.path !== this.pathToWatch) {
                 this.startTimer();
+                if(!this.idleInterval) {
+                    this.countIdle();
+                }
             }
 
         });
