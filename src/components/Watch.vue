@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <div class="box">
+        <div class="box has-margin-right-10 has-margin-left-10">
             <div class="columns is-mobile">
                 <div class="column is-two-thirds">
                     <div class="field is-horizontal">
@@ -25,7 +25,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <div class="control">
-                                    <div class="select is-fullwidth">
+                                    <div class="select is-fullwidth is-medium">
                                         <select name="groups" @change="findTasks()" v-model="selectedGroup">
                                             <option value="0">Please pick a group</option>
                                             <option v-for="group in groups" :value="group.id">{{ group.name }}</option>
@@ -42,7 +42,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <div class="control">
-                                    <div class="select is-fullwidth">
+                                    <div class="select is-fullwidth is-medium">
                                         <select name="tasks" @change="getTaskDetails(true)" v-model="selectedTask">
                                             <option value="0">Pick a task</option>
                                             <option v-for="task in tasks" :value="task.id">{{ task.title }}</option>
@@ -121,6 +121,8 @@
 import BackendService from './../services/backend-service'
 const differenceInSeconds = require('date-fns/difference_in_seconds')
 import * as bulmaToast from "bulma-toast";
+
+const MAX_IDLE_TIME = 30;
 
 export default {
     name: 'Watch',
@@ -297,7 +299,7 @@ export default {
         countIdle() {
             this.idleInterval = setInterval(() => {
                 this.idleTime++;
-                if(this.idleTime > 30) {
+                if(this.idleTime > MAX_IDLE_TIME) {
                     this.clearIdleInterval(false);
                 }
             }, 1000)
