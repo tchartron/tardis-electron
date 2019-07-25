@@ -19,6 +19,8 @@
 const { app, BrowserWindow } = require('electron')
 const ipcMain = require('electron').ipcMain
 const chokidar = require("chokidar")
+const touchBar = require("./src/services/touchbar")
+// import { touchBar } from './src/services/touchbar' // no webpack here so no import
 
 let win
 
@@ -27,8 +29,8 @@ function createWindow () {
         width: 1000,
         height: 700,
         webPreferences: {
-            webSecurity: false,
-            nodeIntegration: true
+            webSecurity: false, //for CORS
+            nodeIntegration: true //for require('electron') at runtime in renderer process (main.js)
         }
     })
 
@@ -58,7 +60,10 @@ function createWindow () {
     })
 }
 
-app.on('ready', createWindow)
+app.on('ready', () => {
+    createWindow()
+    win.setTouchBar(touchBar)
+})
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {

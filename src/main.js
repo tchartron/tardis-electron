@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import routes from './services/routes'
-const electron = require('electron') // see vue.config.js
+const electron = require('electron') // see vue.config.js and
 // import * as bulmaToast from "bulma-toast";
 // const electron = window.require('electron')
 //why window.require ?
