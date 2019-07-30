@@ -29,40 +29,40 @@ export default class BackendService {
     }
     async getGroups(token) {
         await this.sleep(1000)
-        let url = `${apiUrl}/companies`;
+        let url = `${apiUrl}/groups`;
         return axios.get(url, {
             headers: {"Authorization": `Bearer ${token}`}
         })
     }
     async getTasks(token, groupId) {
         await this.sleep(1000)
-        let url = `${apiUrl}/companies/${groupId}/tasks`;
+        let url = `${apiUrl}/groups/${groupId}/tasks`;
         return axios.get(url, {
             headers: {"Authorization": `Bearer ${token}`}
         })
     }
-    async getTask(token, companyId, taskId) {
+    async getTask(token, groupId, taskId) {
         await this.sleep(1000)
-        let url = `${apiUrl}/companies/${companyId}/tasks/${taskId}`;
+        let url = `${apiUrl}/groups/${groupId}/tasks/${taskId}`;
         return axios.get(url, {
             headers: {"Authorization": `Bearer ${token}`}
         })
     }
-    // async getTaskTimers(token, companyId, taskId) {
+    // async getTaskTimers(token, groupId, taskId) {
     //     await this.sleep(1000)
-    //     let url = `${apiUrl}/companies/${companyId}/tasks/${taskId}/timers`;
+    //     let url = `${apiUrl}/groups/${groupId}/tasks/${taskId}/timers`;
     //     return axios.get(url, {
     //         headers: {"Authorization": `Bearer ${token}`}
     //     })
     // }
-    async storeTimer(token, companyId, taskId) {
-        let url = `${apiUrl}/companies/${companyId}/tasks/${taskId}/timers`;
+    async storeTimer(token, groupId, taskId) {
+        let url = `${apiUrl}/groups/${groupId}/tasks/${taskId}/timers`;
         return axios.post(url, {}, {
             headers: {"Authorization": `Bearer ${token}`}
         })
     }
-    async updateTimer(token, companyId, taskId, timerId) {
-        let url = `${apiUrl}/companies/${companyId}/tasks/${taskId}/timers/${timerId}`;
+    async updateTimer(token, groupId, taskId, timerId) {
+        let url = `${apiUrl}/groups/${groupId}/tasks/${taskId}/timers/${timerId}`;
         return axios.put(url, {}, {
             headers: {"Authorization": `Bearer ${token}`}
         })
