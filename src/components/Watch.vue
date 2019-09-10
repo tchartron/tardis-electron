@@ -171,6 +171,7 @@ export default {
         },
         findGroups() {
             this.isLoading = true
+            this.groups = [];
             this.loadingMessage = "Loading Tardis groups ...";
             let backend = new BackendService();
             backend.getGroups(this.api.access_token)
@@ -186,20 +187,20 @@ export default {
                 this.isLoading = false;
             });
             //Get groups from gitlab also
-            this.loadingMessage = "Loading Gitlab groups ...";
-            let gitlabBackend = new GitlabService();
-            gitlabBackend.getGroups(this.api.access_token)
-            .then((response) => {
-                // console.log(response.data)
-                for (var value of response.data) {
-                    // console.log(value);
-                    this.groups.push(value)
-                }
-                this.isLoading = false
-            }, (error) => {
-                console.log(error)
-                this.isLoading = false;
-            });
+            // this.loadingMessage = "Fetching Gitlab groups ...";
+            // let gitlabBackend = new GitlabService();
+            // gitlabBackend.getGroups(this.api.access_token)
+            // .then((response) => {
+            //     // console.log(response.data)
+            //     //for (var value of response.data) {
+            //         // console.log(value);
+            //         //this.groups.push(value)
+            //     //}
+            //     this.isLoading = false
+            // }, (error) => {
+            //     console.log(error)
+            //     this.isLoading = false;
+            // });
         },
         findTasks() {
             this.isLoading = true
@@ -208,17 +209,7 @@ export default {
             let backend = new BackendService();
             backend.getTasks(this.api.access_token, this.selectedGroup)
             .then((response) => {
-                this.tasks.push(response.data)
-                this.isLoading = false
-            }, (error) => {
-                console.log(error)
-                this.isLoading = false;
-            });
-            //Get issues from gitlab also
-            this.loadingMessage = "Loading Gitlab issues for this group ...";
-            let gitlabBackend = new GitlabService();
-            gitlabBackend.getGroupsIssues(this.api.access_token, this.selectedGroup)
-            .then((response) => {
+                // console.log(response.data)
                 for (var value of response.data) {
                     // console.log(value);
                     this.tasks.push(value)
@@ -228,6 +219,20 @@ export default {
                 console.log(error)
                 this.isLoading = false;
             });
+            //Get issues from gitlab also
+            // this.loadingMessage = "Fetching Gitlab issues for this group ...";
+            // let gitlabBackend = new GitlabService();
+            // gitlabBackend.getGroupsIssues(this.api.access_token, this.selectedGroup)
+            // .then((response) => {
+            //     // for (var value of response.data) {
+            //         // console.log(value);
+            //         // this.tasks.push(value)
+            //     // }
+            //     this.isLoading = false
+            // }, (error) => {
+            //     console.log(error)
+            //     this.isLoading = false;
+            // });
         },
         getTaskDetails(details) {
             this.isLoading = true
