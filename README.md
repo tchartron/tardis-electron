@@ -25,3 +25,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [ ] Add a task management component (select group and then task listing) to show / delete / edit and create tasks for a group
 - [ ] Add a parameters component to edit timer behaviour (idle time, ..)
 - [ ] Add touchbar buttons for Mac users
+- [ ] Refactor app to stop repeating things in templates
