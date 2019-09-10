@@ -52,19 +52,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="box" v-show="showTaskDetails">
-                        <div class="notification">
-                          <button class="delete" @click="hideDetails"></button>
-                          <p class="underline">Task Details :</p>
-                          <p>Id : {{ taskDetails.id }}</p>
-                          <p>Company Id : {{ taskDetails.company_id }}</p>
-                          <p>Title : {{ taskDetails.title }}</p>
-                          <p>Description : {{ taskDetails.description }}</p>
-                          <p>Completed : {{ (taskDetails.completed) ? 'Yes' : 'No' }}</p>
-                          <p>Created : {{ taskDetails.created_at }}</p>
-                          <p>Updated : {{ taskDetails.updated_at }}</p>
-                        </div>
-                    </div>
                 </div>
                 <div class="column">
                     <div class="box" v-if="taskSummary != null">
@@ -75,6 +62,21 @@
                         <button class="button is-warning is-small has-margin-top-10" @click="getTaskDetails(false)">
                             Refresh
                         </button>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="box" v-show="showTaskDetails">
+                    <div class="notification">
+                      <button class="delete" @click="hideDetails"></button>
+                      <p class="underline">Task Details :</p>
+                      <p><span class="bold underline">Id :</span> {{ taskDetails.id }}</p>
+                      <p><span class="bold underline">Company Id :</span> {{ taskDetails.company_id }}</p>
+                      <p><span class="bold underline">Title :</span> {{ taskDetails.title }}</p>
+                      <p><span class="bold underline">Description :</span> {{ taskDetails.description }}</p>
+                      <p><span class="bold underline">Completed :</span> {{ (taskDetails.completed) ? 'Yes' : 'No' }}</p>
+                      <p><span class="bold underline">Created :</span> {{ taskDetails.created_at }}</p>
+                      <p><span class="bold underline">Updated :</span> {{ taskDetails.updated_at }}</p>
                     </div>
                 </div>
             </div>
