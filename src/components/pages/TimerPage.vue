@@ -48,13 +48,14 @@
         <!-- /////// PAGE LOADER \\\\\\\ -->
         <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">{{ loadingMessage }}</span></div>
         <!-- /////// FOOTER \\\\\\\ -->
-
+        <Footer :api="api" />
 
     </div>
 </template>
 
 <script>
 import Header from './../layout/Header.vue';
+import Footer from './../layout/Footer.vue';
 
 export default {
     name: 'TimerPage',
@@ -65,7 +66,8 @@ export default {
         }
     },
     components: {
-        Header
+        Header,
+        Footer
     },
     methods: {
         navigate(dest) {
