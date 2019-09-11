@@ -56,6 +56,7 @@
 <script>
 import Header from '@/components/layout/Header.vue';
 import Footer from '@/components/layout/Footer.vue';
+import Group from '@/components/ui/Group.vue';
 
 export default {
     name: 'TimerPage',
@@ -67,7 +68,8 @@ export default {
     },
     components: {
         Header,
-        Footer
+        Footer,
+        Group
     },
     methods: {
         navigate(dest) {

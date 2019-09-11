@@ -17,3 +17,40 @@
         </div>
     </div>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+    name: 'Group',
+    data() {
+        return {}
+    },
+    methods: {
+        findGroups() {
+            this.isLoading = true
+            this.groups = [];
+            this.loadingMessage = "Loading Tardis groups ...";
+            let backend = new BackendService();
+            backend.getGroups(this.api.access_token)
+            .then((response) => {
+                // console.log(response.data)
+                for (var value of response.data) {
+                    // console.log(value);
+                    this.groups.push(value)
+                }
+                this.isLoading = false
+            }, (error) => {
+                console.log(error)
+                this.isLoading = false;
+            });
+        }
+    },
+    computed: {
+        ...mapState(['groups']),
+    },
+    mounted() {
+        this.findGroups();
+    }
+};
+</script>

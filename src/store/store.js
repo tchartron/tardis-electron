@@ -4,19 +4,24 @@ import Vue from 'vue'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-    totalTvCount: 10 // The TV inventory
-  },
+    state: {
+        groups: []
+    },
 
-  getters: {
-    // Here we will create a getter
-  },
+    getters: {
+    },
 
-  mutations: {
-    // Here we will create Jenny
-  },
+    mutations: {
+        addGroup(state, group) {
+            state.groups.push(group)
+        }
+    },
 
-  actions: {
-    // Here we will create Larry
-  }
+    actions: {
+        addGroup(context, group) {
+            if(!context.state.groups.includes(group)) {
+                context.commit('addGroup', group)
+            }
+        }
+    }
 });
