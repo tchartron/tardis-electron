@@ -15,6 +15,28 @@
                 </div>
             </div>
         </div>
+        <div class="tabs is-centered is-boxed is-medium">
+            <ul>
+                <li class="is-active">
+                    <a>
+                        <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
+                        <span>Watch</span>
+                    </a>
+                </li>
+                <li>
+                    <a @click="navigate('clock')">
+                        <span class="icon is-small"><i class="fas fa-music" aria-hidden="true"></i></span>
+                        <span>Clock</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span class="icon is-small"><i class="fas fa-film" aria-hidden="true"></i></span>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
         <div class="box has-margin-right-10 has-margin-left-10">
             <div class="columns is-mobile">
                 <div class="column is-two-thirds">
@@ -362,6 +384,9 @@ export default {
             if(this.currentTimer.timer != null) { //check if timer object exists
                 this.stopTimer();
             }
+        },
+         navigate(dest) {
+            this.$router.push({ name: dest, params:{ user: this.user, api: this.api }})
         }
     },
     mounted() {
