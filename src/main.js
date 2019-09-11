@@ -2,7 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import routes from './services/routes'
-const electron = require('electron') // see vue.config.js and
+import store from './store/store'
+
+const electron = require('electron') // see vue.config.js we import electron in renderer process to attach it prototype and access it in watch to emit event to main process of electron : this.$electron.ipcRenderer.send('ping', this.pathToWatch)
+
 // import * as bulmaToast from "bulma-toast";
 // const electron = window.require('electron')
 //why window.require ?
@@ -22,6 +25,7 @@ Vue.use(VueRouter);
 require('./styles/main.scss'); //Main css importing bulma => this will match webpack regex test : /\.scss$/
 
 new Vue({
+    store,
     router: new VueRouter(routes),
     render: h => h(App),
 }).$mount('#app')
