@@ -5,6 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        isLoading: false,
+        loadingMessage: String,
         groups: []
     },
 
@@ -14,6 +16,12 @@ export default new Vuex.Store({
     mutations: {
         addGroup(state, group) {
             state.groups.push(group)
+        },
+        loading(state, value) {
+            state.isLoading = value
+        },
+        loadingMessage(state, message) {
+            state.loadingMessage = message
         }
     },
 

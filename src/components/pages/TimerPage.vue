@@ -63,7 +63,7 @@ export default {
     props: ['user', 'api'],
     data() {
         return {
-            loadingMessage: String
+            // loadingMessage: String
         }
     },
     components: {
@@ -74,6 +74,14 @@ export default {
     methods: {
         navigate(dest) {
             this.$router.push({ name: dest, params:{ user: this.user, api: this.api }})
+        }
+    },
+    computed: {
+        loadingMessage() {
+            return this.$store.state.loadingMessage
+        },
+        isLoading() {
+            return this.$store.state.loading
         }
     },
     mounted() {

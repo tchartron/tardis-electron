@@ -28,21 +28,26 @@ export default {
     },
     methods: {
         findGroups() {
-            this.isLoading = true
-            this.groups = [];
-            this.loadingMessage = "Loading Tardis groups ...";
+            // this.isLoading = true
+            this.$store.commit('loading', true)
+            // this.groups = [];
+            // this.loadingMessage = "Loading Tardis groups ...";
+            this.$store.commit('loadingMessage', 'Loading Tardis groups ...')
             let backend = new BackendService();
             backend.getGroups(this.api.access_token)
             .then((response) => {
                 // console.log(response.data)
                 for (var value of response.data) {
                     // console.log(value);
-                    this.groups.push(value)
+                    // this.groups.push(value)
+                    this.$store.dispatch('addGroup', value)
                 }
-                this.isLoading = false
+                // this.isLoading = false
+                this.$store.commit('loading', false)
             }, (error) => {
                 console.log(error)
-                this.isLoading = false;
+                // this.isLoading = false;
+                this.$store.commit('loading', false)
             });
         }
     },
