@@ -75,7 +75,7 @@ export default {
                 backend.getUser(this.api.access_token).then((response) => {
                     this.user = response.data;
                     // this.isLoading = false //Upon login we switch to watch view and load group so keep loader visible
-                    this.$router.push({ name: 'watch', params:{ user: this.user, api: this.api }})
+                    this.$router.push({ name: 'timer-page', params:{ user: this.user, api: this.api }})
                 }, (error) => {
                     console.log(error)
                     this.loginResult = error;
