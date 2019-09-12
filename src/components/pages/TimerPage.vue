@@ -23,7 +23,7 @@
         <div class="columns is-mobile">
             <div class="column is-two-thirds">
                 <!-- /////// GROUP COMPONENT \\\\\\\ -->
-
+                <Group />
                 <!-- /////// TASK COMPONENT \\\\\\\ -->
 
             </div>
@@ -60,7 +60,7 @@ import Group from '@/components/ui/Group.vue';
 
 export default {
     name: 'TimerPage',
-    props: ['user', 'api'],
+    // props: ['user', 'api'],
     data() {
         return {
             // loadingMessage: String
@@ -81,7 +81,7 @@ export default {
             return this.$store.state.loadingMessage
         },
         isLoading() {
-            return this.$store.state.loading
+            return this.$store.state.isLoading
         }
     },
     mounted() {

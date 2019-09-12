@@ -7,7 +7,7 @@
             <div class="field">
                 <div class="control">
                     <div class="select is-fullwidth is-medium">
-                        <select name="groups" @change="findTasks()" v-model="selectedGroup">
+                        <select name="groups" @change="findTasks()" v-model="selectedGroupId">
                             <option value="0">Please pick a group</option>
                             <option v-for="group in groups" :value="group.id">{{ group.name }}</option>
                         </select>
@@ -20,6 +20,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import BackendService from '@/services/backend-service'
 
 export default {
     name: 'Group',
@@ -29,7 +30,7 @@ export default {
     methods: {
         findGroups() {
             // this.isLoading = true
-            this.$store.commit('loading', true)
+            this.$store.commit('isLoading', true)
             // this.groups = [];
             // this.loadingMessage = "Loading Tardis groups ...";
             this.$store.commit('loadingMessage', 'Loading Tardis groups ...')
@@ -43,16 +44,27 @@ export default {
                     this.$store.dispatch('addGroup', value)
                 }
                 // this.isLoading = false
-                this.$store.commit('loading', false)
+                this.$store.commit('isLoading', false)
             }, (error) => {
                 console.log(error)
                 // this.isLoading = false;
-                this.$store.commit('loading', false)
+                this.$store.commit('isLoading', false)
             });
         }
     },
     computed: {
-        ...mapState(['groups']),
+        // ...mapState(['groups']),
+        selectedGroupId: {
+            get() {
+                return this.$store.selectedGroupId
+            },
+            set(value) {
+                this.$store.commit('selectedGroupId', value)
+            }
+        },
+        groups() {
+            return this.$store.groups
+        }
     },
     mounted() {
         this.findGroups();

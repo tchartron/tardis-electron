@@ -47,35 +47,72 @@ export default {
     name: 'Login',
     data() {
         return {
-            user: {
-                email: "thomas.chartron@gmail.com",
-                password: "thomasthomas",
-            },
+            // user: {
+            //     email: "thomas.chartron@gmail.com",
+            //     password: "thomasthomas",
+            // },
             loginResult: null,
-            api: {
-                access_token: String,
-                token_type: String,
-                expires_in: String
-            },
+            // api: {
+            //     access_token: String,
+            //     token_type: String,
+            //     expires_in: String
+            // },
             isLoading: false,
             loadingMessage: String
         }
+    },
+    computed: {
+        api: {
+            get() {
+                return this.$store.state.api
+            },
+            set(value) {
+                this.$store.commit('api', value)
+            }
+        },
+        user: {
+            get() {
+                return this.$store.state.user
+            },
+            set(value) {
+                this.$store.commit('user', value)
+            }
+        }
+        // email: {
+        //     get() {
+        //         return this.$store.state.user.email
+        //     },
+        //     set(value) {
+        //         this.$store.commit('updateEmail', value)
+        //     }
+        // },
+        // password: {
+        //     get() {
+        //         return this.$store.state.user.password
+        //     },
+        //     set(value) {
+        //         this.$store.commit('updatePassword', value)
+        //     }
+        // }
     },
     methods: {
         login() {
             this.isLoading = true
             this.loadingMessage = "Authenticating from API ...";
             let backend = new BackendService();
-            backend.login(this.user)
+            backend.login(this.$store.state.user)
             .then((response) => {
                 // console.log(response);
-                this.api = response.data
+                // this.api = response.data
+                this.$store.commit('api', response.data)
                 // console.log(response.data)
                 this.loadingMessage = "Token received, Retrieving your user informations";
-                backend.getUser(this.api.access_token).then((response) => {
-                    this.user = response.data;
+                backend.getUser(this.$store.state.api).then((response) => {
+                    // this.user = response.data;
+                    this.$store.commit('user', response.data)
                     // this.isLoading = false //Upon login we switch to watch view and load group so keep loader visible
-                    this.$router.push({ name: 'timer-page', params:{ user: this.user, api: this.api }})
+                    // this.$router.push({ name: 'timer-page', params:{ user: this.user, api: this.api }}) //we no store everything in vuex
+                    this.$router.push({ name: 'timer-page'})
                 }, (error) => {
                     console.log(error)
                     this.loginResult = error;

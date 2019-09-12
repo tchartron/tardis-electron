@@ -19,12 +19,12 @@ export default class BackendService {
             password: user.password
         });
     }
-    async getUser(token) {
+    async getUser(api) {
         // await this.sleep(1000)
         let url = `${apiUrl}/me`;
         // console.log(token)
         return axios.post(url, {}, {
-            headers: {"Authorization": `Bearer ${token}`}
+            headers: {"Authorization": `Bearer ${api.access_token}`}
         });
     }
     async getGroups(token) {
