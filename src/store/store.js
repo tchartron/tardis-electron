@@ -39,7 +39,8 @@ export default new Vuex.Store({
 
     actions: {
         addGroup(context, group) {
-            if(!context.state.groups.includes(group)) {
+            console.log(group)
+            if(!context.state.groups.some(e => e.name === group.name)) {
                 context.commit('addGroup', group)
             }
         }

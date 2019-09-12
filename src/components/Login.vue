@@ -57,8 +57,8 @@ export default {
             //     token_type: String,
             //     expires_in: String
             // },
-            isLoading: false,
-            loadingMessage: String
+            // isLoading: false,
+            // loadingMessage: String
         }
     },
     computed: {
@@ -77,6 +77,12 @@ export default {
             set(value) {
                 this.$store.commit('user', value)
             }
+        },
+        isLoading() {
+            return this.$store.state.isLoading
+        },
+        loadingMessage() {
+            return this.$store.state.loadingMessage
         }
         // email: {
         //     get() {
@@ -97,8 +103,9 @@ export default {
     },
     methods: {
         login() {
-            this.isLoading = true
-            this.loadingMessage = "Authenticating from API ...";
+            this.$store.commit('isLoading', true)
+            // this.loadingMessage = "Authenticating from API ...";
+            this.$store.commit('loadingMessage', "Authenticating from API ...")
             let backend = new BackendService();
             backend.login(this.$store.state.user)
             .then((response) => {
@@ -106,7 +113,8 @@ export default {
                 // this.api = response.data
                 this.$store.commit('api', response.data)
                 // console.log(response.data)
-                this.loadingMessage = "Token received, Retrieving your user informations";
+                // this.loadingMessage = "Token received, Retrieving your user informations";
+                this.$store.commit('loadingMessage', "Token received, Retrieving your user informations")
                 backend.getUser(this.$store.state.api).then((response) => {
                     // this.user = response.data;
                     this.$store.commit('user', response.data)
@@ -119,7 +127,7 @@ export default {
                 });
             }, (error) => {
                 console.log(error);
-                this.isLoading = false;
+                this.$store.commit('isLoading', false)
                 this.loginResult = error;
             });
             return false;

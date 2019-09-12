@@ -35,7 +35,7 @@ export default {
             // this.loadingMessage = "Loading Tardis groups ...";
             this.$store.commit('loadingMessage', 'Loading Tardis groups ...')
             let backend = new BackendService();
-            backend.getGroups(this.api.access_token)
+            backend.getGroups(this.$store.state.api)
             .then((response) => {
                 // console.log(response.data)
                 for (var value of response.data) {
@@ -63,7 +63,7 @@ export default {
             }
         },
         groups() {
-            return this.$store.groups
+            return this.$store.state.groups
         }
     },
     mounted() {

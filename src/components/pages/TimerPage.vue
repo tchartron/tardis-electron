@@ -3,33 +3,35 @@
         <!-- /////// HEADER \\\\\\\ -->
         <Header :user="user" />
         <!-- /////// TABS NAVIGATION \\\\\\\ -->
-        <div class="tabs is-centered is-boxed is-medium">
-            <ul>
-                <li class="is-active">
-                    <a>
-                        <span class="icon is-small"><i class="fas fa-clock" aria-hidden="true"></i></span>
-                        <span>Timer</span>
-                    </a>
-                </li>
-                <li>
-                    <a @click="navigate('settings')">
-                        <span class="icon is-small"><i class="fas fa-cogs" aria-hidden="true"></i></span>
-                        <span>Settings</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="columns is-mobile">
-            <div class="column is-two-thirds">
-                <!-- /////// GROUP COMPONENT \\\\\\\ -->
-                <Group />
-                <!-- /////// TASK COMPONENT \\\\\\\ -->
-
+        <div class="box">
+            <div class="tabs is-centered is-boxed is-medium">
+                <ul>
+                    <li class="is-active">
+                        <a>
+                            <span class="icon is-small"><i class="fas fa-clock" aria-hidden="true"></i></span>
+                            <span>Timer</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a @click="navigate('settings')">
+                            <span class="icon is-small"><i class="fas fa-cogs" aria-hidden="true"></i></span>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <!-- /////// TASK SUMMARY COMPONENT \\\\\\\ -->
-            <div class="column">
 
+            <div class="columns is-mobile">
+                <div class="column is-two-thirds">
+                    <!-- /////// GROUP COMPONENT \\\\\\\ -->
+                    <Group />
+                    <!-- /////// TASK COMPONENT \\\\\\\ -->
+
+                </div>
+                <!-- /////// TASK SUMMARY COMPONENT \\\\\\\ -->
+                <div class="column">
+
+                </div>
             </div>
         </div>
         <!-- /////// TASK DESCRIPTION COMPONENT \\\\\\\ -->
@@ -73,7 +75,8 @@ export default {
     },
     methods: {
         navigate(dest) {
-            this.$router.push({ name: dest, params:{ user: this.user, api: this.api }})
+            // this.$router.push({ name: dest, params:{ user: this.user, api: this.api }})
+            this.$router.push({ name: dest})
         }
     },
     computed: {
@@ -82,6 +85,12 @@ export default {
         },
         isLoading() {
             return this.$store.state.isLoading
+        },
+        user() {
+            return this.$store.state.user
+        },
+        api() {
+            return this.$store.state.api
         }
     },
     mounted() {

@@ -27,25 +27,25 @@ export default class BackendService {
             headers: {"Authorization": `Bearer ${api.access_token}`}
         });
     }
-    async getGroups(token) {
+    async getGroups(api) {
         // await this.sleep(1000)
         let url = `${apiUrl}/groups`;
         return axios.get(url, {
-            headers: {"Authorization": `Bearer ${token}`}
+            headers: {"Authorization": `Bearer ${api.access_token}`}
         })
     }
-    async getTasks(token, groupId) {
+    async getTasks(api, groupId) {
         // await this.sleep(1000)
         let url = `${apiUrl}/groups/${groupId}/tasks`;
         return axios.get(url, {
-            headers: {"Authorization": `Bearer ${token}`}
+            headers: {"Authorization": `Bearer ${api.access_token}`}
         })
     }
-    async getTask(token, groupId, taskId) {
+    async getTask(api, groupId, taskId) {
         // await this.sleep(1000)
         let url = `${apiUrl}/groups/${groupId}/tasks/${taskId}`;
         return axios.get(url, {
-            headers: {"Authorization": `Bearer ${token}`}
+            headers: {"Authorization": `Bearer ${api.access_token}`}
         })
     }
     // async getTaskTimers(token, groupId, taskId) {
@@ -55,16 +55,16 @@ export default class BackendService {
     //         headers: {"Authorization": `Bearer ${token}`}
     //     })
     // }
-    async storeTimer(token, groupId, taskId) {
+    async storeTimer(api, groupId, taskId) {
         let url = `${apiUrl}/groups/${groupId}/tasks/${taskId}/timers`;
         return axios.post(url, {}, {
-            headers: {"Authorization": `Bearer ${token}`}
+            headers: {"Authorization": `Bearer ${api.access_token}`}
         })
     }
-    async updateTimer(token, groupId, taskId, timerId) {
+    async updateTimer(api, groupId, taskId, timerId) {
         let url = `${apiUrl}/groups/${groupId}/tasks/${taskId}/timers/${timerId}`;
         return axios.put(url, {}, {
-            headers: {"Authorization": `Bearer ${token}`}
+            headers: {"Authorization": `Bearer ${api.access_token}`}
         })
     }
 
