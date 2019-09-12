@@ -10,7 +10,9 @@ export default new Vuex.Store({
         isLoading: false,
         loadingMessage: String,
         groups: [],
-        selectedGroupId: Number
+        tasks: [],
+        selectedGroupId: Number,
+        selectedTaskId: Number
     },
 
     getters: {
@@ -26,6 +28,12 @@ export default new Vuex.Store({
         addGroup(state, group) {
             state.groups.push(group)
         },
+        addTask(state, task) {
+            state.tasks.push(task)
+        },
+        flushTasks(state, task) {
+            state.tasks = []
+        },
         isLoading(state, value) {
             state.isLoading = value
         },
@@ -34,14 +42,21 @@ export default new Vuex.Store({
         },
         selectedGroupId(state, groupId) {
             state.selectedGroupId = groupId
+        },
+        selectedTaskId(state, taskId) {
+            state.selectedTaskId = taskId
         }
     },
 
     actions: {
         addGroup(context, group) {
-            console.log(group)
             if(!context.state.groups.some(e => e.name === group.name)) {
                 context.commit('addGroup', group)
+            }
+        },
+        addTask(context, task) {
+            if(!context.state.tasks.some(e => e.title === task.title)) {
+                context.commit('addTask', task)
             }
         }
     }

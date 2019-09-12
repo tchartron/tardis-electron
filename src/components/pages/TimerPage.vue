@@ -26,7 +26,7 @@
                     <!-- /////// GROUP COMPONENT \\\\\\\ -->
                     <Group />
                     <!-- /////// TASK COMPONENT \\\\\\\ -->
-
+                    <Task />
                 </div>
                 <!-- /////// TASK SUMMARY COMPONENT \\\\\\\ -->
                 <div class="column">
@@ -59,6 +59,7 @@
 import Header from '@/components/layout/Header.vue';
 import Footer from '@/components/layout/Footer.vue';
 import Group from '@/components/ui/Group.vue';
+import Task from '@/components/ui/Task.vue';
 
 export default {
     name: 'TimerPage',
@@ -71,7 +72,8 @@ export default {
     components: {
         Header,
         Footer,
-        Group
+        Group,
+        Task
     },
     methods: {
         navigate(dest) {
