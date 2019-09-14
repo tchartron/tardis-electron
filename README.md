@@ -8,7 +8,7 @@ Two modes available :
 
 
 ## Installation
-```
+```shell
 #Install dependencies
 npm install
 #Compiles and hot-reloads for development
