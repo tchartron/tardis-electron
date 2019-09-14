@@ -1,9 +1,13 @@
 # Tardis Electron
 
-Electron based application to track time spent on different tasks.
-Watch a specified directory for changes after picking a group and a task to auto start and stop timers.
+VueJS application created with `vue create` running in electron.
+Client is using Tardis API to fetch tasks from it's own database and API fetches Gitlab issues depending on selected group.
+Two modes available :
+    - Timer component which manually runs and stops timers on issues
+    - Watch component which watch events on filesystem for the specified folder and automatically runs and stops timers when events occurs  
 
-## NPM commands
+
+## Installation
 ```
 #Install dependencies
 npm install
@@ -15,14 +19,15 @@ npm run build
 npm run test
 #Lints and fixes files
 npm run lint
+
+#Run electron app for development
+npm run dev
+#Build electron app for production
+npm run prod
 ```
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/)
 
 ### TODO
-- [ ] Refactor code according to this : https://medium.com/@zitko/structuring-a-vue-project-authentication-87032e5bfe16 to implement 401 interceptor to auto refresh token
-- [ ] Sets the default window size at initialization to avoid stacking things
-- [ ] Add a task management component (select group and then task listing) to show / delete / edit and create tasks for a group
-- [ ] Add a parameters component to edit timer behaviour (idle time, ..)
-- [ ] Add touchbar buttons for Mac users
-- [ ] Refactor app to stop repeating things in templates
+- [ ] Implement websocket notifications when someone assigns on task.
+- [ ] Differenciate and put in separated component task timers summary and task description.
