@@ -6,19 +6,16 @@
         <div class="box has-margin-left-100 has-margin-right-100">
             <h5 class="subtitle is-5">Please Login</h5>
             <div class="field">
-                <p class="control has-icons-left has-icons-right">
-                    <input class="input" type="email" v-model="user.email" placeholder="Email" @keyup.enter="focusPassword">
+                <p class="control has-icons-left">
+                    <input class="input" type="email" v-model="user.email" placeholder="Email" @keyup.enter="focusPassword" />
                     <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
                     </span>
                 </p>
             </div>
             <div class="field">
                 <p class="control has-icons-left">
-                    <input class="input" ref="password" type="password" v-model="user.password" placeholder="Password" @keyup.enter="login">
+                    <input class="input" ref="password" type="password" v-model="user.password" placeholder="Password" @keyup.enter="login" />
                     <span class="icon is-small is-left">
                         <i class="fas fa-lock"></i>
                     </span>
