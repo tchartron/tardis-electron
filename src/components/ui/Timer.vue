@@ -1,13 +1,19 @@
 <template>
     <div class="box">
-        <div class="clock box" @click="toggleClock">
-            <span class="time">{{ leadingZero(hour) }}</span>
-            <span class="clock-separator">:</span>
-            <span class="time">{{ leadingZero(minute) }}</span>
-            <span class="clock-separator">:</span>
-            <span class="time">{{ leadingZero(second) }}</span>
+        <div class="columns is-mobile is-vcentered" >
+            <div class="column is-narrow">
+                <div class="clock box has-text-centered" @click="toggleClock">
+                    <span class="time">{{ leadingZero(hour) }}</span>
+                    <span class="clock-separator">:</span>
+                    <span class="time">{{ leadingZero(minute) }}</span>
+                    <span class="clock-separator">:</span>
+                    <span class="time">{{ leadingZero(second) }}</span>
+                </div>
+            </div>
+            <div class="column">
+                <div class="timer-logs box"></div>
+            </div>
         </div>
-        <div class="timer-logs box"></div>
     </div>
 </template>
 
@@ -56,13 +62,16 @@ export default {
 
 <style scoped>
     .time {
-        font-size: 3rem;
-        letter-spacing: .2rem;
+        font-size: 2rem;
+        letter-spacing: .1rem;
         font-weight: bold;
     }
     .clock-separator {
-        font-size: 1rem;
+        font-size: 1.5rem;
         font-weight: bold;
-        padding: 0 5px;
+        padding: 0 3px;
+    }
+    .clock {
+        cursor: pointer;
     }
 </style>
