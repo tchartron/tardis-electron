@@ -67,7 +67,7 @@ export default {
                         userTime += differenceInSeconds(finishedAt, createdAt)
                     }
                 })
-                console.log(totalTime)
+                // console.log(totalTime)
                 this.taskSummary = {
                     "totalTime": this.toTimeString(totalTime),
                     "userTime": this.toTimeString(userTime),

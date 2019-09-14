@@ -40,7 +40,7 @@
         </div>
         <!-- /////// TIMER COMPONENT \\\\\\\ -->
         <div class="column">
-
+            <Timer />
         </div>
         <!-- /////// WATCH COMPONENT \\\\\\\ -->
         <div class="column">
@@ -61,6 +61,7 @@ import Footer from '@/components/layout/Footer.vue';
 import Group from '@/components/ui/Group.vue';
 import Task from '@/components/ui/Task.vue';
 import TaskSummary from '@/components/ui/TaskSummary.vue';
+import Timer from '@/components/ui/Timer.vue';
 
 export default {
     name: 'TimerPage',
@@ -75,7 +76,8 @@ export default {
         Footer,
         Group,
         Task,
-        TaskSummary
+        TaskSummary,
+        Timer
     },
     methods: {
         navigate(dest) {
