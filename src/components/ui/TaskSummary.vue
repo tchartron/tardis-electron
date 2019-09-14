@@ -6,9 +6,9 @@
             <div class="modal-content">
                 <div class="box is-clipped" v-if="taskSummary != null">
                     <p class="underline">Task summary :</p>
-                    <p class="">Total time spent <span class="bold">{{ taskSummary.totalTime }}</span></p>
-                    <p class="">Your time spent<span class="bold"> {{ taskSummary.userTime }}</span></p>
-                    <p class="">Total timers <span class="bold">{{ taskSummary.timersNumber }}</span></p>
+                    <p class=""><span class="bold">Total time spent : </span><span class="bold">{{ taskSummary.totalTime }}</span></p>
+                    <p class=""><span class="bold">Your time spent : </span><span class="bold"> {{ taskSummary.userTime }}</span></p>
+                    <p class=""><span class="bold">Total timers : </span><span class="bold">{{ taskSummary.timersNumber }}</span></p>
                     <button class="button is-warning is-small has-margin-top-10" @click="getTaskTimeSummary">
                         Refresh
                     </button>
@@ -104,3 +104,12 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.underline {
+    text-decoration: underline;
+}
+.bold {
+    font-weight: bold;
+}
+</style>
