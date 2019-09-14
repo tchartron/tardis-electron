@@ -1,11 +1,11 @@
 <template>
     <div class="box">
         <div class="clock box" @click="toggleClock">
-            <span class="hour">{{ hour }}</span>
+            <span class="time">{{ leadingZero(hour) }}</span>
             <span class="clock-separator">:</span>
-            <span class="minute">{{ minute }}</span>
+            <span class="time">{{ leadingZero(minute) }}</span>
             <span class="clock-separator">:</span>
-            <span class="second">{{ second }}</span>
+            <span class="time">{{ leadingZero(second) }}</span>
         </div>
         <div class="timer-logs box"></div>
     </div>
@@ -46,7 +46,23 @@ export default {
             this.hour = 0
             this.minute = 0
             this.second = 0
+        },
+        leadingZero(number) {
+            return (number < 10) ? `0${number}` : number
         }
     }
 };
 </script>
+
+<style scoped>
+    .time {
+        font-size: 3rem;
+        letter-spacing: .2rem;
+        font-weight: bold;
+    }
+    .clock-separator {
+        font-size: 1rem;
+        font-weight: bold;
+        padding: 0 5px;
+    }
+</style>
