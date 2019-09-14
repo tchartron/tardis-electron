@@ -6,7 +6,7 @@
         <div class="field-body">
             <div class="field">
                 <div class="control">
-                    <div class="select is-fullwidth is-small">
+                    <div class="select is-fullwidth">
                         <select name="groups" @change="findTasks()" v-model="selectedGroupId">
                             <option value="0">Please pick a group</option>
                             <option v-for="group in groups" :value="group.id">{{ group.name }}</option>
