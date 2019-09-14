@@ -30,7 +30,7 @@
                 </div>
                 <!-- /////// TASK SUMMARY COMPONENT \\\\\\\ -->
                 <div class="column">
-                    <TaskSummary />
+                    <TimeSummary />
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@ import Header from '@/components/layout/Header.vue';
 import Footer from '@/components/layout/Footer.vue';
 import Group from '@/components/ui/Group.vue';
 import Task from '@/components/ui/Task.vue';
-import TaskSummary from '@/components/ui/TaskSummary.vue';
+import TimeSummary from '@/components/ui/TimeSummary.vue';
 import Timer from '@/components/ui/Timer.vue';
 
 export default {
@@ -76,7 +76,7 @@ export default {
         Footer,
         Group,
         Task,
-        TaskSummary,
+        TimeSummary,
         Timer
     },
     methods: {

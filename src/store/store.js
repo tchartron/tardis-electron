@@ -13,8 +13,8 @@ export default new Vuex.Store({
         tasks: [],
         selectedGroupId: Number,
         selectedTaskId: Number,
-        details: Object,
-        taskSummary: Object
+        task: null,
+        taskTimeSummary: Object
     },
 
     getters: {
@@ -48,11 +48,11 @@ export default new Vuex.Store({
         selectedTaskId(state, taskId) {
             state.selectedTaskId = taskId
         },
-        taskdetails(state, details) {
-            state.details = details
+        task(state, task) {
+            state.task = task
         },
-        setTaskSummary(state, summary) {
-            state.taskSummary = summary
+        setTaskTimeSummary(state, summary) {
+            state.taskTimeSummary = summary
         }
     },
 

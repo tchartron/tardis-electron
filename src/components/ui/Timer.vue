@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import * as bulmaToast from 'bulma-toast'
+
 export default {
     data() {
         return {
@@ -55,7 +57,30 @@ export default {
         },
         leadingZero(number) {
             return (number < 10) ? `0${number}` : number
-        }
+        },
+        startTimer() {
+            let backend = new BackendService();
+            //Attach path about to be watched to timer creation
+            // this.currentTimer.path = this.pathToWatch;
+            backend.storeTimer(this.$store.state.api, this.$store.state.selectedGroupId, this.$store.state.selectedTaskId)
+            .then((response) => {
+                this.$store.commit('currentTimer', response.data.timer)
+                // console.log('start timer'+this.currentTimer);
+                bulmaToast.toast({
+                    message: "Timer started",
+                    type: "is-success",
+                    dismissible: true,
+                    position: 'top-right',
+                    animate: { in: "fadeIn", out: "fadeOut" }
+                });
+                // console.log('start toast should be displayed')
+            }, (error) => {
+                console.log(error)
+                //reset path to watch attached to timer upon timer creation failure
+                this.currentTimer.path = "";
+                this.currentTimer.timer = {};
+            })
+        },
     }
 };
 </script>
