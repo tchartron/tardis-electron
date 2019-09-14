@@ -19,7 +19,6 @@
         <div class="modal" :class="{'is-active': isActive }">
             <div class="modal-background"></div>
             <div class="modal-content">
-                <!-- Any other Bulma elements you want -->
                 <div class="box is-clipped" v-if="taskSummary != null">
                     <p class="underline">Task summary :</p>
                     <p class="">Total time spent <span class="bold">{{ taskSummary.totalTime }}</span></p>
@@ -55,7 +54,7 @@ export default {
             let backend = new BackendService();
             console.log(this.$store.state.details.id)
             console.log(this.$store.state.selectedTaskId)
-            if((typeof this.$store.state.details === 'undefined') || (this.$store.state.details.id !== this.$store.state.selectedTaskId)) {
+            // if((typeof this.$store.state.details === 'undefined') || (this.$store.state.details.id !== this.$store.state.selectedTaskId)) {
                 backend.getTask(this.$store.state.api, this.$store.state.selectedGroupId, this.$store.state.selectedTaskId)
                 .then((response) => {
                     this.$store.commit('taskdetails', response.data)
@@ -65,9 +64,9 @@ export default {
                     // console.log(error)
                     // this.$store.commit('isLoading', false)
                 })
-            } else {
-                this.taskDetails();
-            }
+            // } else {
+            //     this.taskDetails();
+            // }
         },
         taskDetails() {
             this.isActive = true
