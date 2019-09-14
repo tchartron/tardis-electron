@@ -30,4 +30,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 
 ### TODO
 - [ ] Implement websocket notifications when someone assigns on task.
-- [ ] Differenciate and put in separated component task timers summary and task description.
+- [ ] Differenciate and put in separated component task timers summary.
+- [ ] Create a task description component to show attributes of task.
+- [ ] Create timer component.
+- [ ] Create watch component.
+
