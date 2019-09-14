@@ -1,9 +1,9 @@
 # Tardis Electron
 
-VueJS application created with `vue create` running in electron.
-Client is using Tardis API to fetch tasks from it's own database and API fetches Gitlab issues depending on selected group.
-Two modes available :
-    - Timer component which manually runs and stops timers on issues
+VueJS application created with `vue create` running in electron.  
+Client is using Tardis API to fetch tasks from it's own database and API fetches Gitlab issues depending on selected group.  
+Two modes available :  
+    - Timer component which manually runs and stops timers on issues  
     - Watch component which watch events on filesystem for the specified folder and automatically runs and stops timers when events occurs  
 
 
