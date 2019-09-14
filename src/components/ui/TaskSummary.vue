@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a class="button is-info" @click="getTaskDetails">Details</a>
+        <a class="button is-info" @click="getTaskTimeSummary">Time summary</a>
         <div class="modal" :class="{'is-active': isActive }">
             <div class="modal-background"></div>
             <div class="modal-content">
@@ -9,7 +9,7 @@
                     <p class="">Total time spent <span class="bold">{{ taskSummary.totalTime }}</span></p>
                     <p class="">Your time spent<span class="bold"> {{ taskSummary.userTime }}</span></p>
                     <p class="">Total timers <span class="bold">{{ taskSummary.timersNumber }}</span></p>
-                    <button class="button is-warning is-small has-margin-top-10" @click="getTaskDetails">
+                    <button class="button is-warning is-small has-margin-top-10" @click="getTaskTimeSummary">
                         Refresh
                     </button>
                 </div>
@@ -31,7 +31,7 @@ export default {
         }
     },
     methods: {
-        getTaskDetails() {
+        getTaskTimeSummary() {
             this.$store.commit('isLoading', true)
             this.$store.commit('loadingMessage', "Getting task details ...")
             let backend = new BackendService();
