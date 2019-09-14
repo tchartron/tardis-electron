@@ -35,8 +35,6 @@ export default {
             this.$store.commit('isLoading', true)
             this.$store.commit('loadingMessage', "Getting task details ...")
             let backend = new BackendService();
-            console.log(this.$store.state.details.id)
-            console.log(this.$store.state.selectedTaskId)
             // if((typeof this.$store.state.details === 'undefined') || (this.$store.state.details.id !== this.$store.state.selectedTaskId)) {
                 backend.getTask(this.$store.state.api, this.$store.state.selectedGroupId, this.$store.state.selectedTaskId)
                 .then((response) => {
@@ -53,7 +51,6 @@ export default {
         },
         taskDetails() {
             this.isActive = true
-            console.log(this.isActive)
             // this.loadingMessage = "Fetching task and user stats ...";
             this.$store.commit('loadingMessage', "Calculating task and user stats ...")
             if(this.$store.state.isLoading !== true) {
