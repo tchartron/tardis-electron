@@ -1,7 +1,7 @@
 import App from './../App.vue'
 import Login from './../components/Login.vue'
-import Watch from './../components/Watch.vue'
-import Clock from './../components/Clock.vue'
+// import Watch from './../components/Watch.vue'
+// import Clock from './../components/Clock.vue'
 import TimerPage from './../components/pages/TimerPage.vue'
 import SettingPage from './../components/pages/SettingPage.vue'
 
