@@ -11,8 +11,8 @@ export default new Vuex.Store({
         loadingMessage: String,
         groups: [],
         tasks: [],
-        selectedGroupId: Number,
-        selectedTaskId: Number,
+        selectedGroupId: 0,
+        selectedTaskId: 0,
         task: null,
         taskTimeSummary: Object
     },

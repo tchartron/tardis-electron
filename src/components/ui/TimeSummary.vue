@@ -1,14 +1,14 @@
 <template>
     <div>
-        <a class="button is-info" @click="getTask">Time summary</a>
+        <a class="button is-info" @click="getTask" :disabled="selectedTaskId == 0">Time summary</a>
         <div class="modal" :class="{'is-active': isActive }">
             <div class="modal-background"></div>
             <div class="modal-content">
                 <div class="box is-clipped" v-if="taskTimeSummary != null">
                     <p class="underline">Task summary :</p>
-                    <p class=""><span class="bold">Total time : </span><span class="bold">{{ timeSummary.totalTime }}</span></p>
-                    <p class=""><span class="bold">Your time : </span><span class="bold"> {{ timeSummary.userTime }}</span></p>
-                    <p class=""><span class="bold">Total timers : </span><span class="bold">{{ timeSummary.timersNumber }}</span></p>
+                    <p class=""><span class="bold">Total time : </span><span class="bold">{{ taskTimeSummary.totalTime }}</span></p>
+                    <p class=""><span class="bold">Your time : </span><span class="bold"> {{ taskTimeSummary.userTime }}</span></p>
+                    <p class=""><span class="bold">Total timers : </span><span class="bold">{{ taskTimeSummary.timersNumber }}</span></p>
                     <button class="button is-warning is-small has-margin-top-10" @click="getTask">
                         Refresh
                     </button>
@@ -32,6 +32,11 @@ export default {
     },
     methods: {
         getTask() {
+            // if(this.task !== null && this.task.id == this.selectedTaskId) {
+            //     console.log('here')
+            //     this.isActive = true
+            //     return true;
+            // }
             this.$store.commit('isLoading', true)
             this.$store.commit('loadingMessage', "Getting task details ...")
             let backend = new BackendService();
@@ -65,14 +70,13 @@ export default {
                     }
                 })
                 // console.log(totalTime)
-                this.timeSummary = {
-                    "totalTime": this.toTimeString(totalTime),
-                    "userTime": this.toTimeString(userTime),
-                    "timersNumber": this.$store.state.task.timers.length
-                }
             }
+            this.$store.commit('setTaskTimeSummary', {
+                "totalTime": this.toTimeString(totalTime),
+                "userTime": this.toTimeString(userTime),
+                "timersNumber": this.$store.state.task.timers.length
+            })
             this.$store.commit('isLoading', false)
-            return this.timeSummary;
         },
         toTimeString(secondsTotal) {
             let sec_num = parseInt(secondsTotal, 10); // don't forget the second param
@@ -97,6 +101,9 @@ export default {
             set(summary) {
                 this.$store.commit('setTaskTimeSummary', summary)
             }
+        },
+        selectedTaskId() {
+            return this.$store.state.selectedTaskId
         }
     }
 };
