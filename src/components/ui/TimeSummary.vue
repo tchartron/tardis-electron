@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="pad-btn">
         <a class="button is-info" @click="getTask" :disabled="selectedTaskId == 0">Time summary</a>
         <div class="modal" :class="{'is-active': isActive }">
             <div class="modal-background"></div>
@@ -115,5 +115,8 @@ export default {
 }
 .bold {
     font-weight: bold;
+}
+.pad-btn {
+    padding: 15px 0px;
 }
 </style>

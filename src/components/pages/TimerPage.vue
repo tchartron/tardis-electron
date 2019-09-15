@@ -21,7 +21,7 @@
                 </ul>
             </div>
 
-            <div class="columns is-mobile">
+            <div class="columns is-mobile is-vcentered">
                 <div class="column is-two-thirds">
                     <!-- /////// GROUP COMPONENT \\\\\\\ -->
                     <Group />
@@ -29,8 +29,9 @@
                     <Task />
                 </div>
                 <!-- /////// TASK SUMMARY COMPONENT \\\\\\\ -->
-                <div class="column">
+                <div class="column has-text-centered">
                     <TimeSummary />
+                    <TaskDetail />
                 </div>
             </div>
         </div>
@@ -61,6 +62,7 @@ import Footer from '@/components/layout/Footer.vue';
 import Group from '@/components/ui/Group.vue';
 import Task from '@/components/ui/Task.vue';
 import TimeSummary from '@/components/ui/TimeSummary.vue';
+import TaskDetail from '@/components/ui/TaskDetail.vue';
 import Timer from '@/components/ui/Timer.vue';
 
 export default {
@@ -77,6 +79,7 @@ export default {
         Group,
         Task,
         TimeSummary,
+        TaskDetail,
         Timer
     },
     methods: {

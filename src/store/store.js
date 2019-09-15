@@ -13,7 +13,7 @@ export default new Vuex.Store({
         tasks: [],
         selectedGroupId: 0,
         selectedTaskId: 0,
-        task: null,
+        task: Object,
         taskTimeSummary: Object
     },
 
