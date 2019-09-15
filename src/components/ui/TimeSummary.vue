@@ -6,8 +6,8 @@
             <div class="modal-content">
                 <div class="box is-clipped" v-if="taskTimeSummary != null">
                     <p class="underline">Task summary :</p>
-                    <p class=""><span class="bold">Total time spent : </span><span class="bold">{{ timeSummary.totalTime }}</span></p>
-                    <p class=""><span class="bold">Your time spent : </span><span class="bold"> {{ timeSummary.userTime }}</span></p>
+                    <p class=""><span class="bold">Total time : </span><span class="bold">{{ timeSummary.totalTime }}</span></p>
+                    <p class=""><span class="bold">Your time : </span><span class="bold"> {{ timeSummary.userTime }}</span></p>
                     <p class=""><span class="bold">Total timers : </span><span class="bold">{{ timeSummary.timersNumber }}</span></p>
                     <button class="button is-warning is-small has-margin-top-10" @click="getTask">
                         Refresh
