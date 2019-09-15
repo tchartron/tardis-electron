@@ -15,7 +15,7 @@ export default new Vuex.Store({
         selectedTaskId: 0,
         task: Object,
         taskTimeSummary: Object,
-        currentTimer: Object
+        currentTimer: null
     },
 
     getters: {
