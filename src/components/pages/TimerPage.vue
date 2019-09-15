@@ -45,7 +45,7 @@
         </div>
         <!-- /////// WATCH COMPONENT \\\\\\\ -->
         <div class="column">
-
+            <Watch />
         </div>
 
         <!-- /////// PAGE LOADER \\\\\\\ -->
@@ -64,6 +64,7 @@ import Task from '@/components/ui/Task.vue';
 import TimeSummary from '@/components/ui/TimeSummary.vue';
 import TaskDetail from '@/components/ui/TaskDetail.vue';
 import Timer from '@/components/ui/Timer.vue';
+import Watch from '@/components/ui/Watch.vue';
 
 export default {
     name: 'TimerPage',
@@ -80,7 +81,8 @@ export default {
         Task,
         TimeSummary,
         TaskDetail,
-        Timer
+        Timer,
+        Watch
     },
     methods: {
         navigate(dest) {
