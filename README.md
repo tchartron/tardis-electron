@@ -29,9 +29,9 @@ npm run prod
 See [Configuration Reference](https://cli.vuejs.org/config/)
 
 ### TODO
+- [X] Differenciate and put in separated component task timers summary.
+- [X] Create a task description component to show attributes of task.
+- [X] Create timer component.
+- [X] Create watch component.
 - [ ] Implement websocket notifications when someone assigns on task.
-- [ ] Differenciate and put in separated component task timers summary.
-- [ ] Create a task description component to show attributes of task.
-- [ ] Create timer component.
-- [ ] Create watch component.
-
+- [ ] Test different scenarios between watcher and timer
