@@ -1,6 +1,6 @@
 <template>
     <div class="pad-btn">
-        <a class="button is-info" @click="getTask" :disabled="selectedTaskId === 0">
+        <a class="button is-info" @click="getTask" :disabled="selectedTaskId == 0">
             <span class="icon is-small"><i class="fas fa-question" aria-hidden="true"></i></span>
             <span>Task Details</span>
         </a>

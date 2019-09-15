@@ -2,7 +2,7 @@
     <div class="box">
         <div class="columns is-mobile is-vcentered" >
             <div class="column is-narrow">
-                <div class="clock box has-text-centered" @click="toggleClock">
+                <div class="clock box has-text-centered" :class="{'bg-green' : !isClockTicking, 'bg-red' : isClockTicking}" @click="toggleClock">
                     <span class="time">{{ leadingZero(hour) }}</span>
                     <span class="clock-separator">:</span>
                     <span class="time">{{ leadingZero(minute) }}</span>
@@ -14,7 +14,7 @@
                 <div class="timer-logs box">
                     <div v-for="log in timerLogs">
                         <span class="log start">Timer started at {{ formatLog(log.created_at) }}</span>
-                        <span class="log stop">Timer stoped at {{ formatLog(log.finished_at) }}</span>
+                        <span class="log stop">Timer stopped at {{ formatLog(log.finished_at) }}</span>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,8 @@ export default {
             minute: 0,
             second: 0,
             interval: null,
-            timerLogs: []
+            timerLogs: [],
+            timerQueryPending: false
         }
     },
     methods: {
@@ -71,11 +72,13 @@ export default {
         },
         startTimer() {
             let backend = new BackendService();
+            this.timerQueryPending = true
             //Attach path about to be watched to timer creation
             // this.currentTimer.path = this.pathToWatch;
             backend.storeTimer(this.$store.state.api, this.$store.state.selectedGroupId, this.$store.state.selectedTaskId)
             .then((response) => {
                 this.$store.commit('currentTimer', response.data.timer)
+                this.timerQueryPending = false
                 // console.log('start timer'+this.currentTimer);
                 bulmaToast.toast({
                     message: "Timer started",
@@ -87,6 +90,7 @@ export default {
                 // console.log('start toast should be displayed')
             }, (error) => {
                 console.log(error)
+                this.timerQueryPending = false
                 //reset path to watch attached to timer upon timer creation failure
                 // this.currentTimer.path = "";
                 // this.currentTimer.timer = {};
@@ -94,6 +98,7 @@ export default {
         },
         stopTimer() {
             let backend = new BackendService();
+            this.timerQueryPending = true
             //reset path beeing watched
             // this.currentTimer.path = "";
             backend.updateTimer(this.$store.state.api, this.$store.state.selectedGroupId, this.$store.state.selectedTaskId, this.$store.state.currentTimer.id)
@@ -102,9 +107,10 @@ export default {
                 // this.pathToWatch = "";
                 this.timerLogs.push(this.$store.state.currentTimer) //push to logs
                 this.$store.commit('currentTimer', null)
+                this.timerQueryPending = false
                 // console.log('stop timer'+this.currentTimer)
                 bulmaToast.toast({
-                    message: "Timer stoped go to rest",
+                    message: "Timer stopped",
                     type: "is-warning",
                     dismissible: true,
                     animate: { in: "fadeIn", out: "fadeOut" }
@@ -112,6 +118,7 @@ export default {
                 // console.log('stop toast should be displayed')
             }, (error) => {
                 console.log(error)
+                this.timerQueryPending = false
                 //cancel what has been done before send request because request failed and so
                 // this.currentTimer.path = this.pathToWatch;
 
@@ -120,6 +127,27 @@ export default {
         },
         formatLog(log) {
             return formatDistanceToNow(new Date(log));
+        }
+    },
+    mounted() {
+        this.$root.$on('startCountingTime', () => {
+            if(this.$store.state.currentTimer === null && !this.timerQueryPending) { //if no timers are stored and a timer has not been started
+                console.log('start timer')
+                this.toggleClock()
+                // this.startTimer()
+            }
+        })
+        this.$root.$on('stopCountingTime', () => {
+            if(this.$store.state.currentTimer !== null && !this.timerQueryPending) {
+                console.log('stop timer')
+                this.toggleClock()
+                // this.stopTimer()
+            }
+        })
+    },
+    computed: {
+        isClockTicking() {
+            return (this.interval !== null)
         }
     }
 };
@@ -151,5 +179,11 @@ export default {
     .log.stop {
         background-color: #f58f00;
         display: block;
+    }
+    .bg-green {
+        background-color: #00cb39;
+    }
+    .bg-red {
+        background-color: #fa201b;
     }
 </style>
