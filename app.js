@@ -103,11 +103,15 @@ ipcMain.on('ping', (eventIpc, data) => {
             'event': event,
             'path': path
         })
+    })
 
+    this.watcher.on('ready', () => {
+        eventIpc.sender.send('ready')
     })
 })
 
 ipcMain.on('stop', (eventIpc, data) => {
+    console.log("watcher stopped")
     this.watcher.close(); //watcher context
     // console.log('stop from main process')
 })
