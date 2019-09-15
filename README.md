@@ -38,3 +38,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [ ] Rework UI, align things, change colors
 - [ ] Implement dark theme
 - [ ] Implement Setting page for dark theme and idle counter max value
+- [ ] Implement loading animation of bulma on buttons (watch button)
