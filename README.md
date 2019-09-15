@@ -35,3 +35,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [X] Create watch component.
 - [ ] Implement websocket notifications when someone assigns on task.
 - [ ] Test different scenarios between watcher and timer
+- [ ] Rework UI, align things, change colors
+- [ ] Implement dark theme
+- [ ] Implement Setting page for dark theme and idle counter max value
