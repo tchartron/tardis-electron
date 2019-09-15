@@ -144,7 +144,7 @@
     // const ipc = require('electron').ipcRenderer
 import BackendService from './../services/backend-service'
 import GitlabService from './../services/gitlab-service'
-const differenceInSeconds = require('date-fns/difference_in_seconds')
+const differenceInSeconds = require('date-fns/differenceInSeconds')
 import * as bulmaToast from "bulma-toast";
 
 const MAX_IDLE_TIME = 30;

@@ -11,14 +11,22 @@
                 </div>
             </div>
             <div class="column">
-                <div class="timer-logs box"></div>
+                <div class="timer-logs box">
+                    <div v-for="log in timerLogs">
+                        <span class="log start">Timer started at {{ formatLog(log.created_at) }}</span>
+                        <span class="log stop">Timer stoped at {{ formatLog(log.finished_at) }}</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import BackendService from '@/services/backend-service'
 import * as bulmaToast from 'bulma-toast'
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+
 
 export default {
     data() {
@@ -26,17 +34,20 @@ export default {
             hour: 0,
             minute: 0,
             second: 0,
-            interval: null
+            interval: null,
+            timerLogs: []
         }
     },
     methods: {
         toggleClock() {
             if(this.interval === null) {
                 this.interval = setInterval(() => this.tick(), 1000)
+                this.startTimer()
             } else {
                 clearInterval(this.interval)
                 this.interval = null
                 this.clearTimer()
+                this.stopTimer()
             }
         },
         tick() {
@@ -77,10 +88,39 @@ export default {
             }, (error) => {
                 console.log(error)
                 //reset path to watch attached to timer upon timer creation failure
-                this.currentTimer.path = "";
-                this.currentTimer.timer = {};
+                // this.currentTimer.path = "";
+                // this.currentTimer.timer = {};
             })
         },
+        stopTimer() {
+            let backend = new BackendService();
+            //reset path beeing watched
+            // this.currentTimer.path = "";
+            backend.updateTimer(this.$store.state.api, this.$store.state.selectedGroupId, this.$store.state.selectedTaskId, this.$store.state.currentTimer.id)
+            .then((response) => {
+                //Also in the view
+                // this.pathToWatch = "";
+                this.timerLogs.push(this.$store.state.currentTimer) //push to logs
+                this.$store.commit('currentTimer', null)
+                // console.log('stop timer'+this.currentTimer)
+                bulmaToast.toast({
+                    message: "Timer stoped go to rest",
+                    type: "is-warning",
+                    dismissible: true,
+                    animate: { in: "fadeIn", out: "fadeOut" }
+                });
+                // console.log('stop toast should be displayed')
+            }, (error) => {
+                console.log(error)
+                //cancel what has been done before send request because request failed and so
+                // this.currentTimer.path = this.pathToWatch;
+
+                //Recursive call to stopTimer() to make this timer stop .... ?
+            })
+        },
+        formatLog(log) {
+            return formatDistanceToNow(new Date(log));
+        }
     }
 };
 </script>
@@ -98,5 +138,18 @@ export default {
     }
     .clock {
         cursor: pointer;
+    }
+    .timer-logs {
+        min-height: 200px;
+        max-height: 200px;
+        overflow: scroll;
+    }
+    .log.start {
+        background-color: #5cc9f5;
+        display: block;
+    }
+    .log.stop {
+        background-color: #f58f00;
+        display: block;
     }
 </style>

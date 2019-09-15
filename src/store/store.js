@@ -14,7 +14,8 @@ export default new Vuex.Store({
         selectedGroupId: 0,
         selectedTaskId: 0,
         task: Object,
-        taskTimeSummary: Object
+        taskTimeSummary: Object,
+        currentTimer: Object
     },
 
     getters: {
@@ -53,6 +54,9 @@ export default new Vuex.Store({
         },
         setTaskTimeSummary(state, summary) {
             state.taskTimeSummary = summary
+        },
+        currentTimer(state, value) {
+            state.currentTimer = value
         }
     },
 

@@ -24,7 +24,7 @@
 
 <script>
 import BackendService from '@/services/backend-service'
-const differenceInSeconds = require('date-fns/difference_in_seconds')
+import differenceInSeconds from 'date-fns/differenceInSeconds'
 
 export default {
     name: 'TimeSummary',
