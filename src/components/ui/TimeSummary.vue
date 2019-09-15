@@ -1,6 +1,9 @@
 <template>
     <div class="pad-btn">
-        <a class="button is-info" @click="getTask" :disabled="selectedTaskId == 0">Time summary</a>
+        <a class="button is-info" @click="getTask" :disabled="selectedTaskId == 0">
+            <span class="icon is-small"><i class="fas fa-info" aria-hidden="true"></i></span>
+            <span>Time summary</span>
+        </a>
         <div class="modal" :class="{'is-active': isActive }">
             <div class="modal-background"></div>
             <div class="modal-content">
