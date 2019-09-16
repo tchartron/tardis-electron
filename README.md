@@ -41,3 +41,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [ ] Implement Setting page for dark theme and idle counter max value
 - [ ] Implement loading animation of bulma on buttons (watch button)
 - [ ] Implement auto token refresh
+- [ ] Implement markdown parser
