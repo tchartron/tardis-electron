@@ -41,14 +41,16 @@ export default {
     },
     methods: {
         toggleClock() {
-            if(this.interval === null) {
-                this.interval = setInterval(() => this.tick(), 1000)
-                this.startTimer()
-            } else {
-                clearInterval(this.interval)
-                this.interval = null
-                this.clearTimer()
-                this.stopTimer()
+            if(!this.timerQueryPending) {
+                if(this.interval === null) {
+                    this.interval = setInterval(() => this.tick(), 1000)
+                    this.startTimer()
+                } else {
+                    clearInterval(this.interval)
+                    this.interval = null
+                    this.clearTimer()
+                    this.stopTimer()
+                }
             }
         },
         tick() {
@@ -155,7 +157,7 @@ export default {
 
 <style scoped>
     .time {
-        font-size: 2rem;
+        font-size: 2.3rem;
         letter-spacing: .1rem;
         font-weight: bold;
     }
@@ -168,8 +170,7 @@ export default {
         cursor: pointer;
     }
     .timer-logs {
-        min-height: 200px;
-        max-height: 200px;
+        max-height: 100px;
         overflow: scroll;
     }
     .log.start {

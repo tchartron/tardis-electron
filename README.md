@@ -38,7 +38,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [ ] Test different scenarios between watcher and timer
 - [ ] Rework UI, align things, change colors
 - [ ] Implement dark theme
-- [ ] Implement Setting page for dark theme and idle counter max value
+- [ ] Implement Setting page for dark theme and idle counter max value with persistence of settings
 - [ ] Implement loading animation of bulma on buttons (watch button)
 - [ ] Implement auto token refresh
 - [ ] Implement markdown parser

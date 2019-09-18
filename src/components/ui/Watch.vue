@@ -9,10 +9,10 @@
         <div class="field">
             <p class="control has-text-centered has-margin-top-20">
                 <button class="button is-dark is-medium has-margin-right-10" @click="watch" v-show="!isWatching" :disabled="(watcherPath === '' || selectedTaskId == 0)">
-                    Start
+                    Watch
                 </button>
                 <button class="button is-dark is-medium has-margin-left-10" @click="stopWatch" v-show="isWatching">
-                    Stop
+                    Unwatch
                 </button>
             </p>
             <p>Idle Time</p>
