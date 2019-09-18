@@ -41,14 +41,16 @@ export default {
     },
     methods: {
         toggleClock() {
-            if(this.interval === null) {
-                this.interval = setInterval(() => this.tick(), 1000)
-                this.startTimer()
-            } else {
-                clearInterval(this.interval)
-                this.interval = null
-                this.clearTimer()
-                this.stopTimer()
+            if(!this.timerQueryPending) {
+                if(this.interval === null) {
+                    this.interval = setInterval(() => this.tick(), 1000)
+                    this.startTimer()
+                } else {
+                    clearInterval(this.interval)
+                    this.interval = null
+                    this.clearTimer()
+                    this.stopTimer()
+                }
             }
         },
         tick() {
