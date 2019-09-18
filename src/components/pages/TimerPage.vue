@@ -17,7 +17,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a @click="navigate('settings')">
+                                    <a @click="navigate('setting-page')">
                                         <span class="icon is-small"><i class="fas fa-cogs" aria-hidden="true"></i></span>
                                         <span>Settings</span>
                                     </a>
@@ -57,8 +57,6 @@
                 <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">{{ loadingMessage }}</span></div>
                 <!-- /////// FOOTER \\\\\\\ -->
                 <Footer :api="api" />
-
-
             </div>
         </div>
     </div>

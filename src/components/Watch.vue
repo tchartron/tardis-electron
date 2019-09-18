@@ -118,7 +118,7 @@
                     </button>
                 </p>
                 <p>Idle Time</p>
-                <progress class="progress is-medium has-margin-top-20" :value="idleTime" max="30"></progress>
+                <progress class="progress is-medium has-margin-top-20" :value="idleTime" :max="maxIdleTime"></progress>
             </div>
             <div class="box watcher-output" v-if="watcherData.length > 0">
                 <div class="notification is-warning" v-for="data in watcherData">
@@ -147,7 +147,7 @@ import GitlabService from './../services/gitlab-service'
 const differenceInSeconds = require('date-fns/differenceInSeconds')
 import * as bulmaToast from "bulma-toast";
 
-const MAX_IDLE_TIME = 30;
+// const MAX_IDLE_TIME = 30;
 
 export default {
     name: 'Watch',
@@ -362,7 +362,7 @@ export default {
         countIdle() {
             this.idleInterval = setInterval(() => {
                 this.idleTime++;
-                if(this.idleTime > MAX_IDLE_TIME) {
+                if(this.idleTime > this.maxIdleTime) {
                     this.clearIdleInterval(false);
                 }
             }, 1000)
@@ -406,6 +406,11 @@ export default {
         });
         //Populates the groups select
         this.findGroups();
+    },
+    computed: {
+        maxIdleTime() {
+            return this.$store.state.maxIdleTime
+        }
     }
 };
 </script>

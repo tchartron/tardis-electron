@@ -15,7 +15,8 @@ export default new Vuex.Store({
         selectedTaskId: 0,
         task: Object,
         taskTimeSummary: Object,
-        currentTimer: null
+        currentTimer: null,
+        maxIdleTime: 30
     },
 
     getters: {
@@ -57,6 +58,9 @@ export default new Vuex.Store({
         },
         currentTimer(state, value) {
             state.currentTimer = value
+        },
+        maxIdleTime(state, value) {
+            state.maxIdleTime = value
         }
     },
 
