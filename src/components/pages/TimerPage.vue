@@ -28,24 +28,24 @@
                     <!-- /////// TASK COMPONENT \\\\\\\ -->
                     <Task />
                 </div>
-                <!-- /////// TASK SUMMARY COMPONENT \\\\\\\ -->
+                <!-- /////// TASK SUMMARY AND DETAILS COMPONENT \\\\\\\ -->
                 <div class="column has-text-centered">
                     <TimeSummary />
                     <TaskDetail />
                 </div>
             </div>
         </div>
-        <!-- /////// TASK DESCRIPTION COMPONENT \\\\\\\ -->
-        <div class="column">
-
-        </div>
         <!-- /////// TIMER COMPONENT \\\\\\\ -->
-        <div class="column">
-            <Timer />
+        <div class="columns">
+            <div class="column">
+                <Timer />
+            </div>
         </div>
         <!-- /////// WATCH COMPONENT \\\\\\\ -->
-        <div class="column">
-            <Watch />
+        <div class="columns">
+            <div class="column">
+                <Watch />
+            </div>
         </div>
 
         <!-- /////// PAGE LOADER \\\\\\\ -->
