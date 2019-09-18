@@ -157,7 +157,7 @@ export default {
 
 <style scoped>
     .time {
-        font-size: 2.5rem;
+        font-size: 2.3rem;
         letter-spacing: .1rem;
         font-weight: bold;
     }
@@ -170,6 +170,7 @@ export default {
         cursor: pointer;
     }
     .timer-logs {
+        max-height: 100px;
         overflow: scroll;
     }
     .log.start {
