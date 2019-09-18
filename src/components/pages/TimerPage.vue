@@ -1,58 +1,66 @@
 <template>
     <div class="container">
-        <!-- /////// HEADER \\\\\\\ -->
-        <Header :user="user" />
-        <!-- /////// TABS NAVIGATION \\\\\\\ -->
-        <div class="box">
-            <div class="tabs is-centered is-boxed is-medium">
-                <ul>
-                    <li class="is-active">
-                        <a>
-                            <span class="icon is-small"><i class="fas fa-clock" aria-hidden="true"></i></span>
-                            <span>Timer</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a @click="navigate('settings')">
-                            <span class="icon is-small"><i class="fas fa-cogs" aria-hidden="true"></i></span>
-                            <span>Settings</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="columns is-mobile is-vcentered">
-                <div class="column is-two-thirds">
-                    <!-- /////// GROUP COMPONENT \\\\\\\ -->
-                    <Group />
-                    <!-- /////// TASK COMPONENT \\\\\\\ -->
-                    <Task />
-                </div>
-                <!-- /////// TASK SUMMARY AND DETAILS COMPONENT \\\\\\\ -->
-                <div class="column has-text-centered">
-                    <TimeSummary />
-                    <TaskDetail />
-                </div>
-            </div>
-        </div>
-        <!-- /////// TIMER COMPONENT \\\\\\\ -->
-        <div class="columns">
+        <div class="columns has-margin-left-10 has-margin-right-10">
             <div class="column">
-                <Timer />
+
+                <!-- /////// HEADER \\\\\\\ -->
+                <Header :user="user" />
+                <!-- /////// TABS NAVIGATION \\\\\\\ -->
+                <div class="columns">
+                    <div class="column">
+                        <div class="tabs is-toggle is-fullwidth is-medium">
+                            <ul>
+                                <li class="is-active">
+                                    <a>
+                                        <span class="icon is-small"><i class="fas fa-clock" aria-hidden="true"></i></span>
+                                        <span>Timer</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a @click="navigate('settings')">
+                                        <span class="icon is-small"><i class="fas fa-cogs" aria-hidden="true"></i></span>
+                                        <span>Settings</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="columns is-mobile is-vcentered">
+                    <div class="column is-two-thirds">
+                        <!-- /////// GROUP COMPONENT \\\\\\\ -->
+                        <Group />
+                        <!-- /////// TASK COMPONENT \\\\\\\ -->
+                        <Task />
+                    </div>
+                    <!-- /////// TASK SUMMARY AND DETAILS COMPONENT \\\\\\\ -->
+                    <div class="column has-text-centered">
+                        <TimeSummary />
+                        <TaskDetail />
+                    </div>
+                </div>
+                <!-- /////// TIMER COMPONENT \\\\\\\ -->
+                <div class="columns">
+                    <div class="column">
+                        <Timer />
+                    </div>
+                </div>
+                <!-- /////// WATCH COMPONENT \\\\\\\ -->
+                <div class="columns">
+                    <div class="column">
+                        <Watch />
+                    </div>
+                </div>
+
+                <!-- /////// PAGE LOADER \\\\\\\ -->
+                <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">{{ loadingMessage }}</span></div>
+                <!-- /////// FOOTER \\\\\\\ -->
+                <Footer :api="api" />
+
+
             </div>
         </div>
-        <!-- /////// WATCH COMPONENT \\\\\\\ -->
-        <div class="columns">
-            <div class="column">
-                <Watch />
-            </div>
-        </div>
-
-        <!-- /////// PAGE LOADER \\\\\\\ -->
-        <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">{{ loadingMessage }}</span></div>
-        <!-- /////// FOOTER \\\\\\\ -->
-        <Footer :api="api" />
-
     </div>
 </template>
 
@@ -110,20 +118,6 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-    margin: 40px 0 0;
-}
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-li {
-    display: inline-block;
-    margin: 0 10px;
-}
-a {
-    color: #42b983;
-}
 .logo > img {
     /*text-align: center;*/
     max-height: 100px;
