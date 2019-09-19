@@ -35,10 +35,11 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [X] Create watch component.
 - [X] Fix disabled a tag still clickable replace with button
 - [ ] Implement websocket notifications when someone assigns on task.
-- [ ] Test different scenarios between watcher and timer
-- [ ] Rework UI, align things, change colors
-- [ ] Implement dark theme
-- [ ] Implement Setting page for dark theme and idle counter max value with persistence of settings
+- [X] Test different scenarios between watcher and timer
+- [X] Rework UI, align things, change colors
+- [X] Implement theming
+- [ ] Save settings on local host
 - [ ] Implement loading animation of bulma on buttons (watch button)
 - [ ] Implement auto token refresh
 - [ ] Implement markdown parser
+- [ ] Fix / Delete watcher logs
