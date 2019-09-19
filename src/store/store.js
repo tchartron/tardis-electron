@@ -17,7 +17,10 @@ export default new Vuex.Store({
         taskTimeSummary: Object,
         currentTimer: null,
         maxIdleTime: 30,
-        selectedThemeCss: 0
+        theme: {
+            selectedThemeCss: 0,
+            themeLink: ""
+        }
     },
 
     getters: {
@@ -64,7 +67,10 @@ export default new Vuex.Store({
             state.maxIdleTime = value
         },
         selectedThemeCss(state, value) {
-            state.selectedThemeCss = value
+            state.theme.selectedThemeCss = value
+        },
+        themeLink(state, value) {
+            state.theme.themeLink = value
         }
     },
 

@@ -68,7 +68,7 @@
                 </div>
 
                 <!-- /////// PAGE LOADER \\\\\\\ -->
-                <!-- <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">{{ loadingMessage }}</span></div> -->
+                <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">{{ loadingMessage }}</span></div>
                 <!-- /////// FOOTER \\\\\\\ -->
                 <Footer :api="api" />
 
@@ -99,7 +99,20 @@ export default {
             this.$router.push({ name: dest})
         },
         saveSettings() {
-
+            if(this.selectedThemeCss !== 0) {
+                let link = document.createElement('link')
+                let customLink = ""
+                link.rel = "stylesheet"
+                link.href = this.selectedThemeCss
+                link.id = "custom-theme";
+                customLink = document.getElementById("custom-theme")
+                if(this.themeLink === "") {
+                    document.head.appendChild(link)
+                } else {
+                    customLink.href = this.selectedThemeCss
+                }
+                this.$store.commit('themeLink', link)
+            }
         }
     },
     computed: {
@@ -119,23 +132,40 @@ export default {
         },
         selectedThemeCss: {
             get() {
-                return this.$store.state.selectedThemeCss
+                return this.$store.state.theme.selectedThemeCss
             },
             set(value) {
                 this.$store.commit('selectedThemeCss', value)
+            }
+        },
+        loadingMessage() {
+            return this.$store.state.loadingMessage
+        },
+        isLoading() {
+            return this.$store.state.isLoading
+        },
+        themeLink: {
+            get() {
+                return this.$store.state.theme.themeLink
+            },
+            set(value) {
+                this.$store.commit('themeLink', value)
             }
         }
     },
     created() {
     },
     mounted() {
+        this.$store.commit('isLoading', true)
+        this.$store.commit('loadingMessage', 'Loading Tardis groups ...')
         let themesService = new BulmaswatchThemeService()
         themesService.getThemes()
         .then((response) => {
+            this.$store.commit('isLoading', false)
             this.themes = response.data.themes
-            console.log(this.themes)
             this.themesVersion = response.data.version
         }, (error) => {
+            this.$store.commit('isLoading', false)
             console.log(error)
         })
     }

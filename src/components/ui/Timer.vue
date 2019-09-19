@@ -133,14 +133,14 @@ export default {
     },
     mounted() {
         this.$root.$on('startCountingTime', () => {
-            if(this.$store.state.currentTimer === null && !this.timerQueryPending) { //if no timers are stored and a timer has not been started
+            if(this.$store.state.currentTimer === null) { //if no timers are stored and a timer has not been started
                 console.log('start timer')
                 this.toggleClock()
                 // this.startTimer()
             }
         })
         this.$root.$on('stopCountingTime', () => {
-            if(this.$store.state.currentTimer !== null && !this.timerQueryPending) {
+            if(this.$store.state.currentTimer !== null) {
                 console.log('stop timer')
                 this.toggleClock()
                 // this.stopTimer()
