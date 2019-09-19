@@ -16,7 +16,8 @@ export default new Vuex.Store({
         task: Object,
         taskTimeSummary: Object,
         currentTimer: null,
-        maxIdleTime: 30
+        maxIdleTime: 30,
+        selectedThemeCss: 0
     },
 
     getters: {
@@ -61,6 +62,9 @@ export default new Vuex.Store({
         },
         maxIdleTime(state, value) {
             state.maxIdleTime = value
+        },
+        selectedThemeCss(state, value) {
+            state.selectedThemeCss = value
         }
     },
 
