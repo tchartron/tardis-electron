@@ -34,7 +34,7 @@
                             <div class="field">
                                 <label class="label">Watcher Idle Time</label>
                                 <div class="control">
-                                    <input class="input" type="text" v-model="idleTime" placeholder="30">
+                                    <input class="input" type="text" v-model="maxIdleTime" placeholder="30">
                                 </div>
                             </div>
                             <div class="field">
@@ -101,12 +101,12 @@ export default {
         api() {
             return this.$store.state.api
         },
-        idleTime: {
+        maxIdleTime: {
             get() {
-                return this.$store.state.idleTime
+                return this.$store.state.maxIdleTime
             },
             set(value) {
-                this.$store.commit('idleTime', value)
+                this.$store.commit('maxIdleTime', value)
             }
         },
         selectedThemeCss: {
