@@ -48,6 +48,14 @@
                                 </div>
                             </div>
                             <div class="field">
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox">
+                                        Direclty start timer when watching (NOT IMPLEMENTED)
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="field">
                                 <p class="control has-text-centered">
                                     <button class="button is-info" @click="saveSettings">
                                         Save
