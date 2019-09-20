@@ -67,6 +67,14 @@ export default {
                 this.$store.commit('api', value)
             }
         },
+        apiUser: {
+            get() {
+                return this.$store.state.apiUser
+            },
+            set(value) {
+                this.$store.commit('apiUser', value)
+            }
+        },
         user: {
             get() {
                 return this.$store.state.user
@@ -104,17 +112,18 @@ export default {
             // this.loadingMessage = "Authenticating from API ...";
             this.$store.commit('loadingMessage', "Authenticating from API ...")
             let backend = new BackendService();
-            backend.login(this.$store.state.user)
+            backend.login(this.user)
             .then((response) => {
                 // console.log(response);
                 // this.api = response.data
                 this.$store.commit('api', response.data)
+                this.$store.commit('userLoggedInTimestamp', new Date(Date.now())) //locally save loggeintimestamp for token renewal
                 // console.log(response.data)
                 // this.loadingMessage = "Token received, Retrieving your user informations";
                 this.$store.commit('loadingMessage', "Token received, Retrieving your user informations")
-                backend.getUser(this.$store.state.api).then((response) => {
+                backend.getUser(this.api).then((response) => {
                     // this.user = response.data;
-                    this.$store.commit('user', response.data)
+                    this.$store.commit('apiUser', response.data)
                     // this.isLoading = false //Upon login we switch to watch view and load group so keep loader visible
                     // this.$router.push({ name: 'timer-page', params:{ user: this.user, api: this.api }}) //we no store everything in vuex
                     this.$router.push({ name: 'timer-page'})

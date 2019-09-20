@@ -9,7 +9,19 @@ const apiUrl = apiAdress + apiSuffix;
     //     'Access-Control-Allow-Origin': '*',
     //     'Content-Type': 'application/json'
     // }
+import store from '@/store/store'
+import differenceInSeconds from 'date-fns/differenceInSeconds'
+
 export default class BackendService {
+
+    async renewToken(user, api) {
+        let now = new Date(Date.now());
+        let timeLogged = differenceInSeconds(now, user.loggedInTimestamp)
+        console.log("Logged since" + timeLogged)
+        if(timeLogged > parseInt(api.expires_in)) {
+                await this.login(store.getters.user)
+        }
+    }
 
     async login(user) {
         // await this.sleep(1000)
@@ -29,6 +41,7 @@ export default class BackendService {
     }
     async getGroups(api) {
         // await this.sleep(1000)
+        await this.renewToken(store.getters.user, store.getters.api)
         let url = `${apiUrl}/groups`;
         return axios.get(url, {
             headers: {"Authorization": `Bearer ${api.access_token}`}
@@ -36,6 +49,7 @@ export default class BackendService {
     }
     async getTasks(api, groupId) {
         // await this.sleep(1000)
+        await this.renewToken(store.getters.user, store.getters.api)
         let url = `${apiUrl}/groups/${groupId}/tasks`;
         return axios.get(url, {
             headers: {"Authorization": `Bearer ${api.access_token}`}
@@ -43,6 +57,7 @@ export default class BackendService {
     }
     async getTask(api, groupId, taskId) {
         // await this.sleep(1000)
+        await this.renewToken(store.getters.user, store.getters.api)
         let url = `${apiUrl}/groups/${groupId}/tasks/${taskId}`;
         return axios.get(url, {
             headers: {"Authorization": `Bearer ${api.access_token}`}
@@ -56,12 +71,14 @@ export default class BackendService {
     //     })
     // }
     async storeTimer(api, groupId, taskId) {
+        await this.renewToken(store.getters.user, store.getters.api)
         let url = `${apiUrl}/groups/${groupId}/tasks/${taskId}/timers`;
         return axios.post(url, {}, {
             headers: {"Authorization": `Bearer ${api.access_token}`}
         })
     }
     async updateTimer(api, groupId, taskId, timerId) {
+        await this.renewToken(store.getters.user, store.getters.api)
         let url = `${apiUrl}/groups/${groupId}/tasks/${taskId}/timers/${timerId}`;
         return axios.put(url, {}, {
             headers: {"Authorization": `Bearer ${api.access_token}`}

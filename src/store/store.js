@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         api: Object,
+        apiUser: Object,
         user: Object,
         isLoading: false,
         loadingMessage: String,
@@ -17,21 +18,25 @@ export default new Vuex.Store({
         taskTimeSummary: Object,
         currentTimer: null,
         maxIdleTime: 30,
-        theme: {
-            selectedThemeHref: 0,
-            themeLink: ""
-        }
+        selectedThemeHref: 0
     },
 
     getters: {
+        //Have to do getter to access state in custom js class (BackendService)
+        user: state => {
+            return state.user
+        },
+        api: state => {
+            return state.api
+        }
     },
 
     mutations: {
         api(state, value) {
             state.api = value
         },
-        user(state, value) {
-            state.user = value
+        apiUser(state, value) {
+            state.apiUser = value
         },
         addGroup(state, group) {
             state.groups.push(group)
@@ -67,10 +72,16 @@ export default new Vuex.Store({
             state.maxIdleTime = value
         },
         selectedThemeHref(state, value) {
-            state.theme.selectedThemeHref = value
+            state.selectedThemeHref = value
         },
-        themeLink(state, value) {
-            state.theme.themeLink = value
+        // userPassword(state, value) {
+        //     state.userPassword = value
+        // },
+        userLoggedInTimestamp(state, value) {
+            state.user.loggedInTimestamp = value
+        },
+        user(state, value) {
+            state.user = value
         }
     },
 
