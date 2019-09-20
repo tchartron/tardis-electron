@@ -21,7 +21,6 @@ export default {
             link.href = userTheme
             link.id = "custom-theme";
             let linkFound = document.getElementById("custom-theme")
-            console.log(linkFound)
             if(linkFound === null) { //mounted hook is being called mlultiple time so limiting link inclusion
                 document.head.appendChild(link)
             }
