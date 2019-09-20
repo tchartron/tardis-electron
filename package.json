@@ -1,6 +1,6 @@
 {
-  "name": "tardis-electron",
-  "version": "0.1.0",
+  "name": "tardis",
+  "version": "0.7.0",
   "private": true,
   "main": "app.js",
   "scripts": {
@@ -23,6 +23,7 @@
     "core-js": "^2.6.5",
     "date-fns": "^2.2.1",
     "electron": "^5.0.1",
+    "electron-store": "^5.0.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "vue": "^2.6.10",
