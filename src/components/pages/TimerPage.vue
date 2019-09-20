@@ -4,7 +4,7 @@
             <div class="column">
 
                 <!-- /////// HEADER \\\\\\\ -->
-                <Header :user="user" />
+                <Header :user="apiUser" />
                 <!-- /////// TABS NAVIGATION \\\\\\\ -->
                 <div class="columns">
                     <div class="column">
@@ -103,8 +103,8 @@ export default {
         isLoading() {
             return this.$store.state.isLoading
         },
-        user() {
-            return this.$store.state.user
+        apiUser() {
+            return this.$store.state.apiUser
         },
         api() {
             return this.$store.state.api

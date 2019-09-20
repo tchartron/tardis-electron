@@ -4,7 +4,7 @@
             <div class="column">
 
                 <!-- /////// HEADER \\\\\\\ -->
-                <Header :user="user" />
+                <Header :user="apiUser" />
                 <!-- /////// TABS NAVIGATION \\\\\\\ -->
                 <div class="columns">
                     <div class="column">
@@ -122,7 +122,7 @@ export default {
         }
     },
     computed: {
-        user() {
+        apiUser() {
             return this.$store.state.user
         },
         api() {
