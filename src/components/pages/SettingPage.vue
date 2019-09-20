@@ -115,7 +115,6 @@ export default {
                     customLink = document.getElementById("custom-theme")
                     customLink.href = this.selectedThemeHref
                 }
-                this.$store.commit('themeLink', link)
                 //Persistence of data
                 electronStore.set('user.theme', this.selectedThemeHref)
                 // store.delete('user.theme')
@@ -139,7 +138,7 @@ export default {
         },
         selectedThemeHref: {
             get() {
-                return this.$store.state.theme.selectedThemeHref
+                return this.$store.state.selectedThemeHref
             },
             set(value) {
                 this.$store.commit('selectedThemeHref', value)
@@ -150,14 +149,6 @@ export default {
         },
         isLoading() {
             return this.$store.state.isLoading
-        },
-        themeLink: {
-            get() {
-                return this.$store.state.theme.themeLink
-            },
-            set(value) {
-                this.$store.commit('themeLink', value)
-            }
         }
     },
     created() {
