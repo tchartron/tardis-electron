@@ -6,7 +6,7 @@
 
 <script>
 const Store = require('electron-store');
-const store = new Store();
+const electronStore = new Store();
 
 export default {
   name: 'app',
@@ -14,8 +14,7 @@ export default {
     this.$router.push('/login')
     //Cheking for user configuration
     //Theme
-    let userTheme = store.get('user.theme')
-    console.log(userTheme)
+    let userTheme = electronStore.get('user.theme')
     if(userTheme !== undefined) {
       let link = document.createElement('link')
       let customLink = ""

@@ -84,7 +84,7 @@ import Footer from '@/components/layout/Footer.vue';
 import BulmaswatchThemeService from '@/services/bulmaswatch-themes-service'
 const Store = require('electron-store');
 
-const store = new Store();
+const electronStore = new Store();
 
 export default {
     data() {
@@ -117,7 +117,7 @@ export default {
                 }
                 this.$store.commit('themeLink', link)
                 //Persistence of data
-                store.set('user.theme', this.selectedThemeHref)
+                electronStore.set('user.theme', this.selectedThemeHref)
                 // store.delete('user.theme')
             }
         }
