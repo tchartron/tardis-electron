@@ -17,7 +17,6 @@ export default class BackendService {
     async renewToken(user, api) {
         let now = new Date(Date.now());
         let timeLogged = differenceInSeconds(now, user.loggedInTimestamp)
-        console.log("Logged since" + timeLogged)
         if(timeLogged > parseInt(api.expires_in)) {
                 await this.login(store.getters.user)
         }
