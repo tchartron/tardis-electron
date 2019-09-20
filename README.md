@@ -38,7 +38,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [X] Test different scenarios between watcher and timer
 - [X] Rework UI, align things, change colors
 - [X] Implement theming
-- [ ] Save settings on local host
+- [X] Save settings on local host
 - [ ] Implement loading animation of bulma on buttons (watch button)
 - [ ] Implement auto token refresh
 - [ ] Implement markdown parser
