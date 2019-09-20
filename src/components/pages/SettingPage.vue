@@ -40,7 +40,7 @@
                             <div class="field">
                                 <div class="control">
                                     <div class="select is-fullwidth">
-                                        <select name="themes" v-model="selectedThemeCss" >
+                                        <select name="themes" v-model="selectedThemeHref" >
                                             <option value="0">Please pick a theme</option>
                                             <option v-for="theme in themes" :value="theme.css">{{ theme.name + " | " + theme.description }}</option>
                                         </select>
@@ -99,17 +99,17 @@ export default {
             this.$router.push({ name: dest})
         },
         saveSettings() {
-            if(this.selectedThemeCss !== 0) {
+            if(this.selectedThemeHref !== 0) {
                 let link = document.createElement('link')
                 let customLink = ""
                 link.rel = "stylesheet"
-                link.href = this.selectedThemeCss
+                link.href = this.selectedThemeHref
                 link.id = "custom-theme";
                 customLink = document.getElementById("custom-theme")
                 if(this.themeLink === "") {
                     document.head.appendChild(link)
                 } else {
-                    customLink.href = this.selectedThemeCss
+                    customLink.href = this.selectedThemeHref
                 }
                 this.$store.commit('themeLink', link)
             }
@@ -130,12 +130,12 @@ export default {
                 this.$store.commit('maxIdleTime', value)
             }
         },
-        selectedThemeCss: {
+        selectedThemeHref: {
             get() {
-                return this.$store.state.theme.selectedThemeCss
+                return this.$store.state.theme.selectedThemeHref
             },
             set(value) {
-                this.$store.commit('selectedThemeCss', value)
+                this.$store.commit('selectedThemeHref', value)
             }
         },
         loadingMessage() {

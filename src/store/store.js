@@ -18,7 +18,7 @@ export default new Vuex.Store({
         currentTimer: null,
         maxIdleTime: 30,
         theme: {
-            selectedThemeCss: 0,
+            selectedThemeHref: 0,
             themeLink: ""
         }
     },
@@ -66,8 +66,8 @@ export default new Vuex.Store({
         maxIdleTime(state, value) {
             state.maxIdleTime = value
         },
-        selectedThemeCss(state, value) {
-            state.theme.selectedThemeCss = value
+        selectedThemeHref(state, value) {
+            state.theme.selectedThemeHref = value
         },
         themeLink(state, value) {
             state.theme.themeLink = value
