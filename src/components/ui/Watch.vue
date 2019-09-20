@@ -71,7 +71,7 @@ export default {
     },
     mounted() {
         this.$electron.ipcRenderer.on('pong', (event, data) => {
-            this.watcherData.push(data)
+            // this.watcherData.push(data) // Don't store watcher logs maybe make this a activable setting later
             //working detected send start timer event
             if(this.watcherReady) {
                 this.$root.$emit('startCountingTime')
