@@ -5,10 +5,26 @@
 </template>
 
 <script>
+const Store = require('electron-store');
+const store = new Store();
+
 export default {
   name: 'app',
   mounted() {
     this.$router.push('/login')
+    //Cheking for user configuration
+    //Theme
+    let userTheme = store.get('user.theme')
+    console.log(userTheme)
+    if(userTheme !== undefined) {
+      let link = document.createElement('link')
+      let customLink = ""
+      link.rel = "stylesheet"
+      link.href = userTheme
+      link.id = "custom-theme";
+      document.head.appendChild(link)
+    }
+
   }
 };
 </script>

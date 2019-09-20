@@ -82,6 +82,9 @@
 import Header from '@/components/layout/Header.vue';
 import Footer from '@/components/layout/Footer.vue';
 import BulmaswatchThemeService from '@/services/bulmaswatch-themes-service'
+const Store = require('electron-store');
+
+const store = new Store();
 
 export default {
     data() {
@@ -99,19 +102,23 @@ export default {
             this.$router.push({ name: dest})
         },
         saveSettings() {
+            //Theme
             if(this.selectedThemeHref !== 0) {
                 let link = document.createElement('link')
                 let customLink = ""
                 link.rel = "stylesheet"
                 link.href = this.selectedThemeHref
                 link.id = "custom-theme";
-                customLink = document.getElementById("custom-theme")
                 if(this.themeLink === "") {
                     document.head.appendChild(link)
                 } else {
+                    customLink = document.getElementById("custom-theme")
                     customLink.href = this.selectedThemeHref
                 }
                 this.$store.commit('themeLink', link)
+                //Persistence of data
+                store.set('user.theme', this.selectedThemeHref)
+                // store.delete('user.theme')
             }
         }
     },
