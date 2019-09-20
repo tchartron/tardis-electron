@@ -17,13 +17,15 @@ export default {
     let userTheme = electronStore.get('user.theme')
     if(userTheme !== undefined) {
       let link = document.createElement('link')
-      let customLink = ""
       link.rel = "stylesheet"
       link.href = userTheme
       link.id = "custom-theme";
-      document.head.appendChild(link)
+      let linkFound = document.getElementById("custom-theme")
+      console.log(linkFound)
+      if(linkFound === null) { //mounted hook is being called mlultiple time so limiting link inclusion
+        document.head.appendChild(link)
+      }
     }
-
   }
 };
 </script>

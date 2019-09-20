@@ -109,7 +109,7 @@ export default {
                 link.rel = "stylesheet"
                 link.href = this.selectedThemeHref
                 link.id = "custom-theme";
-                if(this.themeLink === "") {
+                if(electronStore.get("user.theme") === undefined) {
                     document.head.appendChild(link)
                 } else {
                     customLink = document.getElementById("custom-theme")
