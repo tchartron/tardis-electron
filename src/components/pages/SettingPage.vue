@@ -155,7 +155,7 @@ export default {
     },
     mounted() {
         this.$store.commit('isLoading', true)
-        this.$store.commit('loadingMessage', 'Loading Tardis groups ...')
+        this.$store.commit('loadingMessage', 'Loading remote theme list ...')
         let themesService = new BulmaswatchThemeService()
         themesService.getThemes()
         .then((response) => {

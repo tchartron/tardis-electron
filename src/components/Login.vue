@@ -89,14 +89,28 @@ export default {
                 this.$store.commit('api', response.data)
                 this.$store.commit('userLoggedInTimestamp', new Date(Date.now())) //locally save loggeintimestamp for token renewal
                 this.$store.commit('loadingMessage', "Token received, Retrieving your user informations")
-                backend.getUser(this.api).then((response) => {
+                backend.getUser(this.api)
+                .then((response) => {
                     this.$store.commit('apiUser', response.data)
-                    // this.$router.push({ name: 'timer-page', params:{ user: this.user, api: this.api }}) //we no store everything in vuex
-                    this.$router.push({ name: 'timer-page'})
+                    backend.getGroups(this.$store.state.api)
+                    .then((response) => {
+                        for (var value of response.data) {
+                            this.$store.dispatch('addGroup', value)
+                        }
+                        //Everything is preloaded move to timer page
+                        // this.$router.push({ name: 'timer-page', params:{ user: this.user, api: this.api }}) //we no store everything in vuex
+                        this.$router.push({ name: 'timer-page'})
+                        this.$store.commit('isLoading', false)
+                    }, (error) => {
+                        console.log(error)
+                        this.$store.commit('isLoading', false)
+                        this.loginResult = error;
+                    })
                 }, (error) => {
                     console.log(error)
+                    this.$store.commit('isLoading', false)
                     this.loginResult = error;
-                });
+                })
             }, (error) => {
                 console.log(error);
                 this.$store.commit('isLoading', false)

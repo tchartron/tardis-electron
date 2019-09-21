@@ -28,29 +28,6 @@ export default {
         return {}
     },
     methods: {
-        findGroups() {
-            // this.isLoading = true
-            this.$store.commit('isLoading', true)
-            // this.groups = [];
-            // this.loadingMessage = "Loading Tardis groups ...";
-            this.$store.commit('loadingMessage', 'Loading Tardis groups ...')
-            let backend = new BackendService();
-            backend.getGroups(this.$store.state.api)
-            .then((response) => {
-                // console.log(response.data)
-                for (var value of response.data) {
-                    // console.log(value);
-                    // this.groups.push(value)
-                    this.$store.dispatch('addGroup', value)
-                }
-                // this.isLoading = false
-                this.$store.commit('isLoading', false)
-            }, (error) => {
-                console.log(error)
-                // this.isLoading = false;
-                this.$store.commit('isLoading', false)
-            });
-        },
         findTasks() {
             this.$store.commit('flushTasks')
             this.$store.commit('isLoading', true)
@@ -83,7 +60,6 @@ export default {
         }
     },
     mounted() {
-        this.findGroups();
     }
 };
 </script>
