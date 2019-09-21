@@ -16,7 +16,7 @@ function createWindow () {
         }
     })
 
-    //     //On dev use loadUrl to provide webpack watch feature to hot reload the app
+    //On dev use loadUrl to provide webpack watch feature to hot reload the app
     if(process.env.NODE_ENV === 'development') {
         let load = win.loadURL('http://localhost:8182/').then(() => {})
         win.webContents.openDevTools()
