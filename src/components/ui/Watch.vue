@@ -73,9 +73,9 @@ export default {
         this.$electron.ipcRenderer.on('pong', (event, data) => {
             // this.watcherData.push(data) // Don't store watcher logs maybe make this a activable setting later
             //working detected send start timer event
-            if(this.watcherReady) {
+            if(this.watcherReady && !this.timerQueryPending) {
+                console.log("watcher ready pong received")
                 this.$root.$emit('startCountingTime')
-                this.idleTime = 0
             }
             if(this.idleInterval === null) {
                 this.countIdle()
@@ -100,6 +100,9 @@ export default {
         },
         maxIdleTime() {
             return this.$store.state.maxIdleTime
+        },
+        timerQueryPending() {
+            return this.$store.state.timerQueryPending
         }
     }
 };

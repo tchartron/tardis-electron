@@ -36,21 +36,23 @@ export default {
             second: 0,
             interval: null,
             timerLogs: [],
-            timerQueryPending: false
+            // timerQueryPending: false
         }
     },
     methods: {
         toggleClock() {
-            if(!this.timerQueryPending) {
+            if(parseInt(this.selectedGroupId) !== 0 && parseInt(this.selectedTaskId) !== 0) {
                 if(this.interval === null) {
-                    this.interval = setInterval(() => this.tick(), 1000)
                     this.startTimer()
+                    this.interval = setInterval(() => this.tick(), 1000)
                 } else {
+                    this.stopTimer()
                     clearInterval(this.interval)
                     this.interval = null
                     this.clearTimer()
-                    this.stopTimer()
                 }
+            } else {
+                this.notify("Please select a group and a task", "is-warning")
             }
         },
         tick() {
@@ -64,6 +66,14 @@ export default {
                 }
             }
         },
+        notify(message, type) {
+            bulmaToast.toast({
+                message: message,
+                type: type,
+                dismissible: true,
+                animate: { in: "fadeIn", out: "fadeOut" }
+            });
+        },
         clearTimer() {
             this.hour = 0
             this.minute = 0
@@ -74,25 +84,19 @@ export default {
         },
         startTimer() {
             let backend = new BackendService();
-            this.timerQueryPending = true
+            this.$store.commit('timerQueryPending', true)
             //Attach path about to be watched to timer creation
             // this.currentTimer.path = this.pathToWatch;
-            backend.storeTimer(this.$store.state.api, this.$store.state.selectedGroupId, this.$store.state.selectedTaskId)
+            backend.storeTimer(this.api, this.selectedGroupId, this.selectedTaskId)
             .then((response) => {
                 this.$store.commit('currentTimer', response.data.timer)
-                this.timerQueryPending = false
+                this.$store.commit('timerQueryPending', false)
                 // console.log('start timer'+this.currentTimer);
-                bulmaToast.toast({
-                    message: "Timer started",
-                    type: "is-success",
-                    dismissible: true,
-                    position: 'top-right',
-                    animate: { in: "fadeIn", out: "fadeOut" }
-                });
+                this.notify("Timer started", "is-success")
                 // console.log('start toast should be displayed')
             }, (error) => {
                 console.log(error)
-                this.timerQueryPending = false
+                this.$store.commit('timerQueryPending', false)
                 //reset path to watch attached to timer upon timer creation failure
                 // this.currentTimer.path = "";
                 // this.currentTimer.timer = {};
@@ -100,27 +104,22 @@ export default {
         },
         stopTimer() {
             let backend = new BackendService();
-            this.timerQueryPending = true
+            this.$store.commit('timerQueryPending', true)
             //reset path beeing watched
             // this.currentTimer.path = "";
-            backend.updateTimer(this.$store.state.api, this.$store.state.selectedGroupId, this.$store.state.selectedTaskId, this.$store.state.currentTimer.id)
+            backend.updateTimer(this.api, this.selectedGroupId, this.selectedTaskId, this.currentTimer.id)
             .then((response) => {
                 //Also in the view
                 // this.pathToWatch = "";
-                this.timerLogs.push(this.$store.state.currentTimer) //push to logs
+                this.timerLogs.push(this.currentTimer) //push to logs
                 this.$store.commit('currentTimer', null)
-                this.timerQueryPending = false
+                this.$store.commit('timerQueryPending', false)
                 // console.log('stop timer'+this.currentTimer)
-                bulmaToast.toast({
-                    message: "Timer stopped",
-                    type: "is-warning",
-                    dismissible: true,
-                    animate: { in: "fadeIn", out: "fadeOut" }
-                });
+                this.notify("Timer stopped", "is-warning")
                 // console.log('stop toast should be displayed')
             }, (error) => {
                 console.log(error)
-                this.timerQueryPending = false
+                this.$store.commit('timerQueryPending', false)
                 //cancel what has been done before send request because request failed and so
                 // this.currentTimer.path = this.pathToWatch;
 
@@ -133,23 +132,45 @@ export default {
     },
     mounted() {
         this.$root.$on('startCountingTime', () => {
-            if(this.$store.state.currentTimer === null) { //if no timers are stored and a timer has not been started
+            if(this.currentTimer === null && !this.timerQueryPending) { //if no timers are stored and a timer has not been started
                 console.log('start timer')
                 this.toggleClock()
-                // this.startTimer()
+            } else {
+                this.notify("Timer query pending", "is-warning")
             }
         })
         this.$root.$on('stopCountingTime', () => {
-            if(this.$store.state.currentTimer !== null) {
+            if(this.currentTimer !== null && !this.timerQueryPending) {
                 console.log('stop timer')
                 this.toggleClock()
-                // this.stopTimer()
+            } else {
+                this.notify("Timer query pending", "is-warning")
             }
         })
     },
     computed: {
         isClockTicking() {
-            return (this.interval !== null)
+            return (this.currentTimer !== null)
+        },
+        selectedGroupId() {
+            return this.$store.state.selectedGroupId
+        },
+        selectedTaskId() {
+            return this.$store.state.selectedTaskId
+        },
+        currentTimer() {
+            return this.$store.state.currentTimer
+        },
+        api() {
+            return this.$store.state.api
+        },
+        timerQueryPending: {
+            get() {
+                return this.$store.state.timerQueryPending
+            },
+            set(value) {
+                this.$store.commit('timerQueryPending', value)
+            }
         }
     }
 };
