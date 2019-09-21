@@ -40,6 +40,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [X] Implement theming
 - [X] Save settings on local host
 - [ ] Implement loading animation of bulma on buttons (watch button)
-- [ ] Implement auto token refresh
+- [X] Implement auto token refresh
 - [ ] Implement markdown parser
 - [ ] Fix / Delete watcher logs
