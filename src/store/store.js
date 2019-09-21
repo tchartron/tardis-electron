@@ -79,6 +79,7 @@ export default new Vuex.Store({
             state.user.loggedInTimestamp = value
         },
         user(state, value) {
+            console.log(value)
             state.user = value
         },
         timerRunning(state, value) {

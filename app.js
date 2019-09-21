@@ -1,6 +1,3 @@
-// const electron = require('electron')
-// const app = electron.app
-// const BrowserWindow = electron.BrowserWindow
 const { app, BrowserWindow } = require('electron')
 const ipcMain = require('electron').ipcMain
 const chokidar = require("chokidar")
@@ -19,20 +16,13 @@ function createWindow () {
         }
     })
 
-
+    //     //On dev use loadUrl to provide webpack watch feature to hot reload the app
     if(process.env.NODE_ENV === 'development') {
-        //On dev use loadUrl to provide webpack watch feature to hot reload the app
-        let load = win.loadURL('http://localhost:8182/').then(() => {
-            // console.log('finished')
-        })
+        let load = win.loadURL('http://localhost:8182/').then(() => {})
+        win.webContents.openDevTools()
     } else if (process.env.NODE_ENV === 'production') {
-        // console.log(win.loadFile('dist/index.html')) //was loading : file:///home/thomas/dev/javascript/electron/timeinator-electron/node_modules/electron/dist/resources/default_app.asar/dist/index.html
-        let load = win.loadFile(`${__dirname}/dist/index.html`).then(() => {
-            // console.log('finished')
-        })
+        let load = win.loadFile(`${__dirname}/dist/index.html`).then(() => {})
     }
-
-    win.webContents.openDevTools()
 
     win.on('closed', () => {
         win = null
