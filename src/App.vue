@@ -25,6 +25,10 @@ export default {
                 document.head.appendChild(link)
             }
         }
+        let maxIdleTime = electronStore.get('user.idleTime')
+        if(maxIdleTime !== undefined) {
+            this.$store.commit('maxIdleTime', maxIdleTime)
+        }
     }
 };
 </script>
