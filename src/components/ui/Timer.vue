@@ -85,45 +85,28 @@ export default {
         startTimer() {
             let backend = new BackendService();
             this.$store.commit('timerQueryPending', true)
-            //Attach path about to be watched to timer creation
-            // this.currentTimer.path = this.pathToWatch;
             backend.storeTimer(this.api, this.selectedGroupId, this.selectedTaskId)
             .then((response) => {
                 this.$store.commit('currentTimer', response.data.timer)
                 this.$store.commit('timerQueryPending', false)
-                // console.log('start timer'+this.currentTimer);
                 this.notify("Timer started", "is-success")
-                // console.log('start toast should be displayed')
             }, (error) => {
                 console.log(error)
                 this.$store.commit('timerQueryPending', false)
-                //reset path to watch attached to timer upon timer creation failure
-                // this.currentTimer.path = "";
-                // this.currentTimer.timer = {};
             })
         },
         stopTimer() {
             let backend = new BackendService();
             this.$store.commit('timerQueryPending', true)
-            //reset path beeing watched
-            // this.currentTimer.path = "";
             backend.updateTimer(this.api, this.selectedGroupId, this.selectedTaskId, this.currentTimer.id)
             .then((response) => {
-                //Also in the view
-                // this.pathToWatch = "";
-                this.timerLogs.push(this.currentTimer) //push to logs
+                this.timerLogs.push(this.currentTimer)
                 this.$store.commit('currentTimer', null)
                 this.$store.commit('timerQueryPending', false)
-                // console.log('stop timer'+this.currentTimer)
                 this.notify("Timer stopped", "is-warning")
-                // console.log('stop toast should be displayed')
             }, (error) => {
                 console.log(error)
                 this.$store.commit('timerQueryPending', false)
-                //cancel what has been done before send request because request failed and so
-                // this.currentTimer.path = this.pathToWatch;
-
-                //Recursive call to stopTimer() to make this timer stop .... ?
             })
         },
         formatLog(log) {

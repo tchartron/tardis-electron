@@ -1,7 +1,6 @@
 // const axios = require('axios');
 import axios from 'axios'
 
-// const apiAdress = "http://192.168.0.24";
 const apiAdress = "http://127.0.0.1:8181";
 const apiSuffix = "/api";
 const apiUrl = apiAdress + apiSuffix;
@@ -26,9 +25,7 @@ export default class BackendService {
                 })
         }
     }
-
     async login(user) {
-        // await this.sleep(1000)
         let url = `${apiUrl}/login`;
         return axios.post(url, {
             email: user.email,
@@ -36,15 +33,12 @@ export default class BackendService {
         });
     }
     async getUser(api) {
-        // await this.sleep(1000)
         let url = `${apiUrl}/me`;
-        // console.log(token)
         return axios.post(url, {}, {
             headers: {"Authorization": `Bearer ${api.access_token}`}
         });
     }
     async getGroups(api) {
-        // await this.sleep(1000)
         await this.renewToken(store.getters.user, store.getters.api)
         let url = `${apiUrl}/groups`;
         return axios.get(url, {
@@ -52,7 +46,6 @@ export default class BackendService {
         })
     }
     async getTasks(api, groupId) {
-        // await this.sleep(1000)
         await this.renewToken(store.getters.user, store.getters.api)
         let url = `${apiUrl}/groups/${groupId}/tasks`;
         return axios.get(url, {
@@ -60,20 +53,12 @@ export default class BackendService {
         })
     }
     async getTask(api, groupId, taskId) {
-        // await this.sleep(1000)
         await this.renewToken(store.getters.user, store.getters.api)
         let url = `${apiUrl}/groups/${groupId}/tasks/${taskId}`;
         return axios.get(url, {
             headers: {"Authorization": `Bearer ${api.access_token}`}
         })
     }
-    // async getTaskTimers(token, groupId, taskId) {
-    //     await this.sleep(1000)
-    //     let url = `${apiUrl}/groups/${groupId}/tasks/${taskId}/timers`;
-    //     return axios.get(url, {
-    //         headers: {"Authorization": `Bearer ${token}`}
-    //     })
-    // }
     async storeTimer(api, groupId, taskId) {
         await this.renewToken(store.getters.user, store.getters.api)
         let url = `${apiUrl}/groups/${groupId}/tasks/${taskId}/timers`;
@@ -89,7 +74,7 @@ export default class BackendService {
         })
     }
 
-     sleep(ms) {
+    sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 }

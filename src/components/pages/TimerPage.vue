@@ -74,11 +74,8 @@ import Watch from '@/components/ui/Watch.vue';
 
 export default {
     name: 'TimerPage',
-    // props: ['user', 'api'],
     data() {
-        return {
-            // loadingMessage: String
-        }
+        return {}
     },
     components: {
         Header,
@@ -92,7 +89,6 @@ export default {
     },
     methods: {
         navigate(dest) {
-            // this.$router.push({ name: dest, params:{ user: this.user, api: this.api }})
             this.$router.push({ name: dest})
         }
     },

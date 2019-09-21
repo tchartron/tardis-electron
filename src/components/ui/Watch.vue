@@ -28,8 +28,6 @@
 </template>
 
 <script>
-// const MAX_IDLE_TIME = 30;
-
 export default {
     name: 'Watch',
     data() {
@@ -72,7 +70,6 @@ export default {
     mounted() {
         this.$electron.ipcRenderer.on('pong', (event, data) => {
             // this.watcherData.push(data) // Don't store watcher logs maybe make this a activable setting later
-            //working detected send start timer event
             if(this.watcherReady && !this.timerQueryPending) {
                 console.log("watcher ready pong received")
                 this.$root.$emit('startCountingTime')
@@ -80,17 +77,9 @@ export default {
             if(this.idleInterval === null) {
                 this.countIdle()
             }
-            //If timer already attached to path do nothing
-            // if(this.currentTimer.path !== this.pathToWatch) {
-            //     this.startTimer();
-            //     if(!this.idleInterval) {
-            //         this.countIdle();
-            //     }
-            // }
         });
         this.$electron.ipcRenderer.on('ready', (event) => {
             console.log('watcher ready')
-            //first directory scanning done
             this.watcherReady = true
         })
     },

@@ -75,9 +75,6 @@ export default new Vuex.Store({
         selectedThemeHref(state, value) {
             state.selectedThemeHref = value
         },
-        // userPassword(state, value) {
-        //     state.userPassword = value
-        // },
         userLoggedInTimestamp(state, value) {
             state.user.loggedInTimestamp = value
         },

@@ -44,18 +44,7 @@ export default {
     name: 'Login',
     data() {
         return {
-            // user: {
-            //     email: "thomas.chartron@gmail.com",
-            //     password: "thomasthomas",
-            // },
-            loginResult: null,
-            // api: {
-            //     access_token: String,
-            //     token_type: String,
-            //     expires_in: String
-            // },
-            // isLoading: false,
-            // loadingMessage: String
+            loginResult: null
         }
     },
     computed: {
@@ -89,42 +78,19 @@ export default {
         loadingMessage() {
             return this.$store.state.loadingMessage
         }
-        // email: {
-        //     get() {
-        //         return this.$store.state.user.email
-        //     },
-        //     set(value) {
-        //         this.$store.commit('updateEmail', value)
-        //     }
-        // },
-        // password: {
-        //     get() {
-        //         return this.$store.state.user.password
-        //     },
-        //     set(value) {
-        //         this.$store.commit('updatePassword', value)
-        //     }
-        // }
     },
     methods: {
         login() {
             this.$store.commit('isLoading', true)
-            // this.loadingMessage = "Authenticating from API ...";
             this.$store.commit('loadingMessage', "Authenticating from API ...")
             let backend = new BackendService();
             backend.login(this.user)
             .then((response) => {
-                // console.log(response);
-                // this.api = response.data
                 this.$store.commit('api', response.data)
                 this.$store.commit('userLoggedInTimestamp', new Date(Date.now())) //locally save loggeintimestamp for token renewal
-                // console.log(response.data)
-                // this.loadingMessage = "Token received, Retrieving your user informations";
                 this.$store.commit('loadingMessage', "Token received, Retrieving your user informations")
                 backend.getUser(this.api).then((response) => {
-                    // this.user = response.data;
                     this.$store.commit('apiUser', response.data)
-                    // this.isLoading = false //Upon login we switch to watch view and load group so keep loader visible
                     // this.$router.push({ name: 'timer-page', params:{ user: this.user, api: this.api }}) //we no store everything in vuex
                     this.$router.push({ name: 'timer-page'})
                 }, (error) => {
@@ -162,7 +128,6 @@ a {
     color: #42b983;
 }
 .logo > img {
-    /*text-align: center;*/
     display: block;
     margin-left: auto;
     margin-right: auto;

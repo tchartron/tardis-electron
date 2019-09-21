@@ -117,7 +117,6 @@ export default {
                 }
                 //Persistence of data
                 electronStore.set('user.theme', this.selectedThemeHref)
-                // store.delete('user.theme')
             }
             electronStore.set('user.idleTime', this.maxIdleTime)
         }
