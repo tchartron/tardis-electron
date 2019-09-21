@@ -29,11 +29,11 @@ npm run prod
 See [Configuration Reference](https://cli.vuejs.org/config/)
 
 ### TODO
-- [X] Differenciate and put in separated component task timers summary.
+- [X] Put in separated component task timers summary.
 - [X] Create a task description component to show attributes of task.
 - [X] Create timer component.
 - [X] Create watch component.
-- [X] Fix disabled a tag still clickable replace with button
+- [X] Fix disabled <a> tags still clickable replace with button
 - [ ] Implement websocket notifications when someone assigns on task.
 - [X] Test different scenarios between watcher and timer
 - [X] Rework UI, align things, change colors
@@ -41,7 +41,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [X] Save settings on local host
 - [X] Implement auto token refresh
 - [ ] Implement markdown parser
-- [ ] Fix / Delete watcher logs
+- [X] Fix / Delete watcher logs
+- [ ] Fix ui when app is build
 
 
 ### Crash
