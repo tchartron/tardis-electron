@@ -19,7 +19,7 @@ export default new Vuex.Store({
         currentTimer: null,
         maxIdleTime: 30,
         selectedThemeHref: 0,
-        timerQueryPending: false
+        timerRunning: false
     },
 
     getters: {
@@ -81,8 +81,8 @@ export default new Vuex.Store({
         user(state, value) {
             state.user = value
         },
-        timerQueryPending(state, value) {
-            state.timerQueryPending = value
+        timerRunning(state, value) {
+            state.timerRunning = value
         }
     },
 

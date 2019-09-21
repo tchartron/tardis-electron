@@ -44,7 +44,7 @@ export default {
         watch() {
             this.isWatching = !this.isWatching;
             this.$electron.ipcRenderer.send('ping', this.watcherPath)
-            this.countIdle();
+            // this.countIdle();
         },
         stopWatch() {
             this.isWatching = !this.isWatching;
@@ -70,9 +70,15 @@ export default {
     mounted() {
         this.$electron.ipcRenderer.on('pong', (event, data) => {
             // this.watcherData.push(data) // Don't store watcher logs maybe make this a activable setting later
-            if(this.watcherReady && !this.timerQueryPending) {
-                console.log("watcher ready pong received")
-                this.$root.$emit('startCountingTime')
+            if(this.watcherReady) {
+                console.log("watcher start timer")
+                this.idleTime = 0
+                // if(this.idleInterval === null) {
+                //     this.countIdle()
+                // }
+                if(!this.timerRunning) {
+                    this.$root.$emit('startCountingTime')
+                }
             }
             if(this.idleInterval === null) {
                 this.countIdle()
@@ -90,8 +96,8 @@ export default {
         maxIdleTime() {
             return this.$store.state.maxIdleTime
         },
-        timerQueryPending() {
-            return this.$store.state.timerQueryPending
+        timerRunning() {
+            return this.$store.state.timerRunning
         }
     }
 };

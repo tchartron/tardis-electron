@@ -36,17 +36,21 @@ export default {
             second: 0,
             interval: null,
             timerLogs: [],
-            // timerQueryPending: false
         }
     },
     methods: {
         toggleClock() {
             if(parseInt(this.selectedGroupId) !== 0 && parseInt(this.selectedTaskId) !== 0) {
-                if(this.interval === null) {
+                if(this.interval === null && this.currentTimer === null && !this.timerRunning) {
+                    // (this.timerRunning) ? this.notify("Timer already running", "is-warning") : this.startTimer()
                     this.startTimer()
+                    console.log("start timer api sent")
                     this.interval = setInterval(() => this.tick(), 1000)
-                } else {
+                }
+                if(this.interval !== null && this.currentTimer !== null && this.timerRunning) {
+                    // (this.timerRunning) ? this.stopTimer() : this.notify("Timer already stopped", "is-warning")
                     this.stopTimer()
+                    console.log("stop timer api sent")
                     clearInterval(this.interval)
                     this.interval = null
                     this.clearTimer()
@@ -83,30 +87,30 @@ export default {
             return (number < 10) ? `0${number}` : number
         },
         startTimer() {
+            this.$store.commit('timerRunning', true)
             let backend = new BackendService();
-            this.$store.commit('timerQueryPending', true)
             backend.storeTimer(this.api, this.selectedGroupId, this.selectedTaskId)
             .then((response) => {
                 this.$store.commit('currentTimer', response.data.timer)
-                this.$store.commit('timerQueryPending', false)
+                // this.$store.commit('timerRunning', false)
                 this.notify("Timer started", "is-success")
             }, (error) => {
                 console.log(error)
-                this.$store.commit('timerQueryPending', false)
+                // this.$store.commit('timerRunning', false)
             })
         },
         stopTimer() {
+            this.$store.commit('timerRunning', false)
             let backend = new BackendService();
-            this.$store.commit('timerQueryPending', true)
             backend.updateTimer(this.api, this.selectedGroupId, this.selectedTaskId, this.currentTimer.id)
             .then((response) => {
                 this.timerLogs.push(this.currentTimer)
                 this.$store.commit('currentTimer', null)
-                this.$store.commit('timerQueryPending', false)
-                this.notify("Timer stopped", "is-warning")
+                // this.$store.commit('timerRunning', false)
+                this.notify("Timer stopped", "is-info")
             }, (error) => {
                 console.log(error)
-                this.$store.commit('timerQueryPending', false)
+                // this.$store.commit('timerRunning', false)
             })
         },
         formatLog(log) {
@@ -115,25 +119,19 @@ export default {
     },
     mounted() {
         this.$root.$on('startCountingTime', () => {
-            if(this.currentTimer === null && !this.timerQueryPending) { //if no timers are stored and a timer has not been started
-                console.log('start timer')
+            if(!this.timerRunning) { //if no timers are stored and a timer has not been started
                 this.toggleClock()
-            } else {
-                this.notify("Timer query pending", "is-warning")
             }
         })
         this.$root.$on('stopCountingTime', () => {
-            if(this.currentTimer !== null && !this.timerQueryPending) {
-                console.log('stop timer')
+            if(this.timerRunning) {
                 this.toggleClock()
-            } else {
-                this.notify("Timer query pending", "is-warning")
             }
         })
     },
     computed: {
         isClockTicking() {
-            return (this.currentTimer !== null)
+            return (this.timerRunning)
         },
         selectedGroupId() {
             return this.$store.state.selectedGroupId
@@ -147,12 +145,12 @@ export default {
         api() {
             return this.$store.state.api
         },
-        timerQueryPending: {
+        timerRunning: {
             get() {
-                return this.$store.state.timerQueryPending
+                return this.$store.state.timerRunning
             },
             set(value) {
-                this.$store.commit('timerQueryPending', value)
+                this.$store.commit('timerRunning', value)
             }
         }
     }

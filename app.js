@@ -76,15 +76,15 @@ ipcMain.on('ping', (eventIpc, data) => {
           persistent: true
       });
 
+    this.watcher.on('ready', () => {
+        eventIpc.sender.send('ready')
+    })
+
     this.watcher.on('all', (event, path) => {
         eventIpc.sender.send('pong', {
             'event': event,
             'path': path
         })
-    })
-
-    this.watcher.on('ready', () => {
-        eventIpc.sender.send('ready')
     })
 })
 
