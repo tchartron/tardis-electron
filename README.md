@@ -40,7 +40,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [X] Save settings on local host
 - [X] Implement auto token refresh
 - [X] Fix / Delete watcher logs
-- [X] Fix ui responsivness when app is build
+- [X] Fix ui responsivness when app is built
 - [ ] Fix token renew (login request always beeing sent before any other request when token has expired and first request sent does not work)
 - [ ] Implement markdown parser
 - [ ] Implement websocket notifications when someone assigns on task.
