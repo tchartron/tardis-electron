@@ -34,16 +34,16 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [X] Create timer component.
 - [X] Create watch component.
 - [X] Fix disabled <a> tags still clickable replace with button
-- [ ] Implement websocket notifications when someone assigns on task.
 - [X] Test different scenarios between watcher and timer
 - [X] Rework UI, align things, change colors
 - [X] Implement theming
 - [X] Save settings on local host
 - [X] Implement auto token refresh
-- [ ] Implement markdown parser
 - [X] Fix / Delete watcher logs
-- [ ] Fix ui when app is build
+- [X] Fix ui responsivness when app is build
 - [ ] Fix token renew (login request allways beeing sent before any other request when token has expired and first request sent does not work)
+- [ ] Implement markdown parser
+- [ ] Implement websocket notifications when someone assigns on task.
 
 
 ### Crash
