@@ -43,6 +43,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [ ] Implement markdown parser
 - [X] Fix / Delete watcher logs
 - [ ] Fix ui when app is build
+- [ ] Fix token renew (login request allways beeing sent before any other request when token has expired and first request sent does not work)
 
 
 ### Crash
