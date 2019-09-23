@@ -31,7 +31,9 @@ function createWindow () {
 
 app.on('ready', () => {
     createWindow()
-    win.setTouchBar(touchBar)
+    if (process.platform !== 'darwin') {
+        win.setTouchBar(touchBar)
+    }
 })
 
 app.on('window-all-closed', () => {
