@@ -1,80 +1,74 @@
 <template>
-    <div class="container">
-        <div class="columns has-margin-left-10 has-margin-right-10">
+    <div class="container has-margin-left-10 has-margin-right-10">
+        <!-- /////// HEADER \\\\\\\ -->
+        <Header :user="apiUser" />
+        <!-- /////// TABS NAVIGATION \\\\\\\ -->
+        <div class="columns">
             <div class="column">
+                <div class="tabs is-toggle is-fullwidth is-medium">
+                    <ul>
+                        <li>
+                            <a @click="navigate('timer-page')">
+                                <span class="icon is-small"><i class="fas fa-clock" aria-hidden="true"></i></span>
+                                <span>Timer</span>
+                            </a>
+                        </li>
+                        <li class="is-active">
+                            <a>
+                                <span class="icon is-small"><i class="fas fa-cogs" aria-hidden="true"></i></span>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-                <!-- /////// HEADER \\\\\\\ -->
-                <Header :user="apiUser" />
-                <!-- /////// TABS NAVIGATION \\\\\\\ -->
-                <div class="columns">
-                    <div class="column">
-                        <div class="tabs is-toggle is-fullwidth is-medium">
-                            <ul>
-                                <li>
-                                    <a @click="navigate('timer-page')">
-                                        <span class="icon is-small"><i class="fas fa-clock" aria-hidden="true"></i></span>
-                                        <span>Timer</span>
-                                    </a>
-                                </li>
-                                <li class="is-active">
-                                    <a>
-                                        <span class="icon is-small"><i class="fas fa-cogs" aria-hidden="true"></i></span>
-                                        <span>Settings</span>
-                                    </a>
-                                </li>
-                            </ul>
+        <div class="columns">
+            <div class="column">
+                <!-- MAKE THIS A COMPONENT -->
+                <div class="box">
+                    <div class="field">
+                        <label class="label">Watcher Idle Time</label>
+                        <div class="control">
+                            <input class="input" type="text" v-model="maxIdleTime" placeholder="30">
                         </div>
                     </div>
-                </div>
-
-                <div class="columns">
-                    <div class="column">
-                        <!-- MAKE THIS A COMPONENT -->
-                        <div class="box">
-                            <div class="field">
-                                <label class="label">Watcher Idle Time</label>
-                                <div class="control">
-                                    <input class="input" type="text" v-model="maxIdleTime" placeholder="30">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="control">
-                                    <div class="select is-fullwidth">
-                                        <select name="themes" v-model="selectedThemeHref" >
-                                            <option value="0">Please pick a theme</option>
-                                            <option v-for="theme in themes" :value="theme.css">{{ theme.name + " | " + theme.description }}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="control">
-                                    <label class="checkbox">
-                                        <input type="checkbox">
-                                        Direclty start timer when watching (NOT IMPLEMENTED)
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <p class="control has-text-centered">
-                                    <button class="button is-info" @click="saveSettings">
-                                        Save
-                                    </button>
-                                </p>
+                    <div class="field">
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="themes" v-model="selectedThemeHref" >
+                                    <option value="0">Please pick a theme</option>
+                                    <option v-for="theme in themes" :value="theme.css">{{ theme.name + " | " + theme.description }}</option>
+                                </select>
                             </div>
                         </div>
-
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <label class="checkbox">
+                                <input type="checkbox">
+                                Direclty start timer when watching (NOT IMPLEMENTED)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <p class="control has-text-centered">
+                            <button class="button is-info" @click="saveSettings">
+                                Save
+                            </button>
+                        </p>
                     </div>
                 </div>
-
-                <!-- /////// PAGE LOADER \\\\\\\ -->
-                <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">{{ loadingMessage }}</span></div>
-                <!-- /////// FOOTER \\\\\\\ -->
-                <Footer :api="api" />
-
 
             </div>
         </div>
+
+        <!-- /////// PAGE LOADER \\\\\\\ -->
+        <div class="pageloader is-dark" v-bind:class="{'is-active': isLoading}"><span class="title">{{ loadingMessage }}</span></div>
+        <!-- /////// FOOTER \\\\\\\ -->
+        <Footer :api="api" />
+
     </div>
 </template>
 
