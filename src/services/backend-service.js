@@ -1,7 +1,17 @@
-// const axios = require('axios');
 import axios from 'axios'
 
-const apiAdress = "http://127.0.0.1:8181";
+let apiAdress = "";
+switch(process.env.NODE_ENV) {
+    case "development":
+        apiAdress = "http://127.0.0.1:8181";
+    break;
+    case "production":
+        apiAdress = "https://tardis.webexpertbusiness.net";
+    break;
+    default:
+        apiAdress = "http://127.0.0.1:8181";
+    break;
+}
 const apiSuffix = "/api";
 const apiUrl = apiAdress + apiSuffix;
 const _401interceptor = null;
