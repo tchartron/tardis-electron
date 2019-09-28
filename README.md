@@ -48,6 +48,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [ ] Implement authentication with gitlab account
 - [ ] Find a way to fix black W.E.B logo when dark theme is selected
 - [ ] Implement remember me
+- [ ] Fix watcher when app is built
 
 
 ### Crash
