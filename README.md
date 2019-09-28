@@ -46,9 +46,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [ ] Implement markdown parser
 - [ ] Implement websocket notifications when someone assigns on task.
 - [ ] Implement authentication with gitlab account
-- [ ] Find a way to fix black W.E.B logo when dark theme is selected
+- [ ] Fix black W.E.B logo with dark theme
 - [ ] Implement remember me
-- [ ] Fix watcher when app is built
+- [X] Fix watcher when app is built
 
 
 ### Crash
