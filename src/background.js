@@ -1,6 +1,8 @@
 'use strict'
 
 import { app, protocol, BrowserWindow } from 'electron'
+const ipcMain = require('electron').ipcMain
+const chokidar = require("chokidar")
 import {
   createProtocol,
   installVueDevtools
@@ -67,6 +69,44 @@ app.on('ready', async () => {
 
   }
   createWindow()
+})
+
+//Filesystem watch
+function contains(target, pattern){
+    var value = 0;
+    pattern.forEach((word) => {
+      value += target.includes(word);
+    });
+    return (value === 1)
+}
+
+let ignoredPaths = [
+    'node_modules',
+    'vendor'
+]
+//IPC communication
+var watcher = null
+ipcMain.on('ping', (eventIpc, data) => {
+    watcher = chokidar.watch(data, {
+          ignored: (path) => contains(path, ignoredPaths),
+          persistent: true
+      });
+
+    watcher.on('ready', () => {
+        eventIpc.sender.send('ready')
+    })
+
+    watcher.on('all', (event, path) => {
+        eventIpc.sender.send('pong', {
+            'event': event,
+            'path': path
+        })
+    })
+})
+
+ipcMain.on('stop', (eventIpc, data) => {
+    console.log("watcher stopped")
+    watcher.close(); //watcher contex
 })
 
 // Exit cleanly on request from parent process in development mode.
