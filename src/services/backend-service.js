@@ -33,14 +33,14 @@ export default class BackendService {
                 return response
             },
             async (error) => {
-                if (error.request.status == 401) {
+                if (error.request.status == 401 && store.getters.user.loggedInTimestamp !== undefined) {
                     console.log("refreshing token")
                     // Refresh the access token
                     try{
                         let url = `${apiUrl}/login`;
                         await axios.post(url, {
-                            email: user.email,
-                            password: user.password
+                            email: store.getters.user.email,
+                            password: store.getters.user.password
                         });
                         console.log("retrying original request")
                         // Retry the original request

@@ -121,8 +121,7 @@ export default {
         focusPassword() {
             this.$refs.password.focus();
         }
-    },
-
+    }
 };
 </script>
 
