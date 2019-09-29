@@ -11,7 +11,7 @@ const electronStore = new Store();
 export default {
     name: 'app',
     mounted() {
-        this.$router.push('/login')
+        this.$router.push('login')
         //Cheking for user configuration
         //Theme
         let userTheme = electronStore.get('user.theme')
