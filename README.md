@@ -50,7 +50,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [ ] Fix black W.E.B logo with dark theme
 - [ ] Implement remember me
 - [ ] Implement task completion
-- [ ] Update to electron 6.0
+- [X] Update to electron 6.0
+- [ ] Rework UI with centered timer, other colors, ...
 
 
 ### Crash
