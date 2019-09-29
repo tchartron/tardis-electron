@@ -34,22 +34,25 @@ export default class BackendService {
             },
             async (error) => {
                 if (error.request.status == 401 && store.getters.user.loggedInTimestamp !== undefined) {
-                    console.log("refreshing token")
                     // Refresh the access token
                     try{
                         let url = `${apiUrl}/login`;
                         await axios.post(url, {
                             email: store.getters.user.email,
                             password: store.getters.user.password
+                        }).then((response) => {
+                            store.commit('api', response.data)
+                            store.commit('userLoggedInTimestamp', new Date(Date.now()))
+                        }, (error) => {
+                            console.log(error)
                         });
-                        console.log("retrying original request")
                         // Retry the original request
                         return axios({
                             method: error.config.method,
                             url: error.config.url,
-                            data: error.config.data
+                            data: error.config.data,
+                            headers: {"Authorization": `Bearer ${store.getters.api.access_token}`}
                         })
-                        // return axios(error.config)
                     } catch (e) {
                         // Refresh has failed - reject the original request
                         throw error
