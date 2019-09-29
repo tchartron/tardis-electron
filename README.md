@@ -44,14 +44,14 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 - [X] Fix token renew (login request always beeing sent before any other request when token has expired and first request sent does not work)
 - [X] Fix watcher when app is built
 - [X] Update to electron ^6.0.10 and upgrade all dependencies
-- [ ] Fix token renew failing on first request
+- [X] Fix token renew failing on first request
 - [ ] Implement markdown parser
 - [ ] Implement websocket notifications when someone assigns on task.
 - [ ] Implement authentication with gitlab account
 - [ ] Fix black W.E.B logo with dark theme
 - [ ] Implement remember me
 - [ ] Implement task completion
-- [ ] Rework UI with centered timer, other colors, ...
+- [ ] Rework UI centered timer, colors, ...
 
 
 ### Crash
