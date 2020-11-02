@@ -6,7 +6,7 @@ switch(process.env.NODE_ENV) {
         apiAdress = "http://127.0.0.1:8181";
     break;
     case "production":
-        apiAdress = "https://tardis.webexpertbusiness.net";
+        apiAdress = "https://api.tardis.net";
     break;
     default:
         apiAdress = "http://127.0.0.1:8181";
